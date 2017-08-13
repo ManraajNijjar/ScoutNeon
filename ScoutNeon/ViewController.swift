@@ -8,6 +8,7 @@
 
 import UIKit
 import TwitterKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -17,19 +18,24 @@ class ViewController: UIViewController {
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session?.userName)");
+                let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
+                Auth.auth().signIn(with: credentials, completion: {(user, error) in
+                    if user != nil {
+                        print(user)
+                    }
+                })
+                
             } else {
                 print("error: \(error?.localizedDescription)");
             }
         })
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
+    
 
 }
 
