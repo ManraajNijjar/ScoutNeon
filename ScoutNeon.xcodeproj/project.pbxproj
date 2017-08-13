@@ -16,6 +16,10 @@
 		864A37E31F3BF12700D4FF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 864A37E11F3BF12700D4FF55 /* LaunchScreen.storyboard */; };
 		864A37EB1F3BF14800D4FF55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 864A37EA1F3BF14800D4FF55 /* GoogleService-Info.plist */; };
 		864A37ED1F3BF32B00D4FF55 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864A37EC1F3BF32B00D4FF55 /* SafariServices.framework */; };
+		864A385A1F40D88200D4FF55 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38551F40D88200D4FF55 /* Profile+CoreDataClass.swift */; };
+		864A385B1F40D88200D4FF55 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38561F40D88200D4FF55 /* Profile+CoreDataProperties.swift */; };
+		864A385C1F40D88200D4FF55 /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38571F40D88200D4FF55 /* Topic+CoreDataClass.swift */; };
+		864A385D1F40D88200D4FF55 /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38581F40D88200D4FF55 /* Topic+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		864A37E41F3BF12700D4FF55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		864A37EA1F3BF14800D4FF55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		864A37EC1F3BF32B00D4FF55 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		864A38551F40D88200D4FF55 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
+		864A38561F40D88200D4FF55 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		864A38571F40D88200D4FF55 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
+		864A38581F40D88200D4FF55 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,7 @@
 				864A37D51F3BF12700D4FF55 /* AppDelegate.swift */,
 				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
+				864A38591F40D88200D4FF55 /* Data Model */,
 				864A37DF1F3BF12700D4FF55 /* Assets.xcassets */,
 				864A37E11F3BF12700D4FF55 /* LaunchScreen.storyboard */,
 				864A37EA1F3BF14800D4FF55 /* GoogleService-Info.plist */,
@@ -78,6 +87,18 @@
 				864A37DC1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld */,
 			);
 			path = ScoutNeon;
+			sourceTree = "<group>";
+		};
+		864A38591F40D88200D4FF55 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				864A38551F40D88200D4FF55 /* Profile+CoreDataClass.swift */,
+				864A38561F40D88200D4FF55 /* Profile+CoreDataProperties.swift */,
+				864A38571F40D88200D4FF55 /* Topic+CoreDataClass.swift */,
+				864A38581F40D88200D4FF55 /* Topic+CoreDataProperties.swift */,
+			);
+			name = "Data Model";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A1F09A75600D7359FF2222CC /* Frameworks */ = {
@@ -224,8 +245,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				864A37DE1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld in Sources */,
+				864A385D1F40D88200D4FF55 /* Topic+CoreDataProperties.swift in Sources */,
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
+				864A385B1F40D88200D4FF55 /* Profile+CoreDataProperties.swift in Sources */,
+				864A385C1F40D88200D4FF55 /* Topic+CoreDataClass.swift in Sources */,
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
+				864A385A1F40D88200D4FF55 /* Profile+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,16 +17,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
-                print("signed in as \(session?.userName)");
+                print("signed in as \(String(describing: session?.userName))")
                 let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
                 Auth.auth().signIn(with: credentials, completion: {(user, error) in
                     if user != nil {
-                        print(user)
+                        //Check for a corresponding core data user profile 
+                    } else {
+                        print("error: \(String(describing: error?.localizedDescription))")
                     }
                 })
                 
             } else {
-                print("error: \(error?.localizedDescription)");
+                print("error: \(String(describing: error?.localizedDescription))")
             }
         })
         logInButton.center = self.view.center
