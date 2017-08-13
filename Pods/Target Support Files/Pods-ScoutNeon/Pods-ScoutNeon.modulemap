@@ -1,0 +1,6 @@
+framework module Pods_ScoutNeon {
+  umbrella header "Pods-ScoutNeon-umbrella.h"
+
+  export *
+  module * { export * }
+}
