@@ -42,6 +42,20 @@ class CoreDataController {
         return container
     }()
     
+    func getUserProfile() -> [Profile]{
+        
+        var profilesFromFetch = [Profile]()
+        let fetchRequest: NSFetchRequest<Profile> = Profile.fetchRequest()
+        do {
+            profilesFromFetch = try CoreDataController.getContext().fetch(fetchRequest)
+            
+        } catch {
+            print(error)
+        }
+        return profilesFromFetch
+    }
+    
+    
     class func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
