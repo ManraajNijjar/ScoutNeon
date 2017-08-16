@@ -20,6 +20,7 @@
 		864A385B1F40D88200D4FF55 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38561F40D88200D4FF55 /* Profile+CoreDataProperties.swift */; };
 		864A385C1F40D88200D4FF55 /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38571F40D88200D4FF55 /* Topic+CoreDataClass.swift */; };
 		864A385D1F40D88200D4FF55 /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38581F40D88200D4FF55 /* Topic+CoreDataProperties.swift */; };
+		864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A385E1F43D36C00D4FF55 /* CoreDataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		864A38561F40D88200D4FF55 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		864A38571F40D88200D4FF55 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
 		864A38581F40D88200D4FF55 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		864A385E1F43D36C00D4FF55 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			children = (
 				864A37D51F3BF12700D4FF55 /* AppDelegate.swift */,
 				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
+				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
 				864A38591F40D88200D4FF55 /* Data Model */,
 				864A37DF1F3BF12700D4FF55 /* Assets.xcassets */,
@@ -246,6 +249,7 @@
 			files = (
 				864A37DE1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld in Sources */,
 				864A385D1F40D88200D4FF55 /* Topic+CoreDataProperties.swift in Sources */,
+				864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */,
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
 				864A385B1F40D88200D4FF55 /* Profile+CoreDataProperties.swift in Sources */,
 				864A385C1F40D88200D4FF55 /* Topic+CoreDataClass.swift in Sources */,
