@@ -42,17 +42,23 @@ class CoreDataController {
         return container
     }()
     
-    func getUserProfile() -> [Profile]{
+    func getUserProfile(userID: String, completionHandler: @escaping (_ success: Bool, _ userProfile: Profile?) -> Void){
         
         var profilesFromFetch = [Profile]()
         let fetchRequest: NSFetchRequest<Profile> = Profile.fetchRequest()
         do {
-            profilesFromFetch = try CoreDataController.getContext().fetch(fetchRequest)
-            
+            let profileList = try CoreDataController.getContext().fetch(fetchRequest)
+            profilesFromFetch = profileList.filter{$0.id == userID}
         } catch {
             print(error)
         }
-        return profilesFromFetch
+        
+        if(profilesFromFetch.count == 0){
+            completionHandler(false, nil)
+        }
+        if(profilesFromFetch.count >= 1){
+            completionHandler(true, profilesFromFetch.first)
+        }
     }
     
     

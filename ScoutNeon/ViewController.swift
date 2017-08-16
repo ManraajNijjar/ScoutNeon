@@ -11,6 +11,8 @@ import TwitterKit
 import FirebaseAuth
 
 class ViewController: UIViewController {
+    
+    let coreDataController = CoreDataController.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +23,16 @@ class ViewController: UIViewController {
                 let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
                 Auth.auth().signIn(with: credentials, completion: {(user, error) in
                     if user != nil {
-                        //Check for a corresponding core data user profile 
+                        //Check for a corresponding core data user profile
+                        self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
+                            if success {
+                                print("success")
+                            }
+                            if !success {
+                                print("failure")
+                            }
+                        })
+                        
                     } else {
                         print("error: \(String(describing: error?.localizedDescription))")
                     }
