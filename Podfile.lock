@@ -1,4 +1,5 @@
 PODS:
+  - ChromaColorPicker (1.3)
   - Firebase/Auth (4.0.0):
     - Firebase/Core
     - FirebaseAuth (= 4.0.0)
@@ -33,11 +34,13 @@ PODS:
     - TwitterCore (>= 3.0.0)
 
 DEPENDENCIES:
+  - ChromaColorPicker
   - Firebase/Auth
   - Firebase/Core
   - TwitterKit
 
 SPEC CHECKSUMS:
+  ChromaColorPicker: fa1c6f52e0e76cb027b61149b42c83c0e78ef3a6
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
   FirebaseAuth: ebb6abcbabae00fc47446d690c19ce68d8484fde
@@ -48,6 +51,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: fb161150da52935d725a2fac58511eebc6cc884e
 
-PODFILE CHECKSUM: f3b8c7a611447aff30b795ce76f6111566608d00
+PODFILE CHECKSUM: dc93088061136cc8e72f842a3c7eebae060b25db
 
 COCOAPODS: 1.2.1
