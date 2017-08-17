@@ -22,6 +22,7 @@
 		864A386E1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A386A1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift */; };
 		864A386F1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A386B1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift */; };
 		864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */; };
+		864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38721F45250C00D4FF55 /* ColorApiController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		864A386A1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Profile+CoreDataClass.swift"; path = "ScoutNeon/Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
 		864A386B1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Profile+CoreDataProperties.swift"; path = "ScoutNeon/Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupViewController.swift; sourceTree = "<group>"; };
+		864A38721F45250C00D4FF55 /* ColorApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorApiController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				864A37D51F3BF12700D4FF55 /* AppDelegate.swift */,
 				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
 				864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */,
+				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
 				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
 				864A38591F40D88200D4FF55 /* Data Model */,
@@ -258,6 +261,7 @@
 				864A386D1F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift in Sources */,
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
 				864A386F1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift in Sources */,
+				864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */,
 				864A386C1F43DC6F00D4FF55 /* Topic+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
