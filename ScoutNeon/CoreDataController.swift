@@ -42,6 +42,8 @@ class CoreDataController {
         return container
     }()
     
+    
+    //Checks to see if there is an associated userprofile and either returns yes with the profile or no with nothing
     func getUserProfile(userID: String, completionHandler: @escaping (_ success: Bool, _ userProfile: Profile?) -> Void){
         
         var profilesFromFetch = [Profile]()

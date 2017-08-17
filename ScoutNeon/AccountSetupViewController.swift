@@ -21,13 +21,16 @@ class AccountSetupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Sets up the chroma color picker
         let neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         neatColorPicker.delegate = self //ChromaColorPickerDelegate
         neatColorPicker.padding = 5
         neatColorPicker.stroke = 3
         neatColorPicker.hexLabel.textColor = UIColor.white
+        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
+        //https://github.com/joncardasis/ChromaColorPicker/issues/8
         
+        //Places it in the center of the view should likely implement a place to put it so it has constraints
         neatColorPicker.center = self.view.center
         
         view.addSubview(neatColorPicker)
@@ -47,6 +50,7 @@ class AccountSetupViewController: UIViewController {
 }
 
 extension AccountSetupViewController: ChromaColorPickerDelegate {
+    //Triggers whenever the slider is moved
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
         
     }
