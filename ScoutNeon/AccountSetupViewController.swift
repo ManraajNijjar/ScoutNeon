@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChromaColorPicker
 
 class AccountSetupViewController: UIViewController {
     
@@ -20,6 +21,16 @@ class AccountSetupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        neatColorPicker.delegate = self //ChromaColorPickerDelegate
+        neatColorPicker.padding = 5
+        neatColorPicker.stroke = 3
+        neatColorPicker.hexLabel.textColor = UIColor.white
+        
+        neatColorPicker.center = self.view.center
+        
+        view.addSubview(neatColorPicker)
 
         // Do any additional setup after loading the view.
     }
@@ -33,4 +44,10 @@ class AccountSetupViewController: UIViewController {
     }
     
 
+}
+
+extension AccountSetupViewController: ChromaColorPickerDelegate {
+    func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
+        
+    }
 }

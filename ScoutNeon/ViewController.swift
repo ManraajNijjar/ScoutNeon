@@ -13,6 +13,8 @@ import FirebaseAuth
 class ViewController: UIViewController {
     
     let coreDataController = CoreDataController.sharedInstance()
+    
+    var loginId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,10 @@ class ViewController: UIViewController {
                             }
                             if !success {
                                 print("failure")
+                                self.loginId = user!.uid
+                                DispatchQueue.main.async { [unowned self] in
+                                    self.performSegue(withIdentifier: "SetupSegue", sender: self)
+                                }
                             }
                         })
                         
@@ -48,7 +54,12 @@ class ViewController: UIViewController {
         
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SetupSegue" {
+            let viewController = segue.destination as! AccountSetupViewController
+            viewController.userIDFromLogin = loginId
+        }
+    }
 
 }
 
