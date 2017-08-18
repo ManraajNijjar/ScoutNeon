@@ -17,46 +17,74 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var favoriteColorLabel: UILabel!
+    
     var userIDFromLogin: String!
     
     var colorPicker = ChromaColorPicker()
+    
+    let twitterAPI = TwitterApiController.sharedInstance()
     
     let colorAPI = ColorApiController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Sets up the chroma color picker
-        let neatColorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-        neatColorPicker.delegate = self //ChromaColorPickerDelegate
-        neatColorPicker.padding = 5
-        neatColorPicker.stroke = 3
-        neatColorPicker.hexLabel.textColor = UIColor.blue
-        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
-        //https://github.com/joncardasis/ChromaColorPicker/issues/8
         
-        //Places it in the center of the view should likely implement a place to put it so it has constraints
-        neatColorPicker.center = self.view.center
-        colorPicker = neatColorPicker
-        view.addSubview(neatColorPicker)
+        colorPicker = setupChromaColorPicker()
+        colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
+        colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
 
+        view.addSubview(colorPicker)
+        //colorPickerView.addSubview(neatColorPicker)
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func colorSliderMoved() {
+        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    let resultsName = results!["name"]! as AnyObject
+                    self.favoriteColorLabel.text = resultsName["value"]! as? String
+                }
+            }
+        }
     }
+
     
     @IBAction func submitPressed(_ sender: Any) {
-        let string = colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor)
+        //let string = colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor)
     }
     
 
 }
 
 extension AccountSetupViewController: ChromaColorPickerDelegate {
+    
+    func setupChromaColorPicker() -> ChromaColorPicker {
+        //Sets up the chroma color picker
+        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
+        colorPicker.delegate = self
+        colorPicker.padding = 5
+        colorPicker.stroke = 3
+        colorPicker.hexLabel.textColor = UIColor.black
+        
+        
+        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
+        //https://github.com/joncardasis/ChromaColorPicker/issues/8
+        
+        //Places it in the center of the view should likely implement a place to put it so it has constraints
+        //neatColorPicker.center = self.colorPickerView.center
+        
+        //colorPicker.center = self.view.center
+        colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 110)
+        return colorPicker
+    }
+    
     //Triggers whenever the slider is moved
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
+        print("Color picked")
         print(colorPicker.currentColor)
     }
+    
+    
 }

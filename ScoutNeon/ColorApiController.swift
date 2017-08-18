@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ColorApiController {
-    func getColorNameByHex(selectColor : UIColor) -> String?{
+    func getColorNameByHex(selectColor : UIColor, completionHandlerForColor: @escaping (_ results: AnyObject?, _ error: NSError?) -> Void){
         //http://www.thecolorapi.com/id?hex=0047AB&format=json
         
         let searchUrl = "http://www.thecolorapi.com/id?hex=\(selectColor.hexCode)&format=json"
@@ -30,19 +30,16 @@ class ColorApiController {
             //Process the results of the data so it can be accessed like normal JSON data
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: { (results, error) in
                 if error != nil {
-                    print(error)
+                    completionHandlerForColor(nil, error)
                 }
                 if error == nil {
-                    print(results)
+                    completionHandlerForColor(results, nil)
                 }
             })
             
         }
-        //Determine why API Controller is not getting commited
         task.resume()
 
-        
-        return nil
     }
     
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
