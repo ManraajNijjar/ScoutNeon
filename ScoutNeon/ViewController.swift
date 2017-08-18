@@ -20,9 +20,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //intilizes the login button
+        //intilizes the login button this isn't placed in the API Controller as the actual Twitter connection elements are all contained within the TwitterKit library
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
+                
                 //Should use this for the username
                 print("signed in as \(String(describing: session?.userName))")
                 
