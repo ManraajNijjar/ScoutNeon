@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     
     //Pulls a singleton instance for the core data controller
     let coreDataController = CoreDataController.sharedInstance()
+    
+    let twitterAPI = TwitterApiController.sharedInstance()
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
 
@@ -26,7 +28,8 @@ class ViewController: UIViewController {
                 
                 //Should use this for the username
                 print("signed in as \(String(describing: session?.userName))")
-                
+                print(Twitter.sharedInstance().sessionStore.session()?.userID)
+                self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
                 let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
                 Auth.auth().signIn(with: credentials, completion: {(user, error) in
                     if user != nil {

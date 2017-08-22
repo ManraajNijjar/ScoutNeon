@@ -19,6 +19,9 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var favoriteColorLabel: UILabel!
     
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    
     var userIDFromLogin: String!
     
     var colorPicker = ChromaColorPicker()
@@ -35,6 +38,13 @@ class AccountSetupViewController: UIViewController {
         colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
 
         view.addSubview(colorPicker)
+        
+        twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Normal") { (image) in
+            DispatchQueue.main.async {
+                self.profileImage.image = image
+            }
+        }
+        
         //colorPickerView.addSubview(neatColorPicker)
         // Do any additional setup after loading the view.
     }

@@ -24,10 +24,11 @@ class TwitterApiController {
     }
     
     func guestToUserClientSwitch(userID: String) {
-        client = TWTRAPIClient(userID: userID)
+        self.client = TWTRAPIClient(userID: userID)
     }
     
     func getUserData(userID: String, completionHandlerForUser: @escaping (_ userResult: TWTRUser?, _ error: Error?) -> Void){
+        print("Getting User Data")
         client.loadUser(withID: userID) { (user, error) -> Void in
             // handle the response or error
             if error == nil {
@@ -35,6 +36,7 @@ class TwitterApiController {
             }
             
             if error != nil {
+                print("Here")
                 print(error!)
                 completionHandlerForUser(nil, error)
             }

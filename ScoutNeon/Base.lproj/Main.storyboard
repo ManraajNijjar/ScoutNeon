@@ -86,6 +86,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1FN-Dw-8lk">
+                                <rect key="frame" x="67" y="139" width="240" height="197"/>
+                                <color key="backgroundColor" red="1" green="0.30626455130000002" blue="0.9341736678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -99,15 +103,19 @@
                             <constraint firstItem="BbY-QD-oYD" firstAttribute="leading" secondItem="Jvk-gy-QEp" secondAttribute="trailing" constant="8.5" id="SSS-2o-9wo"/>
                             <constraint firstItem="oxO-sS-yIP" firstAttribute="top" secondItem="Ygz-tv-Tri" secondAttribute="bottom" constant="17.5" id="TDX-ck-eUf"/>
                             <constraint firstItem="peR-xV-GxY" firstAttribute="centerX" secondItem="UuP-m7-MbI" secondAttribute="centerX" id="agl-MR-gux"/>
+                            <constraint firstItem="1FN-Dw-8lk" firstAttribute="centerX" secondItem="UuP-m7-MbI" secondAttribute="centerX" id="bfY-nG-8hm"/>
+                            <constraint firstItem="1FN-Dw-8lk" firstAttribute="centerX" secondItem="UuP-m7-MbI" secondAttribute="centerX" id="egg-OS-AKr"/>
                             <constraint firstItem="Ygz-tv-Tri" firstAttribute="leading" secondItem="UuP-m7-MbI" secondAttribute="leadingMargin" id="jtO-sH-gnO"/>
                             <constraint firstItem="peR-xV-GxY" firstAttribute="centerY" secondItem="UuP-m7-MbI" secondAttribute="centerY" id="nQE-ZM-AnP"/>
                             <constraint firstItem="BbY-QD-oYD" firstAttribute="top" secondItem="Ygz-tv-Tri" secondAttribute="bottom" constant="17.5" id="pqk-Og-YPS"/>
+                            <constraint firstItem="1FN-Dw-8lk" firstAttribute="top" secondItem="BbY-QD-oYD" secondAttribute="bottom" constant="51" id="xCK-sG-ljS"/>
                             <constraint firstItem="Ygz-tv-Tri" firstAttribute="trailing" secondItem="UuP-m7-MbI" secondAttribute="trailingMargin" id="z1q-FZ-UOt"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="anonSwitch" destination="oxO-sS-yIP" id="UPb-37-Laj"/>
                         <outlet property="favoriteColorLabel" destination="peR-xV-GxY" id="uxz-cd-gPb"/>
+                        <outlet property="profileImage" destination="1FN-Dw-8lk" id="pr3-4g-kSE"/>
                         <outlet property="submitButton" destination="S2g-f4-uYh" id="ffq-wp-6PA"/>
                         <outlet property="usernameTextField" destination="BbY-QD-oYD" id="ldp-ad-Bfs"/>
                     </connections>
