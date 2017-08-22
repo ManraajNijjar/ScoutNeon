@@ -28,7 +28,7 @@ class ViewController: UIViewController {
                 
                 //Should use this for the username
                 print("signed in as \(String(describing: session?.userName))")
-                print(Twitter.sharedInstance().sessionStore.session()?.userID)
+                self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
                 self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
                 let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
                 Auth.auth().signIn(with: credentials, completion: {(user, error) in
@@ -42,7 +42,6 @@ class ViewController: UIViewController {
                             //if one isn't found it fails and triggers the segue to the profile creation screen
                             if !success {
                                 print("failure")
-                                self.loginId = user!.uid
                                 DispatchQueue.main.async { [unowned self] in
                                     self.performSegue(withIdentifier: "SetupSegue", sender: self)
                                 }
