@@ -41,6 +41,33 @@ class TwitterApiController {
         }
     }
     
+    func getImageForUserID(userID: String, size: String, imageCompletionHandler: @escaping (_ userImage: UIImage?) -> Void) {
+        
+        getUserData(userID: userID) { (user, error) in
+            if (error != nil) {
+                imageCompletionHandler(nil)
+            }
+            if error == nil {
+                if size == "Large" {
+                    imageCompletionHandler(self.retrieveImageFromTwitter(imageURL: (user?.profileImageLargeURL)!))
+                } else if size == "Mini" {
+                    imageCompletionHandler(self.retrieveImageFromTwitter(imageURL: (user?.profileImageMiniURL)!))
+                } else {
+                    imageCompletionHandler(self.retrieveImageFromTwitter(imageURL: (user?.profileImageURL)!))
+                }
+            }
+        }
+    }
+    
+    func retrieveImageFromTwitter(imageURL: String) -> UIImage? {
+        let photoURL = URL(string: imageURL)
+        if let imageData = try? Data(contentsOf: photoURL!) {
+            return UIImage(data:imageData as Data,scale:1.0)
+        } else {
+            return nil
+        }
+    }
+    
     //Generate a Singleton instance of the TwitterAPIController
     class func sharedInstance() -> TwitterApiController {
         struct Singleton {
