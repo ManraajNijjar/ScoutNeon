@@ -21,6 +21,7 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var backgroundColorView: UIView!
     
     var userIDFromLogin: String!
     
@@ -39,7 +40,12 @@ class AccountSetupViewController: UIViewController {
 
         view.addSubview(colorPicker)
         
-        twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Normal") { (image) in
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+        self.profileImage.clipsToBounds = true
+        self.backgroundColorView.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+        self.backgroundColorView.clipsToBounds = true
+        view.sendSubview(toBack: backgroundColorView)
+        twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Large") { (image) in
             DispatchQueue.main.async {
                 self.profileImage.image = image
             }
@@ -50,6 +56,7 @@ class AccountSetupViewController: UIViewController {
     }
     
     func colorSliderMoved() {
+        backgroundColorView.backgroundColor = colorPicker.currentColor
         colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
             if error == nil {
                 DispatchQueue.main.async {
