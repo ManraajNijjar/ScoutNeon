@@ -30,9 +30,13 @@ class AccountSetupViewController: UIViewController {
     let twitterAPI = TwitterApiController.sharedInstance()
     
     let colorAPI = ColorApiController()
+    
+    let validator = TextValidationController.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Disables the submit button at the start of account settings creation
+        submitButton.isEnabled = false
         
         colorPicker = setupChromaColorPicker()
         colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
@@ -67,6 +71,9 @@ class AccountSetupViewController: UIViewController {
         }
     }
 
+    @IBAction func textFieldChanged(_ sender: Any) {
+        submitButton.isEnabled = validator.validator.validateString(usernameTextField.text!)
+    }
     
     @IBAction func submitPressed(_ sender: Any) {
         //let string = colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor)

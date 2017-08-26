@@ -32,12 +32,14 @@ PODS:
   - TwitterCore (3.0.0)
   - TwitterKit (3.0.2):
     - TwitterCore (>= 3.0.0)
+  - Validation (1.0.2)
 
 DEPENDENCIES:
   - ChromaColorPicker
   - Firebase/Auth
   - Firebase/Core
   - TwitterKit
+  - Validation
 
 SPEC CHECKSUMS:
   ChromaColorPicker: fa1c6f52e0e76cb027b61149b42c83c0e78ef3a6
@@ -50,7 +52,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: fb161150da52935d725a2fac58511eebc6cc884e
+  Validation: 76e9cb543542ebc7ebc0aedb7a8a26c29082eaa5
 
-PODFILE CHECKSUM: dc93088061136cc8e72f842a3c7eebae060b25db
+PODFILE CHECKSUM: f46bd799398309e728354010d8880be4a1f94261
 
 COCOAPODS: 1.2.1

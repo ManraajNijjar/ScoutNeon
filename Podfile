@@ -10,5 +10,6 @@ target 'ScoutNeon' do
   pod 'Firebase/Auth'
   pod 'TwitterKit'
   pod 'ChromaColorPicker'
+  pod 'Validation'
 
 end
