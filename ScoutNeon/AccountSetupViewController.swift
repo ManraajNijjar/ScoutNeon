@@ -81,6 +81,16 @@ class AccountSetupViewController: UIViewController {
     
     @IBAction func submitPressed(_ sender: Any) {
         let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: (anonSwitch.selectedSegmentIndex == 1))
+        
+        CoreDataController.saveContext()
+        self.performSegue(withIdentifier: "MapSegue", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MapSegue" {
+            //Set the profile up on MapSegue
+        }
     }
     
 

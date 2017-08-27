@@ -25,10 +25,29 @@
                     </view>
                     <connections>
                         <segue destination="kgY-gh-MJt" kind="presentation" identifier="SetupSegue" id="7xt-ha-DLd"/>
+                        <segue destination="MKa-BM-pl3" kind="presentation" identifier="MapSegue" id="8AP-XM-5ac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="BFY-Ww-Cil">
+            <objects>
+                <viewController id="MKa-BM-pl3" customClass="MapViewController" customModule="ScoutNeon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iZn-k1-5RD"/>
+                        <viewControllerLayoutGuide type="bottom" id="44S-A5-O5u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4vc-jJ-dRQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ila-ax-M3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="510"/>
         </scene>
         <!--Account Setup View Controller-->
         <scene sceneID="t6E-ar-saC">
@@ -138,11 +157,15 @@
                         <outlet property="profileImage" destination="1FN-Dw-8lk" id="pr3-4g-kSE"/>
                         <outlet property="submitButton" destination="S2g-f4-uYh" id="ffq-wp-6PA"/>
                         <outlet property="usernameTextField" destination="BbY-QD-oYD" id="ldp-ad-Bfs"/>
+                        <segue destination="MKa-BM-pl3" kind="presentation" identifier="MapSegue" id="eSM-Ji-eCa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="per-KJ-lDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1077.5999999999999" y="36.431784107946029"/>
+            <point key="canvasLocation" x="1076" y="-256"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eSM-Ji-eCa"/>
+    </inferredMetricsTieBreakers>
 </document>

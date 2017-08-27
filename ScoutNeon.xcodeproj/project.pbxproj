@@ -26,6 +26,7 @@
 		8659D76F1F534D46006035ED /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76B1F534D46006035ED /* Profile+CoreDataClass.swift */; };
 		8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */; };
 		8659D7721F537A76006035ED /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7711F537A76006035ED /* FirebaseController.swift */; };
+		8659D7741F5387BC006035ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7731F5387BC006035ED /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		8659D76B1F534D46006035ED /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8659D7711F537A76006035ED /* FirebaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		8659D7731F5387BC006035ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
 				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
+				8659D7731F5387BC006035ED /* MapViewController.swift */,
 				864A38591F40D88200D4FF55 /* Data Model */,
 				864A37DF1F3BF12700D4FF55 /* Assets.xcassets */,
 				864A37E11F3BF12700D4FF55 /* LaunchScreen.storyboard */,
@@ -275,6 +278,7 @@
 				8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */,
 				8659D76E1F534D46006035ED /* Topic+CoreDataProperties.swift in Sources */,
 				8659D7721F537A76006035ED /* FirebaseController.swift in Sources */,
+				8659D7741F5387BC006035ED /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
