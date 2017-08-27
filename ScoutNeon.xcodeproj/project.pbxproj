@@ -17,14 +17,14 @@
 		864A37EB1F3BF14800D4FF55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 864A37EA1F3BF14800D4FF55 /* GoogleService-Info.plist */; };
 		864A37ED1F3BF32B00D4FF55 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864A37EC1F3BF32B00D4FF55 /* SafariServices.framework */; };
 		864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A385E1F43D36C00D4FF55 /* CoreDataController.swift */; };
-		864A386C1F43DC6F00D4FF55 /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38681F43DC6F00D4FF55 /* Topic+CoreDataClass.swift */; };
-		864A386D1F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38691F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift */; };
-		864A386E1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A386A1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift */; };
-		864A386F1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A386B1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift */; };
 		864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */; };
 		864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38721F45250C00D4FF55 /* ColorApiController.swift */; };
 		864A38751F46601C00D4FF55 /* TwitterApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38741F46601C00D4FF55 /* TwitterApiController.swift */; };
 		8659D7681F520605006035ED /* TextValidationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7671F520605006035ED /* TextValidationController.swift */; };
+		8659D76D1F534D46006035ED /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7691F534D46006035ED /* Topic+CoreDataClass.swift */; };
+		8659D76E1F534D46006035ED /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76A1F534D46006035ED /* Topic+CoreDataProperties.swift */; };
+		8659D76F1F534D46006035ED /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76B1F534D46006035ED /* Profile+CoreDataClass.swift */; };
+		8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,14 +42,14 @@
 		864A37EA1F3BF14800D4FF55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		864A37EC1F3BF32B00D4FF55 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		864A385E1F43D36C00D4FF55 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
-		864A38681F43DC6F00D4FF55 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataClass.swift"; path = "ScoutNeon/Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
-		864A38691F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataProperties.swift"; path = "ScoutNeon/Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		864A386A1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Profile+CoreDataClass.swift"; path = "ScoutNeon/Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
-		864A386B1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Profile+CoreDataProperties.swift"; path = "ScoutNeon/Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupViewController.swift; sourceTree = "<group>"; };
 		864A38721F45250C00D4FF55 /* ColorApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorApiController.swift; sourceTree = "<group>"; };
 		864A38741F46601C00D4FF55 /* TwitterApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterApiController.swift; sourceTree = "<group>"; };
 		8659D7671F520605006035ED /* TextValidationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidationController.swift; sourceTree = "<group>"; };
+		8659D7691F534D46006035ED /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8659D76A1F534D46006035ED /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8659D76B1F534D46006035ED /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,10 +107,10 @@
 		864A38591F40D88200D4FF55 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				864A38681F43DC6F00D4FF55 /* Topic+CoreDataClass.swift */,
-				864A38691F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift */,
-				864A386A1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift */,
-				864A386B1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift */,
+				8659D7691F534D46006035ED /* Topic+CoreDataClass.swift */,
+				8659D76A1F534D46006035ED /* Topic+CoreDataProperties.swift */,
+				8659D76B1F534D46006035ED /* Profile+CoreDataClass.swift */,
+				8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */,
 			);
 			name = "Data Model";
 			path = ..;
@@ -259,18 +259,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8659D76D1F534D46006035ED /* Topic+CoreDataClass.swift in Sources */,
 				864A37DE1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld in Sources */,
 				8659D7681F520605006035ED /* TextValidationController.swift in Sources */,
+				8659D76F1F534D46006035ED /* Profile+CoreDataClass.swift in Sources */,
 				864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */,
 				864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */,
-				864A386E1F43DC6F00D4FF55 /* Profile+CoreDataClass.swift in Sources */,
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
 				864A38751F46601C00D4FF55 /* TwitterApiController.swift in Sources */,
-				864A386D1F43DC6F00D4FF55 /* Topic+CoreDataProperties.swift in Sources */,
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
-				864A386F1F43DC6F00D4FF55 /* Profile+CoreDataProperties.swift in Sources */,
 				864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */,
-				864A386C1F43DC6F00D4FF55 /* Topic+CoreDataClass.swift in Sources */,
+				8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */,
+				8659D76E1F534D46006035ED /* Topic+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

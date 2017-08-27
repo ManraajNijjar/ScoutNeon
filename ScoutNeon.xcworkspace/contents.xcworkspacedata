@@ -2,16 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ScoutNeon/Topic+CoreDataClass.swift">
+      location = "group:Topic+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:ScoutNeon/Topic+CoreDataProperties.swift">
+      location = "group:Topic+CoreDataProperties.swift">
    </FileRef>
    <FileRef
-      location = "group:ScoutNeon/Profile+CoreDataClass.swift">
+      location = "group:Profile+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:ScoutNeon/Profile+CoreDataProperties.swift">
+      location = "group:Profile+CoreDataProperties.swift">
    </FileRef>
    <Group
       location = "container:"

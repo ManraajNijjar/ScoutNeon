@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     let twitterAPI = TwitterApiController.sharedInstance()
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
+    var firebaseId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,9 @@ class ViewController: UIViewController {
                             //if one isn't found it fails and triggers the segue to the profile creation screen
                             if !success {
                                 print("failure")
+                                
+                                self.firebaseId = user!.uid
+                                
                                 DispatchQueue.main.async { [unowned self] in
                                     self.performSegue(withIdentifier: "SetupSegue", sender: self)
                                 }
@@ -69,6 +73,7 @@ class ViewController: UIViewController {
         if segue.identifier == "SetupSegue" {
             let viewController = segue.destination as! AccountSetupViewController
             viewController.userIDFromLogin = loginId
+            viewController.firebaseIDFromLogin = firebaseId
         }
     }
 

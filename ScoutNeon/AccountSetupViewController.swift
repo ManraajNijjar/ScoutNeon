@@ -25,6 +25,8 @@ class AccountSetupViewController: UIViewController {
     
     var userIDFromLogin: String!
     
+    var firebaseIDFromLogin: String!
+    
     var colorPicker = ChromaColorPicker()
     
     let twitterAPI = TwitterApiController.sharedInstance()
@@ -32,6 +34,8 @@ class AccountSetupViewController: UIViewController {
     let colorAPI = ColorApiController()
     
     let validator = TextValidationController.sharedInstance()
+    
+    let coreDataController = CoreDataController.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +80,7 @@ class AccountSetupViewController: UIViewController {
     }
     
     @IBAction func submitPressed(_ sender: Any) {
-        //let string = colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor)
+        let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: (anonSwitch.selectedSegmentIndex == 1))
     }
     
 

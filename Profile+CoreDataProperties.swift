@@ -2,7 +2,7 @@
 //  Profile+CoreDataProperties.swift
 //  
 //
-//  Created by Manraaj Nijjar on 8/15/17.
+//  Created by Manraaj Nijjar on 8/27/17.
 //
 //
 
@@ -18,9 +18,10 @@ extension Profile {
 
     @NSManaged public var anonymous: Bool
     @NSManaged public var color: String?
-    @NSManaged public var username: String?
-    @NSManaged public var profilepicture: NSData?
     @NSManaged public var id: String?
+    @NSManaged public var profilepicture: NSData?
+    @NSManaged public var username: String?
+    @NSManaged public var twitterid: String?
     @NSManaged public var favoritetopics: Topic?
 
 }

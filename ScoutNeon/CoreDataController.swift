@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class CoreDataController {
     
@@ -61,6 +62,19 @@ class CoreDataController {
         if(profilesFromFetch.count >= 1){
             completionHandler(true, profilesFromFetch.first)
         }
+    }
+    
+    func createUserProfile(twitterId: String, firebaseId: String, profileImage: UIImage, username: String, color: String, anonymous: Bool) -> Profile {
+        let profile: Profile = NSEntityDescription.insertNewObject(forEntityName: "Profile", into: CoreDataController.getContext()) as! Profile
+        
+        profile.twitterid = twitterId
+        profile.id = firebaseId
+        profile.profilepicture = UIImagePNGRepresentation(profileImage) as NSData?
+        profile.username = username
+        profile.color = color
+        profile.anonymous = anonymous
+        
+        return profile
     }
     
     
