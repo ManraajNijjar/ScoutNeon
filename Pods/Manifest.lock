@@ -6,6 +6,9 @@ PODS:
   - Firebase/Core (4.0.0):
     - FirebaseAnalytics (= 4.0.0)
     - FirebaseCore (= 4.0.0)
+  - Firebase/Database (4.0.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 4.0.0)
   - FirebaseAnalytics (4.0.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -16,6 +19,8 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseCore (4.0.0):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (4.0.0):
+    - FirebaseAnalytics (~> 4.0)
   - FirebaseInstanceID (2.0.0):
     - FirebaseCore (~> 4.0)
   - GoogleToolboxForMac/DebugUtils (2.1.1):
@@ -38,6 +43,7 @@ DEPENDENCIES:
   - ChromaColorPicker
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Database
   - TwitterKit
   - Validation
 
@@ -47,6 +53,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
   FirebaseAuth: ebb6abcbabae00fc47446d690c19ce68d8484fde
   FirebaseCore: 85ad466044c2f013cdb167f85d426d15b128114a
+  FirebaseDatabase: d829b3a8c3e2ac7a16773c5df226966b0805dfc2
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
@@ -54,6 +61,6 @@ SPEC CHECKSUMS:
   TwitterKit: fb161150da52935d725a2fac58511eebc6cc884e
   Validation: 76e9cb543542ebc7ebc0aedb7a8a26c29082eaa5
 
-PODFILE CHECKSUM: f46bd799398309e728354010d8880be4a1f94261
+PODFILE CHECKSUM: 2378efe1d2423caa75389f593e52781fa23adfac
 
 COCOAPODS: 1.2.1
