@@ -36,6 +36,8 @@ class AccountSetupViewController: UIViewController {
     let validator = TextValidationController.sharedInstance()
     
     let coreDataController = CoreDataController.sharedInstance()
+    
+    let fireBaseController = FirebaseController.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +85,7 @@ class AccountSetupViewController: UIViewController {
         let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: (anonSwitch.selectedSegmentIndex == 1))
         
         CoreDataController.saveContext()
+        fireBaseController.createUser(userProfile: profile)
         self.performSegue(withIdentifier: "MapSegue", sender: self)
         
     }

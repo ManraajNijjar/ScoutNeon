@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     //Pulls a singleton instance for the core data controller
     let coreDataController = CoreDataController.sharedInstance()
     
+    
     let twitterAPI = TwitterApiController.sharedInstance()
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
