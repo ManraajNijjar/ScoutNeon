@@ -103,7 +103,8 @@ class AccountSetupViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapSegue" {
-            //Set the profile up on MapSegue
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let targetController = destinationNavigationController.topViewController //as! MapViewController
         }
     }
     

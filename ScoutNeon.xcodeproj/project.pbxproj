@@ -27,6 +27,8 @@
 		8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */; };
 		8659D7721F537A76006035ED /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7711F537A76006035ED /* FirebaseController.swift */; };
 		8659D7741F5387BC006035ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7731F5387BC006035ED /* MapViewController.swift */; };
+		8659D7761F55F5C0006035ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8659D7751F55F5C0006035ED /* MapKit.framework */; };
+		8659D7781F55F780006035ED /* ColorPinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7771F55F780006035ED /* ColorPinAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		8659D76C1F534D46006035ED /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8659D7711F537A76006035ED /* FirebaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		8659D7731F5387BC006035ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8659D7751F55F5C0006035ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8659D7771F55F780006035ED /* ColorPinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPinAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8659D7761F55F5C0006035ED /* MapKit.framework in Frameworks */,
 				864A37ED1F3BF32B00D4FF55 /* SafariServices.framework in Frameworks */,
 				37BCA1CEA9983D6A771ACAFD /* Pods_ScoutNeon.framework in Frameworks */,
 			);
@@ -99,6 +104,7 @@
 				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
 				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
 				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
+				8659D7771F55F780006035ED /* ColorPinAnnotation.swift */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
 				864A38591F40D88200D4FF55 /* Data Model */,
 				864A37DF1F3BF12700D4FF55 /* Assets.xcassets */,
@@ -125,6 +131,7 @@
 		A1F09A75600D7359FF2222CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8659D7751F55F5C0006035ED /* MapKit.framework */,
 				864A37EC1F3BF32B00D4FF55 /* SafariServices.framework */,
 				63CFBB25A33312A8DDFADF65 /* Pods_ScoutNeon.framework */,
 			);
@@ -268,6 +275,7 @@
 				8659D76D1F534D46006035ED /* Topic+CoreDataClass.swift in Sources */,
 				864A37DE1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld in Sources */,
 				8659D7681F520605006035ED /* TextValidationController.swift in Sources */,
+				8659D7781F55F780006035ED /* ColorPinAnnotation.swift in Sources */,
 				8659D76F1F534D46006035ED /* Profile+CoreDataClass.swift in Sources */,
 				864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */,
 				864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */,

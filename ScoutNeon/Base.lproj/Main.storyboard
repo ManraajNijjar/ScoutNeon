@@ -25,13 +25,13 @@
                     </view>
                     <connections>
                         <segue destination="kgY-gh-MJt" kind="presentation" identifier="SetupSegue" id="7xt-ha-DLd"/>
-                        <segue destination="MKa-BM-pl3" kind="presentation" identifier="MapSegue" id="8AP-XM-5ac"/>
+                        <segue destination="N1z-eM-Ufd" kind="presentation" identifier="MapSegue" id="snm-KO-0UD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--Map View Controller-->
+        <!--Hello-->
         <scene sceneID="BFY-Ww-Cil">
             <objects>
                 <viewController id="MKa-BM-pl3" customClass="MapViewController" customModule="ScoutNeon" customModuleProvider="target" sceneMemberID="viewController">
@@ -40,14 +40,45 @@
                         <viewControllerLayoutGuide type="bottom" id="44S-A5-O5u"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4vc-jJ-dRQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1g0-iV-vXm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1g0-iV-vXm" firstAttribute="leading" secondItem="4vc-jJ-dRQ" secondAttribute="leading" id="17n-If-ckn"/>
+                            <constraint firstItem="44S-A5-O5u" firstAttribute="top" secondItem="1g0-iV-vXm" secondAttribute="bottom" id="7fb-et-Rzu"/>
+                            <constraint firstItem="1g0-iV-vXm" firstAttribute="top" secondItem="iZn-k1-5RD" secondAttribute="bottom" id="8dc-qe-FXh"/>
+                            <constraint firstAttribute="trailing" secondItem="1g0-iV-vXm" secondAttribute="trailing" id="qpP-tM-fyD"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Hello" id="Bfq-Lh-0hV"/>
+                    <connections>
+                        <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ila-ax-M3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="510"/>
+            <point key="canvasLocation" x="1348" y="873.91304347826099"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OtA-MB-0p5">
+            <objects>
+                <navigationController id="N1z-eM-Ufd" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="BeD-Py-tia">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MKa-BM-pl3" kind="relationship" relationship="rootViewController" id="GVs-oL-hwT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eV6-0T-xHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="174" y="874"/>
         </scene>
         <!--Account Setup View Controller-->
         <scene sceneID="t6E-ar-saC">
@@ -158,15 +189,15 @@
                         <outlet property="profileImage" destination="1FN-Dw-8lk" id="pr3-4g-kSE"/>
                         <outlet property="submitButton" destination="S2g-f4-uYh" id="ffq-wp-6PA"/>
                         <outlet property="usernameTextField" destination="BbY-QD-oYD" id="ldp-ad-Bfs"/>
-                        <segue destination="MKa-BM-pl3" kind="presentation" identifier="MapSegue" id="eSM-Ji-eCa"/>
+                        <segue destination="N1z-eM-Ufd" kind="presentation" identifier="MapSegue" id="EI2-Kb-hFr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="per-KJ-lDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="-256"/>
+            <point key="canvasLocation" x="1348" y="38"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eSM-Ji-eCa"/>
+        <segue reference="snm-KO-0UD"/>
     </inferredMetricsTieBreakers>
 </document>

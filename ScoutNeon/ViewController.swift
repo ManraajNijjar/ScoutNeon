@@ -40,6 +40,9 @@ class ViewController: UIViewController {
                             //If one is found it succeeds
                             if success {
                                 print("success")
+                                DispatchQueue.main.async { [unowned self] in
+                                    self.performSegue(withIdentifier: "MapSegue", sender: self)
+                                }
                             }
                             //if one isn't found it fails and triggers the segue to the profile creation screen
                             if !success {
