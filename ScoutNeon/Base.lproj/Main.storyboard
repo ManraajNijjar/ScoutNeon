@@ -154,6 +154,7 @@
                         <outlet property="anonSwitch" destination="oxO-sS-yIP" id="UPb-37-Laj"/>
                         <outlet property="backgroundColorView" destination="7rp-dP-AbX" id="RzO-5A-ug3"/>
                         <outlet property="favoriteColorLabel" destination="peR-xV-GxY" id="uxz-cd-gPb"/>
+                        <outlet property="headingTextLabel" destination="Ygz-tv-Tri" id="AOt-5X-b2e"/>
                         <outlet property="profileImage" destination="1FN-Dw-8lk" id="pr3-4g-kSE"/>
                         <outlet property="submitButton" destination="S2g-f4-uYh" id="ffq-wp-6PA"/>
                         <outlet property="usernameTextField" destination="BbY-QD-oYD" id="ldp-ad-Bfs"/>

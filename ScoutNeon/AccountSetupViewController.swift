@@ -23,6 +23,9 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var backgroundColorView: UIView!
     
+    @IBOutlet weak var headingTextLabel: UILabel!
+    
+    
     var userIDFromLogin: String!
     
     var firebaseIDFromLogin: String!
@@ -78,7 +81,15 @@ class AccountSetupViewController: UIViewController {
     }
 
     @IBAction func textFieldChanged(_ sender: Any) {
-        submitButton.isEnabled = validator.validator.validateString(usernameTextField.text!)
+        let potentialName = usernameTextField.text
+        if validator.validator.validateString(potentialName!) {
+            //Could move this part to when submit is presed if the app is connecting to Firebase too often
+            fireBaseController.userExists(userId: potentialName!, userExistsCompletionHandler: { (userStatus) in
+                self.submitButton.isEnabled = !(userStatus)
+            })
+        } else {
+            submitButton.isEnabled = false
+        }
     }
     
     @IBAction func submitPressed(_ sender: Any) {

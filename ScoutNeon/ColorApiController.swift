@@ -14,7 +14,6 @@ class ColorApiController {
         //http://www.thecolorapi.com/id?hex=0047AB&format=json
         
         let searchUrl = "http://www.thecolorapi.com/id?hex=\(selectColor.hexCode)&format=json"
-        print(searchUrl)
         let request = URLRequest(url: URL(string: searchUrl)!)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
