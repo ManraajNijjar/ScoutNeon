@@ -104,7 +104,8 @@ class AccountSetupViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapSegue" {
             let destinationNavigationController = segue.destination as! UINavigationController
-            let targetController = destinationNavigationController.topViewController //as! MapViewController
+            let targetController = destinationNavigationController.topViewController as! MapViewController
+            targetController.userIDForProfile = firebaseIDFromLogin
         }
     }
     

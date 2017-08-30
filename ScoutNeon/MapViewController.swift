@@ -12,6 +12,8 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mainMapView: MKMapView!
+    
+    var userIDForProfile: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
