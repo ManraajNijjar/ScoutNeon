@@ -64,8 +64,6 @@ class AccountSetupViewController: UIViewController {
             }
         }
         
-        //colorPickerView.addSubview(neatColorPicker)
-        // Do any additional setup after loading the view.
     }
     
     func colorSliderMoved() {

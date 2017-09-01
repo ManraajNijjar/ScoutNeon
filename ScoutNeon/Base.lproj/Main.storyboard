@@ -46,6 +46,14 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1g0-iV-vXm">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Lf-Nm-k5B">
+                                <rect key="frame" x="164" y="524" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="scoutButtonPressed:" destination="MKa-BM-pl3" eventType="touchUpInside" id="aT2-dS-PY9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -58,6 +66,7 @@
                     <navigationItem key="navigationItem" title="Hello" id="Bfq-Lh-0hV"/>
                     <connections>
                         <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>
+                        <outlet property="scoutButton" destination="5Lf-Nm-k5B" id="bvb-1N-XQj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ila-ax-M3h" userLabel="First Responder" sceneMemberID="firstResponder"/>

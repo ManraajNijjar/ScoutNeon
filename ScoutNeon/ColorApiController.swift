@@ -40,6 +40,7 @@ class ColorApiController {
         task.resume()
 
     }
+
     
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
@@ -54,4 +55,5 @@ class ColorApiController {
         
         completionHandlerForConvertData(parsedResult, nil)
     }
+    
 }

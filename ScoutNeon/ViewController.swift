@@ -37,18 +37,16 @@ class ViewController: UIViewController {
                     if user != nil {
                         //Check for a corresponding core data user profile
                         self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
+                            
+                            self.firebaseId = user!.uid
                             //If one is found it succeeds
                             if success {
-                                print("success")
                                 DispatchQueue.main.async { [unowned self] in
                                     self.performSegue(withIdentifier: "MapSegue", sender: self)
                                 }
                             }
                             //if one isn't found it fails and triggers the segue to the profile creation screen
                             if !success {
-                                print("failure")
-                                
-                                self.firebaseId = user!.uid
                                 
                                 DispatchQueue.main.async { [unowned self] in
                                     self.performSegue(withIdentifier: "SetupSegue", sender: self)

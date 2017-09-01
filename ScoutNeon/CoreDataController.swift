@@ -51,6 +51,8 @@ class CoreDataController {
         let fetchRequest: NSFetchRequest<Profile> = Profile.fetchRequest()
         do {
             let profileList = try CoreDataController.getContext().fetch(fetchRequest)
+            
+            //Filters till it finds an ID that matches the userID
             profilesFromFetch = profileList.filter{$0.id == userID}
         } catch {
             print(error)
