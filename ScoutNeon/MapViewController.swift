@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var scoutButton: UIButton!
@@ -18,13 +19,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let operationQueue = DispatchQueue(label: "com.appcoda.myqueue")
     
+    let locationManager = CLLocationManager()
+    
     var userIDForProfile: String!
     var userProfile = Profile()
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
         
         coreDataController.getUserProfile(userID: userIDForProfile!) { (success, profile) in
             if success {
@@ -75,6 +82,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         return annotationView
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegion(center: myLocation, span: span)
+        mainMapView.setRegion(region, animated: true)
+        self.mainMapView.showsUserLocation = true
     }
 }
 
