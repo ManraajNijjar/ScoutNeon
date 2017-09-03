@@ -33,19 +33,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 print("login as guest")
             }
         }
-        scoutButton.frame = CGRect(x: 320, y: 200, width: 100, height: 100)
+        let sizeBox = self.view.frame.size.width/5
+        scoutButton.frame = CGRect(x: self.view.center.x - (sizeBox/2), y: ((self.view.center.y * 1.3)), width: sizeBox, height: sizeBox)
         scoutButton.layer.masksToBounds = true
         scoutButton.layer.cornerRadius = scoutButton.bounds.size.width / 2
+        scoutButton.layer.borderWidth = 5
+        scoutButton.layer.borderColor = UIColor.white.cgColor
         scoutButton.backgroundColor = UIColor(hex: userProfile.color!)
-        
+        /*
         let button2 = UIButton()
-        button2.frame = CGRect(x: self.view.center.x - 50, y: 0, width: 100, height: 100)
+        button2.frame =
         button2.layer.borderWidth = 2
         button2.layer.cornerRadius = 50
         button2.setTitle("button", for: [])
-        button2.backgroundColor = UIColor.blue
+        button2.backgroundColor = UIColor.blue */
         
-        self.view.addSubview(button2)
+        //self.view.addSubview(button2)
         /*
         let hello = ColorPinAnnotation()
         hello.coordinate = CLLocationCoordinate2D(latitude: 40, longitude: -73)
