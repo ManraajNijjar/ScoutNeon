@@ -14,6 +14,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var scoutButton: UIButton!
+    @IBOutlet weak var chromaView: UIView!
+    @IBOutlet weak var chromaViewConstraint: NSLayoutConstraint!
+    
     
     let coreDataController = CoreDataController.sharedInstance()
     
@@ -27,12 +30,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Moves the slide in menu off screen
+        chromaViewConstraint.constant = self.view.frame.height
+        
+        //Sets up the location manager and begins the process
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        
+        //Thread Safe implementation of retrieving the User Profile data
         coreDataController.getUserProfile(userID: userIDForProfile!) { (success, profile) in
             if success {
                 self.userProfile = profile!
@@ -40,20 +47,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 print("login as guest")
             }
         }
-        let sizeBox = self.view.frame.size.width/5
-        scoutButton.frame = CGRect(x: self.view.center.x - (sizeBox/2), y: ((self.view.center.y * 1.3)), width: sizeBox, height: sizeBox)
-        scoutButton.layer.masksToBounds = true
-        scoutButton.layer.cornerRadius = scoutButton.bounds.size.width / 2
-        scoutButton.layer.borderWidth = 5
-        scoutButton.layer.borderColor = UIColor.white.cgColor
-        scoutButton.backgroundColor = UIColor(hex: userProfile.color!)
-        /*
-        let button2 = UIButton()
-        button2.frame =
-        button2.layer.borderWidth = 2
-        button2.layer.cornerRadius = 50
-        button2.setTitle("button", for: [])
-        button2.backgroundColor = UIColor.blue */
+        
+        setupButton()
         
         //self.view.addSubview(button2)
         /*
@@ -63,8 +58,36 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mainMapView.addAnnotation(hello) */
     }
     
-    @IBAction func scoutButtonPressed(_ sender: Any) {
+    func setupButton(){
+        //Sets up the button, places it dynamically, and makes it circular
+        let sizeBox = self.view.frame.size.width/5
+        scoutButton.frame = CGRect(x: self.view.center.x - (sizeBox/2), y: ((self.view.center.y * 1.3)), width: sizeBox, height: sizeBox)
+        scoutButton.setTitle("Scout",for: .normal)
+        scoutButton.layer.masksToBounds = true
+        scoutButton.layer.cornerRadius = scoutButton.bounds.size.width / 2
+        scoutButton.layer.borderWidth = 5
+        scoutButton.layer.borderColor = UIColor.white.cgColor
+        scoutButton.backgroundColor = UIColor(hex: userProfile.color!)
+        
+        //Sets up the long touch on the Scout button
+        let longTouchRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.displayChromaColorPicker(_:)))
+        longTouchRecognizer.minimumPressDuration = 0.5
+        scoutButton.addGestureRecognizer(longTouchRecognizer)
     }
+    
+    @IBAction func scoutButtonPressed(_ sender: Any) {
+        print("Pressed")
+    }
+    
+    func displayChromaColorPicker(_ sender: UITapGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            chromaViewConstraint.constant = self.view.frame.height * 0.6
+            UIView.animate(withDuration: 0.15, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
     
 
     

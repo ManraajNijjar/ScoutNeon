@@ -54,17 +54,29 @@
                                     <action selector="scoutButtonPressed:" destination="MKa-BM-pl3" eventType="touchUpInside" id="aT2-dS-PY9"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hQ-T8-lgg">
+                                <rect key="frame" x="0.0" y="352" width="375" height="251"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="251" id="KIC-62-8m5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1g0-iV-vXm" firstAttribute="leading" secondItem="4vc-jJ-dRQ" secondAttribute="leading" id="17n-If-ckn"/>
                             <constraint firstItem="44S-A5-O5u" firstAttribute="top" secondItem="1g0-iV-vXm" secondAttribute="bottom" id="7fb-et-Rzu"/>
                             <constraint firstItem="1g0-iV-vXm" firstAttribute="top" secondItem="iZn-k1-5RD" secondAttribute="bottom" id="8dc-qe-FXh"/>
+                            <constraint firstItem="4hQ-T8-lgg" firstAttribute="top" secondItem="iZn-k1-5RD" secondAttribute="bottom" constant="352" id="Nk4-ic-MQV"/>
                             <constraint firstAttribute="trailing" secondItem="1g0-iV-vXm" secondAttribute="trailing" id="qpP-tM-fyD"/>
+                            <constraint firstAttribute="trailing" secondItem="4hQ-T8-lgg" secondAttribute="trailing" id="t59-ze-u1a"/>
+                            <constraint firstItem="4hQ-T8-lgg" firstAttribute="leading" secondItem="4vc-jJ-dRQ" secondAttribute="leading" id="vOU-ie-CSE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Hello" id="Bfq-Lh-0hV"/>
                     <connections>
+                        <outlet property="chromaView" destination="4hQ-T8-lgg" id="vGF-WF-mP7"/>
+                        <outlet property="chromaViewConstraint" destination="Nk4-ic-MQV" id="6oI-HX-hBs"/>
                         <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>
                         <outlet property="scoutButton" destination="5Lf-Nm-k5B" id="bvb-1N-XQj"/>
                     </connections>
@@ -87,7 +99,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eV6-0T-xHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="174" y="874"/>
+            <point key="canvasLocation" x="33" y="874"/>
         </scene>
         <!--Account Setup View Controller-->
         <scene sceneID="t6E-ar-saC">
@@ -203,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="per-KJ-lDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1348" y="38"/>
+            <point key="canvasLocation" x="1348" y="130"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
