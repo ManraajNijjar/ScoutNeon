@@ -134,7 +134,6 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     
     //Triggers whenever the slider is moved
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
-        print("Color picked")
         print(colorPicker.currentColor)
     }
     
