@@ -10,6 +10,14 @@ import UIKit
 
 class NewPostViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var titleTextField: UITextField!
+    
+    @IBOutlet weak var messageTextField: UITextView!
+    
+    @IBOutlet weak var submitButton: UIButton!
+    
     var color: UIColor!
     var userProfile: Profile!
     var postLongitude:Double!
@@ -17,8 +25,16 @@ class NewPostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //titleLabel.text = String(postLongitude)
+        //self.view.backgroundColor = color
+        
         // Do any additional setup after loading the view.
+    }
+    
+    
+    @IBAction func submitButtonPressed(_ sender: Any) {
+        
     }
 
 }

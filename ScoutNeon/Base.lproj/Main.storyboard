@@ -90,6 +90,9 @@
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="newPostButtonPressed:" destination="MKa-BM-pl3" eventType="touchUpInside" id="y8Q-kW-MSD"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -105,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="1348" y="873.91304347826099"/>
         </scene>
-        <!--View Controller-->
+        <!--New Post View Controller-->
         <scene sceneID="OTt-yC-4Ky">
             <objects>
-                <viewController id="k4E-JT-vFg" sceneMemberID="viewController">
+                <viewController id="k4E-JT-vFg" customClass="NewPostViewController" customModule="ScoutNeon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xNB-23-uja"/>
                         <viewControllerLayoutGuide type="bottom" id="wjU-0M-j0f"/>
@@ -132,6 +135,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-Wb-bNb">
                                 <rect key="frame" x="164" y="532" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="submitButtonPressed:" destination="k4E-JT-vFg" eventType="touchUpInside" id="XfH-CK-nZP"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9QX-EF-D7P">
                                 <rect key="frame" x="16" y="61" width="343" height="30"/>
@@ -157,6 +163,12 @@
                             <constraint firstItem="bSY-D9-7B8" firstAttribute="top" secondItem="xNB-23-uja" secondAttribute="bottom" id="wCq-Xu-C9x"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="messageTextField" destination="aRW-d0-gwT" id="YD2-5z-Baz"/>
+                        <outlet property="submitButton" destination="vAc-Wb-bNb" id="7yW-Li-hRm"/>
+                        <outlet property="titleLabel" destination="bSY-D9-7B8" id="hI8-L9-Gaw"/>
+                        <outlet property="titleTextField" destination="9QX-EF-D7P" id="3Cc-o3-as2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7k-5H-4c5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

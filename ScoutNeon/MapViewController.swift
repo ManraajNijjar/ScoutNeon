@@ -88,8 +88,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         scoutButton.addGestureRecognizer(longTouchRecognizer)
     }
     
+    
+    
     @IBAction func scoutButtonPressed(_ sender: Any) {
         print("Pressed")
+    }
+    
+    @IBAction func newPostButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "NewPostSegue", sender: self)
+        
     }
     
     func displayChromaColorPicker(_ sender: UITapGestureRecognizer) {
@@ -152,6 +159,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func colorSwitched() {
         selectedColor = self.colorPicker.currentColor
         scoutButton.backgroundColor = selectedColor
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NewPostSegue" {
+            let destinationViewController = segue.destination as! NewPostViewController
+            destinationViewController.userProfile = self.userProfile
+            destinationViewController.color = self.selectedColor
+            destinationViewController.postLatitude = locationManager.location?.coordinate.latitude
+            destinationViewController.postLongitude = locationManager.location?.coordinate.longitude
+        }
     }
 }
 
