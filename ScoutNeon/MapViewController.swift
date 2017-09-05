@@ -30,6 +30,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var userIDForProfile: String!
     var userProfile = Profile()
     var colorPicker = ChromaColorPicker()
+    var selectedColor = UIColor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         setupButton()
+        
+        selectedColor = UIColor(hex: userProfile.color!)
         
         colorPicker = setupChromaColorPicker()
         colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
@@ -134,15 +137,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     func colorSliderMoved() {
-        
-        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
-            if error == nil {
-                DispatchQueue.main.async {
-                    let resultsName = results!["name"]! as AnyObject
-                    print(resultsName["value"]! as? String)
+        operationQueue.async {
+            self.colorAPI.getColorNameByHex(selectColor: self.colorPicker.currentColor) { (results, error) in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        let resultsName = results!["name"]! as AnyObject
+                        print(resultsName["value"]! as? String)
+                        self.colorSwitched()
+                    }
                 }
             }
         }
+    }
+    func colorSwitched() {
+        selectedColor = self.colorPicker.currentColor
+        scoutButton.backgroundColor = selectedColor
     }
 }
 

@@ -20,6 +20,7 @@
 		864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */; };
 		864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38721F45250C00D4FF55 /* ColorApiController.swift */; };
 		864A38751F46601C00D4FF55 /* TwitterApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A38741F46601C00D4FF55 /* TwitterApiController.swift */; };
+		864BC68C1F5E365500662303 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864BC68B1F5E365500662303 /* NewPostViewController.swift */; };
 		8659D7681F520605006035ED /* TextValidationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7671F520605006035ED /* TextValidationController.swift */; };
 		8659D76D1F534D46006035ED /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7691F534D46006035ED /* Topic+CoreDataClass.swift */; };
 		8659D76E1F534D46006035ED /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D76A1F534D46006035ED /* Topic+CoreDataProperties.swift */; };
@@ -49,6 +50,7 @@
 		864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupViewController.swift; sourceTree = "<group>"; };
 		864A38721F45250C00D4FF55 /* ColorApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorApiController.swift; sourceTree = "<group>"; };
 		864A38741F46601C00D4FF55 /* TwitterApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterApiController.swift; sourceTree = "<group>"; };
+		864BC68B1F5E365500662303 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		8659D7671F520605006035ED /* TextValidationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidationController.swift; sourceTree = "<group>"; };
 		8659D7691F534D46006035ED /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8659D76A1F534D46006035ED /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
 				864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */,
 				8659D7731F5387BC006035ED /* MapViewController.swift */,
+				864BC68B1F5E365500662303 /* NewPostViewController.swift */,
 				8659D7711F537A76006035ED /* FirebaseController.swift */,
 				8659D7671F520605006035ED /* TextValidationController.swift */,
 				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
@@ -277,6 +280,7 @@
 				8659D7681F520605006035ED /* TextValidationController.swift in Sources */,
 				8659D7781F55F780006035ED /* ColorPinAnnotation.swift in Sources */,
 				8659D76F1F534D46006035ED /* Profile+CoreDataClass.swift in Sources */,
+				864BC68C1F5E365500662303 /* NewPostViewController.swift in Sources */,
 				864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */,
 				864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */,
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
