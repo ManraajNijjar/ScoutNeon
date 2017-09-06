@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class NewPostViewController: UIViewController {
     
@@ -18,6 +19,8 @@ class NewPostViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    let firebaseController = FirebaseController.sharedInstance()
+    
     var color: UIColor!
     var userProfile: Profile!
     var postLongitude:Double!
@@ -25,16 +28,20 @@ class NewPostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(CLLocation(latitude: postLatitude, longitude: postLongitude)) { (placemarkArray, error) in
+            if error == nil {
+                let pm = placemarkArray?[0]
+                self.titleLabel.text = pm?.thoroughfare
+            }
+        }
+        self.view.backgroundColor = color.lighterColor(0.3)
         
-        //titleLabel.text = String(postLongitude)
-        //self.view.backgroundColor = color
-        
-        // Do any additional setup after loading the view.
     }
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        
+        firebaseController.newPost()
     }
 
 }

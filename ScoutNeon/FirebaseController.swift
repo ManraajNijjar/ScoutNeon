@@ -51,6 +51,13 @@ class FirebaseController {
         
     }
     
+    func newPost(){
+        let postKey = ref?.child("Topics").childByAutoId()
+        ref?.child("Topics").child((postKey?.key)!).setValue(["blank": "value"])
+        
+        print(postKey?.key)
+    }
+    
     //Generate a Singleton instance of the TwitterAPIController
     class func sharedInstance() -> FirebaseController {
         struct Singleton {
