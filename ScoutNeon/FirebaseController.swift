@@ -75,6 +75,21 @@ class FirebaseController {
         print(postKey?.key)
     }
     
+    func findPostsByHex(colorHex: String){
+        print("Hex:"+colorHex)
+        ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            for (key, val) in value! {
+                print(key)
+                //print(val)
+            }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
     //Generate a Singleton instance of the TwitterAPIController
     class func sharedInstance() -> FirebaseController {
         struct Singleton {

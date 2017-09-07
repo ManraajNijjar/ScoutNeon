@@ -21,6 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     let coreDataController = CoreDataController.sharedInstance()
     
+    let firebaseController = FirebaseController.sharedInstance()
+    
     let colorAPI = ColorApiController()
     
     let operationQueue = DispatchQueue(label: "com.appcoda.myqueue")
@@ -91,7 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     @IBAction func scoutButtonPressed(_ sender: Any) {
-        print("Pressed")
+        firebaseController.findPostsByHex(colorHex: selectedColor.hexCode)
     }
     
     @IBAction func newPostButtonPressed(_ sender: Any) {
