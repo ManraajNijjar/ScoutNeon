@@ -41,7 +41,7 @@ class NewPostViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        firebaseController.newPost()
+        firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text, color: color.hexCode, latitude: postLatitude, longitude: postLongitude)
     }
 
 }

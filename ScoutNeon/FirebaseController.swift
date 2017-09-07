@@ -51,9 +51,26 @@ class FirebaseController {
         
     }
     
-    func newPost(){
+    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double){
+        //Generate the values for the database objects
         let postKey = ref?.child("Topics").childByAutoId()
-        ref?.child("Topics").child((postKey?.key)!).setValue(["blank": "value"])
+        let messageKey = ref?.child("MessageList").childByAutoId()
+        
+        
+        //Builds a list of topics with unique ids that contain the topic title mainly as a filler value
+        ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
+        
+        //Builds a list of messages with unique ids that contain reference to their associated topic
+        ref?.child("MessageList").child((messageKey?.key)!).setValue(["topic": postKey?.key])
+        
+        //Builds the topic object with a unique name that contains the message list, location, and color
+        ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color])
+        
+        //An object unique for each hex value that contains the topic key
+        ref?.child("Hex:"+color).childByAutoId().setValue(["topic": postKey?.key])
+        
+        //The message object that contains the username and the message.
+        ref?.child("Message:"+(messageKey?.key)!).setValue(["author": username, "text": topicMessage])
         
         print(postKey?.key)
     }
