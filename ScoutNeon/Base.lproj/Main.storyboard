@@ -126,45 +126,50 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Message Here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aRW-d0-gwT">
-                                <rect key="frame" x="16" y="131" width="343" height="372"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-Wb-bNb">
-                                <rect key="frame" x="164" y="532" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="submitButtonPressed:" destination="k4E-JT-vFg" eventType="touchUpInside" id="XfH-CK-nZP"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9QX-EF-D7P">
                                 <rect key="frame" x="16" y="61" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="titleFieldChanged:" destination="k4E-JT-vFg" eventType="editingChanged" id="4Wz-yY-jK1"/>
+                                </connections>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-7P-3B5">
+                                <rect key="frame" x="16" y="132" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="messageFieldChanged:" destination="k4E-JT-vFg" eventType="editingChanged" id="myN-Fz-mBA"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-Wb-bNb">
+                                <rect key="frame" x="164" y="286" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="submitButtonPressed:" destination="k4E-JT-vFg" eventType="touchUpInside" id="XfH-CK-nZP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="9QX-EF-D7P" secondAttribute="trailing" id="5rO-wK-QIo"/>
-                            <constraint firstItem="aRW-d0-gwT" firstAttribute="top" secondItem="9QX-EF-D7P" secondAttribute="bottom" constant="40" id="994-zH-BgJ"/>
-                            <constraint firstItem="wjU-0M-j0f" firstAttribute="top" secondItem="vAc-Wb-bNb" secondAttribute="bottom" constant="41" id="F0J-n5-wYp"/>
                             <constraint firstItem="9QX-EF-D7P" firstAttribute="top" secondItem="bSY-D9-7B8" secondAttribute="bottom" constant="40" id="Gkc-bG-oix"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aRW-d0-gwT" secondAttribute="trailing" id="IGe-n5-Lfd"/>
                             <constraint firstItem="vAc-Wb-bNb" firstAttribute="centerX" secondItem="25W-Kn-TAT" secondAttribute="centerX" id="Oz5-9m-m7E"/>
-                            <constraint firstItem="vAc-Wb-bNb" firstAttribute="top" secondItem="aRW-d0-gwT" secondAttribute="bottom" constant="29" id="TiA-5z-vZ3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bSY-D9-7B8" secondAttribute="trailing" id="V9c-3E-1HE"/>
                             <constraint firstItem="bSY-D9-7B8" firstAttribute="centerX" secondItem="25W-Kn-TAT" secondAttribute="centerX" id="VFh-GK-KYb"/>
+                            <constraint firstItem="vAc-Wb-bNb" firstAttribute="top" secondItem="V7f-7P-3B5" secondAttribute="bottom" constant="124" id="YL6-Km-t2g"/>
                             <constraint firstItem="9QX-EF-D7P" firstAttribute="leading" secondItem="25W-Kn-TAT" secondAttribute="leadingMargin" id="cyB-zb-hKy"/>
+                            <constraint firstItem="V7f-7P-3B5" firstAttribute="leading" secondItem="25W-Kn-TAT" secondAttribute="leadingMargin" id="gy6-xP-rbh"/>
+                            <constraint firstItem="V7f-7P-3B5" firstAttribute="top" secondItem="9QX-EF-D7P" secondAttribute="bottom" constant="41" id="jWG-pv-MHg"/>
                             <constraint firstItem="bSY-D9-7B8" firstAttribute="leading" secondItem="25W-Kn-TAT" secondAttribute="leadingMargin" id="ohU-Zv-ESs"/>
-                            <constraint firstItem="aRW-d0-gwT" firstAttribute="leading" secondItem="25W-Kn-TAT" secondAttribute="leadingMargin" id="tBS-au-TAx"/>
                             <constraint firstItem="bSY-D9-7B8" firstAttribute="top" secondItem="xNB-23-uja" secondAttribute="bottom" id="wCq-Xu-C9x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="V7f-7P-3B5" secondAttribute="trailing" id="xEi-FA-r4H"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageTextField" destination="aRW-d0-gwT" id="YD2-5z-Baz"/>
+                        <outlet property="messageTextField" destination="V7f-7P-3B5" id="Jcd-cK-Tmw"/>
                         <outlet property="submitButton" destination="vAc-Wb-bNb" id="7yW-Li-hRm"/>
                         <outlet property="titleLabel" destination="bSY-D9-7B8" id="hI8-L9-Gaw"/>
                         <outlet property="titleTextField" destination="9QX-EF-D7P" id="3Cc-o3-as2"/>
