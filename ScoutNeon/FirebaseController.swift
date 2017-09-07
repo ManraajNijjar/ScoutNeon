@@ -75,15 +75,35 @@ class FirebaseController {
         print(postKey?.key)
     }
     
-    func findPostsByHex(colorHex: String){
+    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double){
         print("Hex:"+colorHex)
         ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             for (key, val) in value! {
-                print(key)
-                //print(val)
+                for (_, valTwo) in (val as? NSDictionary)! {
+                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002)
+                }
             }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double){
+        print("Topic:"+postKey)
+        /*
+        ref?.child("Topic:"+postKey).child("latitude").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            print(snapshot.value)
+            // ...
+        })*/
+        ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            print(snapshot.value)
             // ...
         }) { (error) in
             print(error.localizedDescription)
