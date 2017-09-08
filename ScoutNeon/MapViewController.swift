@@ -93,7 +93,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     @IBAction func scoutButtonPressed(_ sender: Any) {
-        firebaseController.findPostsByHexAndLocation(colorHex: selectedColor.hexCode, latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!)
+
+        firebaseController.findPostsByHexAndLocation(colorHex: selectedColor.hexCode, latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { (posts) in
+            print("finished completely")
+            print(posts)
+            
+        }
     }
     
     @IBAction func newPostButtonPressed(_ sender: Any) {

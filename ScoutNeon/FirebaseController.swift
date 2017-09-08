@@ -75,35 +75,65 @@ class FirebaseController {
         print(postKey?.key)
     }
     
-    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double){
-        print("Hex:"+colorHex)
+    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, findPostsCompletionHandler: @escaping (_ postId: [String]) -> Void){
+        var postArray = [String]()
+        var postCount = 0
+        var totalCount = 0
         ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            for (key, val) in value! {
+            totalCount = (value?.count)!
+            for (_, val) in value! {
                 for (_, valTwo) in (val as? NSDictionary)! {
-                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002)
+                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002, postInProximityCompletionHandler: { (postStatus, postId) in
+                        print("keepin on keeping on")
+                        postCount = postCount + 1
+                        if postStatus {
+                            postArray.append(postId)
+                        }
+                        if postCount >= totalCount {
+                            print("internally ran")
+                            findPostsCompletionHandler(postArray)
+                        }
+                    })
                 }
             }
+            
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
+        print("finished running")
+        findPostsCompletionHandler(postArray)
     }
     
-    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double){
+    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String) -> Void){
         print("Topic:"+postKey)
-        /*
-        ref?.child("Topic:"+postKey).child("latitude").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            print(snapshot.value)
-            // ...
-        })*/
         ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            print(snapshot.value)
+            var latitudeInRange = true
+            var longitudeInRange = true
+            for (key, val) in value! {
+                if (key as! String) == "latitude" {
+                    let postLatitude = val as! Double
+                    if postLatitude > latitude + proximity || postLatitude < latitude - proximity {
+                        latitudeInRange = false
+                    }
+                }
+                
+                if (key as! String) == "longitude" {
+                    let postLongitude = val as! Double
+                    if postLongitude > longitude + proximity || postLongitude < longitude - proximity {
+                        longitudeInRange = false
+                    }
+                }
+            }
+            if latitudeInRange && longitudeInRange {
+                postInProximityCompletionHandler(true, postKey)
+            } else {
+                postInProximityCompletionHandler(false, postKey)
+            }
             // ...
         }) { (error) in
             print(error.localizedDescription)
