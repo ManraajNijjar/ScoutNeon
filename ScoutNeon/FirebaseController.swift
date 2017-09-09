@@ -86,7 +86,7 @@ class FirebaseController {
             totalCount = (value?.count)!
             for (_, val) in value! {
                 for (_, valTwo) in (val as? NSDictionary)! {
-                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
+                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
                         print("keepin on keeping on")
                         postCount = postCount + 1
                         if postStatus {
@@ -114,6 +114,8 @@ class FirebaseController {
             let value = snapshot.value as? NSDictionary
             var latitudeInRange = true
             var longitudeInRange = true
+            var postLatitude:Double = 0
+            var postLongitude:Double = 0
             var author = ""
             var title = ""
             for (key, val) in value! {
@@ -124,22 +126,22 @@ class FirebaseController {
                     title = val as! String
                 }
                 if (key as! String) == "latitude" {
-                    let postLatitude = val as! Double
+                    postLatitude = val as! Double
                     if postLatitude > latitude + proximity || postLatitude < latitude - proximity {
                         latitudeInRange = false
                     }
                 }
                 if (key as! String) == "longitude" {
-                    let postLongitude = val as! Double
+                    postLongitude = val as! Double
                     if postLongitude > longitude + proximity || postLongitude < longitude - proximity {
                         longitudeInRange = false
                     }
                 }
             }
             if latitudeInRange && longitudeInRange {
-                postInProximityCompletionHandler(true, postKey, author, title, latitude, longitude)
+                postInProximityCompletionHandler(true, postKey, author, title, postLatitude, postLongitude)
             } else {
-                postInProximityCompletionHandler(false, postKey, author, title, latitude, longitude)
+                postInProximityCompletionHandler(false, postKey, author, title, postLatitude, postLongitude)
             }
             // ...
         }) { (error) in

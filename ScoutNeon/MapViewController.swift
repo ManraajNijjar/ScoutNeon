@@ -37,6 +37,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainMapView.delegate = self
+        
         //Moves the slide in menu off screen
         chromaViewConstraint.constant = self.view.frame.height
         
@@ -65,12 +67,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         chromaView.addSubview(colorPicker)
         
-        //self.view.addSubview(button2)
-        /*
-        let hello = ColorPinAnnotation()
-        hello.coordinate = CLLocationCoordinate2D(latitude: 40, longitude: -73)
-        hello.pinTintColor = .red
-        mainMapView.addAnnotation(hello) */
     }
     
     func setupButton(){
@@ -93,11 +89,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     @IBAction func scoutButtonPressed(_ sender: Any) {
-
-        firebaseController.findPostsByHexAndLocation(colorHex: selectedColor.hexCode, latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { (posts) in
-            print("finished completely")
-            print(posts)
-            
+        operationQueue.async {
+            self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!) { (posts) in
+                DispatchQueue.main.async {
+                    self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+                    for post in posts {
+                        let newPin = ColorPinAnnotation()
+                        newPin.coordinate = CLLocationCoordinate2D(latitude: post["latitude"] as! Double, longitude: post["longitude"] as! Double)
+                        newPin.pinTintColor = self.selectedColor
+                        self.mainMapView.addAnnotation(newPin)
+                    }
+                }
+            }
         }
     }
     
@@ -156,7 +159,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 if error == nil {
                     DispatchQueue.main.async {
                         let resultsName = results!["name"]! as AnyObject
-                        print(resultsName["value"]! as? String)
+                        print(resultsName["value"]! as? String!)
                         self.colorSwitched()
                     }
                 }
