@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         })
         
         //Places it in the center of the screen
-        logInButton.center = self.view.center
+        logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         self.view.addSubview(logInButton)
         
         
