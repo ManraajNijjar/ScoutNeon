@@ -75,9 +75,9 @@ class FirebaseController {
         print(postKey?.key)
     }
     
-    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, findPostsCompletionHandler: @escaping (_ postId: [[String:String]]) -> Void){
+    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         var postArray = [String]()
-        var postDictionary = [[String:String]]()
+        var postDictionary = [[String:Any]]()
         var postCount = 0
         var totalCount = 0
         ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -86,12 +86,12 @@ class FirebaseController {
             totalCount = (value?.count)!
             for (_, val) in value! {
                 for (_, valTwo) in (val as? NSDictionary)! {
-                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002, postInProximityCompletionHandler: { (postStatus, postId, author, title) in
+                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.002, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
                         print("keepin on keeping on")
                         postCount = postCount + 1
                         if postStatus {
                             postArray.append(postId)
-                            postDictionary.append(["postID": postId, "author": author, "title": title])
+                            postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
                         }
                         if postCount >= totalCount {
                             print("internally ran")
@@ -107,7 +107,7 @@ class FirebaseController {
         }
     }
     
-    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String) -> Void){
+    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double) -> Void){
         print("Topic:"+postKey)
         ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -137,9 +137,9 @@ class FirebaseController {
                 }
             }
             if latitudeInRange && longitudeInRange {
-                postInProximityCompletionHandler(true, postKey, author, title)
+                postInProximityCompletionHandler(true, postKey, author, title, latitude, longitude)
             } else {
-                postInProximityCompletionHandler(false, postKey, author, title)
+                postInProximityCompletionHandler(false, postKey, author, title, latitude, longitude)
             }
             // ...
         }) { (error) in
