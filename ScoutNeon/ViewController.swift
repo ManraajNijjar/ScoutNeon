@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     //Pulls a singleton instance for the core data controller
     let coreDataController = CoreDataController.sharedInstance()
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let twitterAPI = TwitterApiController.sharedInstance()
     //A variable that's to be setup and pulled in the segue
@@ -24,8 +25,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //intilizes the login button this isn't placed in the API Controller as the actual Twitter connection elements are all contained within the TwitterKit library
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            self.activityIndicator.startAnimating()
             if (session != nil) {
                 
                 //Should use this for the username

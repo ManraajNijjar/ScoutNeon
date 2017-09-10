@@ -25,6 +25,9 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var headingTextLabel: UILabel!
     
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
+    
     
     var userIDFromLogin: String!
     
@@ -63,8 +66,15 @@ class AccountSetupViewController: UIViewController {
                 self.profileImage.image = image
             }
         }
-        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        UIView.animate(withDuration: 2, animations: {
+            self.view.backgroundColor = UIColor.white
+        })
+    }
+    
     
     func colorSliderMoved() {
         backgroundColorView.backgroundColor = colorPicker.currentColor
