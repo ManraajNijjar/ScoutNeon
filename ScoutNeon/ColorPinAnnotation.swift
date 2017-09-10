@@ -11,4 +11,5 @@ import MapKit
 
 class ColorPinAnnotation : MKPointAnnotation {
     var pinTintColor: UIColor?
+    var id: String?
 }

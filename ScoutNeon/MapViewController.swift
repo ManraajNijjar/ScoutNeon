@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import ChromaColorPicker
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var scoutButton: UIButton!
@@ -97,8 +97,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                         let newPin = ColorPinAnnotation()
                         newPin.coordinate = CLLocationCoordinate2D(latitude: post["latitude"] as! Double, longitude: post["longitude"] as! Double)
                         newPin.pinTintColor = self.selectedColor
-                        newPin.title = post["title"] as! String
-                        newPin.subtitle = post["author"] as! String
+                        newPin.title = post["title"] as? String
+                        newPin.subtitle = post["author"] as? String
+                        newPin.id = post["postID"] as? String
                         self.mainMapView.addAnnotation(newPin)
                     }
                 }
@@ -125,32 +126,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         UIView.animate(withDuration: 0.25, animations: {
             self.view.layoutIfNeeded()
         })
-    }
-    
-
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKPinAnnotationView
-        
-        //Prevents a custom pin from returning for the users current location
-        if annotation is MKUserLocation{
-            return nil
-        }
-        
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        if let annotation = annotation as? ColorPinAnnotation {
-            annotationView?.pinTintColor = annotation.pinTintColor
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoDark)
-            
-        }
-        
-        return annotationView
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -241,5 +216,40 @@ extension MapViewController: ChromaColorPickerDelegate {
     }
     
     
+}
+
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKPinAnnotationView
+        
+        //Prevents a custom pin from returning for the users current location
+        if annotation is MKUserLocation{
+            return nil
+        }
+        
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        if let annotation = annotation as? ColorPinAnnotation {
+            annotationView?.pinTintColor = annotation.pinTintColor
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoDark)
+            (annotationView?.annotation as! ColorPinAnnotation).id = annotation.id
+
+        }
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
+        if view.annotation is ColorPinAnnotation {
+            let colorPin = view.annotation as! ColorPinAnnotation
+            print(colorPin.id)
+        }
+    }
 }
 
