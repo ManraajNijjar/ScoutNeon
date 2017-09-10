@@ -44,10 +44,18 @@ class AccountSetupViewController: UIViewController {
     let coreDataController = CoreDataController.sharedInstance()
     
     let fireBaseController = FirebaseController.sharedInstance()
+    
+    var blurEffectView = UIVisualEffectView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //Disables the submit button at the start of account settings creation
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0
+        view.addSubview(blurEffectView)
         submitButton.isEnabled = false
         
         colorPicker = setupChromaColorPicker()
@@ -61,6 +69,8 @@ class AccountSetupViewController: UIViewController {
         self.backgroundColorView.layer.cornerRadius = self.profileImage.frame.size.width / 2;
         self.backgroundColorView.clipsToBounds = true
         view.sendSubview(toBack: backgroundColorView)
+        view.sendSubview(toBack: blurEffectView)
+        view.sendSubview(toBack: backgroundImage)
         twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Large") { (image) in
             DispatchQueue.main.async {
                 self.profileImage.image = image
@@ -70,8 +80,9 @@ class AccountSetupViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        UIView.animate(withDuration: 2, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.view.backgroundColor = UIColor.white
+            self.blurEffectView.alpha = 0.5
         })
     }
     
