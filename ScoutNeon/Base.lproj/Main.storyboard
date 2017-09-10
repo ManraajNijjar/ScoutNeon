@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joshua-newton-311375" translatesAutoresizingMaskIntoConstraints="NO" id="qla-Vt-crA">
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="qla-Vt-crA">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S C O U T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uPc-MK-c8V">
@@ -35,25 +35,24 @@
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="70"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="4" height="0.0"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NEON" translatesAutoresizingMaskIntoConstraints="NO" id="BUr-cY-mK3">
-                                <rect key="frame" x="16" y="348" width="343" height="205"/>
+                                <rect key="frame" x="16" y="309" width="343" height="205"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="205" id="NLk-Tf-1pW"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qla-Vt-crA" secondAttribute="bottom" id="6sb-Py-vGj"/>
                             <constraint firstAttribute="trailing" secondItem="uPc-MK-c8V" secondAttribute="trailing" id="8xp-zQ-LTJ"/>
                             <constraint firstItem="BUr-cY-mK3" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ABM-fj-TBj"/>
-                            <constraint firstItem="BUr-cY-mK3" firstAttribute="top" secondItem="uPc-MK-c8V" secondAttribute="bottom" constant="8" id="Lj7-BU-4xu"/>
+                            <constraint firstItem="BUr-cY-mK3" firstAttribute="top" secondItem="uPc-MK-c8V" secondAttribute="bottom" id="Lj7-BU-4xu"/>
                             <constraint firstItem="qla-Vt-crA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nlz-fm-0ee"/>
                             <constraint firstAttribute="trailing" secondItem="qla-Vt-crA" secondAttribute="trailing" id="VgJ-yt-ZSB"/>
-                            <constraint firstItem="BUr-cY-mK3" firstAttribute="top" secondItem="uPc-MK-c8V" secondAttribute="bottom" constant="8" id="aCY-WK-MYO"/>
+                            <constraint firstItem="BUr-cY-mK3" firstAttribute="top" secondItem="uPc-MK-c8V" secondAttribute="bottom" constant="-31" id="aCY-WK-MYO"/>
                             <constraint firstItem="BUr-cY-mK3" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="f1g-IM-NsL"/>
                             <constraint firstItem="BUr-cY-mK3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="g17-Kb-QZZ"/>
                             <constraint firstItem="qla-Vt-crA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iLg-hY-uZn"/>
@@ -61,6 +60,11 @@
                             <constraint firstItem="uPc-MK-c8V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oLw-DR-AuU"/>
                             <constraint firstItem="BUr-cY-mK3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="qgs-SI-DKL"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Lj7-BU-4xu"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <segue destination="kgY-gh-MJt" kind="presentation" identifier="SetupSegue" id="7xt-ha-DLd"/>
@@ -382,7 +386,7 @@
     </scenes>
     <resources>
         <image name="NEON" width="640" height="400"/>
-        <image name="joshua-newton-311375" width="4654" height="7073"/>
+        <image name="patrick-tomasso-59247" width="3648" height="5472"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="snm-KO-0UD"/>
