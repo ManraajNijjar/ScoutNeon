@@ -164,6 +164,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             destinationViewController.postLatitude = locationManager.location?.coordinate.latitude
             destinationViewController.postLongitude = locationManager.location?.coordinate.longitude
         }
+        
+        if segue.identifier == "MessagesSegue" {
+            
+        }
     }
 }
 
@@ -249,6 +253,7 @@ extension MapViewController: MKMapViewDelegate {
         if view.annotation is ColorPinAnnotation {
             let colorPin = view.annotation as! ColorPinAnnotation
             print(colorPin.id)
+            self.performSegue(withIdentifier: "MessagesSegue", sender: self)
         }
     }
 }
