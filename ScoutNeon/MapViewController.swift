@@ -97,6 +97,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                         let newPin = ColorPinAnnotation()
                         newPin.coordinate = CLLocationCoordinate2D(latitude: post["latitude"] as! Double, longitude: post["longitude"] as! Double)
                         newPin.pinTintColor = self.selectedColor
+                        newPin.title = post["title"] as! String
+                        newPin.subtitle = post["author"] as! String
                         self.mainMapView.addAnnotation(newPin)
                     }
                 }
@@ -143,6 +145,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         if let annotation = annotation as? ColorPinAnnotation {
             annotationView?.pinTintColor = annotation.pinTintColor
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoDark)
+            
         }
         
         return annotationView
