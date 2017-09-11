@@ -61,7 +61,7 @@ class FirebaseController {
         ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
         
         //Builds a list of messages with unique ids that contain reference to their associated topic
-        ref?.child("MessageList").child((messageKey?.key)!).setValue(["topic": postKey?.key])
+        ref?.child("MessageList").child((messageKey?.key)!).setValue(["message": messageKey?.key])
         
         //Builds the topic object with a unique name that contains the message list, location, and color
         ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
@@ -144,6 +144,61 @@ class FirebaseController {
                 postInProximityCompletionHandler(false, postKey, author, title, postLatitude, postLongitude)
             }
             // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    //Optional for now just to avoid the error
+    func messagesForPost(postID: String, messageForPostCompletionHanlder: @escaping (_ messageList: [[String: String]]) -> Void){
+        ref?.child("Topic:"+postID).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            for (key, val) in value! {
+                if key as! String == "messageId" {
+                    self.messageListForPost(postID: val as! String, messageListCompletionHandler: { (messageList) in
+                        print(messageList)
+                        messageForPostCompletionHanlder(messageList)
+                    })
+                }
+            }
+            
+        })
+    }
+    
+    func messageListForPost(postID: String, messageListCompletionHandler: @escaping (_ messageList: [[String: String]]) -> Void){
+        var messageDictArray = [[String: String]]()
+        var messageCount = 0
+        var totalCount = 0
+        ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            totalCount = (value?.count)!
+            print(value ?? "Empty")
+            for (_, val) in value! {
+                self.retrieveMessageContents(messageID: val as! String, messageContentsCompletionHandler: { (messageContents) in
+                    messageDictArray.append(messageContents)
+                    messageCount = messageCount + 1
+                    if messageCount >= totalCount {
+                        messageListCompletionHandler(messageDictArray)
+                    }
+                })
+            }
+        })
+    }
+    
+    func retrieveMessageContents(messageID: String, messageContentsCompletionHandler: @escaping (_ messageContents: [String: String]) -> Void){
+        ref?.child("Message:"+messageID).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            var tempMessageDict = [String: String]()
+            for (key, val) in value! {
+                if key as! String == "author" {
+                  tempMessageDict["author"] = val as! String
+                }
+                if key as! String == "text" {
+                    tempMessageDict["text"] = val as! String
+                }
+            }
+            messageContentsCompletionHandler(tempMessageDict)
+            
         }) { (error) in
             print(error.localizedDescription)
         }

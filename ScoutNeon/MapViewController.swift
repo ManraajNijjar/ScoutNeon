@@ -253,6 +253,11 @@ extension MapViewController: MKMapViewDelegate {
         if view.annotation is ColorPinAnnotation {
             let colorPin = view.annotation as! ColorPinAnnotation
             print(colorPin.id)
+            firebaseController.messagesForPost(postID: colorPin.id!, messageForPostCompletionHanlder: { (messageList) in
+                print(messageList)
+            })
+            print("finished")
+            
             self.performSegue(withIdentifier: "MessagesSegue", sender: self)
         }
     }
