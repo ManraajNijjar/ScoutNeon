@@ -14,6 +14,8 @@ class TextValidationController{
     
     init() {
         validator.characterSet = NSCharacterSet.alphanumerics
+
+        
     }
     
     //Generate a Singleton instance of the TwitterAPIController

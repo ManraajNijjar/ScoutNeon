@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+
 class NewPostViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -30,6 +31,7 @@ class NewPostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         submitButton.isEnabled = false
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(CLLocation(latitude: postLatitude, longitude: postLongitude)) { (placemarkArray, error) in
@@ -57,7 +59,11 @@ class NewPostViewController: UIViewController {
     
 
     func validateText() {
-        if validator.validator.validateString(titleTextField.text!) && validator.validator.validateString(messageTextField.text!) {
+        let titleText = titleTextField.text!.replacingOccurrences(of: " ", with: "")
+        let messageText = messageTextField.text!.replacingOccurrences(of: " ", with: "")
+        print(titleText)
+        print(messageText)
+        if validator.validator.validateString(titleText) && validator.validator.validateString(messageText) {
             submitButton.isEnabled = true
         } else {
             submitButton.isEnabled = false
