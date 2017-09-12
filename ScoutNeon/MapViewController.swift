@@ -34,6 +34,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var colorPicker = ChromaColorPicker()
     var selectedColor = UIColor()
     var messageListForTransfer = [[String:String]]()
+    var selectedTopic = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +170,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         if segue.identifier == "MessagesSegue" {
             let destinationViewController = segue.destination as! MessageTableViewController
             destinationViewController.messages = messageListForTransfer
+            destinationViewController.selectedTopic = self.selectedTopic
         }
     }
 }
@@ -254,7 +256,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
         if view.annotation is ColorPinAnnotation {
             let colorPin = view.annotation as! ColorPinAnnotation
-            print(colorPin.id)
+            self.selectedTopic = colorPin.id!
             firebaseController.messagesForPost(postID: colorPin.id!, messageForPostCompletionHanlder: { (messageList) in
                 self.messageListForTransfer = messageList
                 self.performSegue(withIdentifier: "MessagesSegue", sender: self)

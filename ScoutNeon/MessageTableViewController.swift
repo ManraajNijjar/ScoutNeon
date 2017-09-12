@@ -16,14 +16,17 @@ class MessageTableViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    let validator = TextValidationController.sharedInstance()
     
     var messages: [[String: String]]!
+    var selectedTopic: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print(messages)
         tableView.delegate = self
         tableView.dataSource = self
+        submitButton.isEnabled = false
 
         // Do any additional setup after loading the view.
     }
@@ -34,7 +37,13 @@ class MessageTableViewController: UIViewController {
     }
     
     @IBAction func textFieldEdited(_ sender: Any) {
-        
+        let messageText = textField.text!.replacingOccurrences(of: " ", with: "")
+        print(messageText)
+        if validator.validator.validateString(messageText){
+            submitButton.isEnabled = true
+        } else {
+            submitButton.isEnabled = false
+        }
         
     }
     

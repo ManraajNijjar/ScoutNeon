@@ -75,6 +75,13 @@ class FirebaseController {
         print(postKey?.key)
     }
     
+    func newMessage(){
+        let messageKey = ref?.child("MessageList").childByAutoId()
+        
+        ref?.child("MessageList").child((messageKey?.key)!).setValue(["message": messageKey?.key])
+        
+    }
+    
     func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         var postArray = [String]()
         var postDictionary = [[String:Any]]()
