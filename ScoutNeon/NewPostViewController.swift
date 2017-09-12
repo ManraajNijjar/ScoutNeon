@@ -61,8 +61,6 @@ class NewPostViewController: UIViewController {
     func validateText() {
         let titleText = titleTextField.text!.replacingOccurrences(of: " ", with: "")
         let messageText = messageTextField.text!.replacingOccurrences(of: " ", with: "")
-        print(titleText)
-        print(messageText)
         if validator.validator.validateString(titleText) && validator.validator.validateString(messageText) {
             submitButton.isEnabled = true
         } else {

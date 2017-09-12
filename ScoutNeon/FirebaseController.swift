@@ -79,11 +79,14 @@ class FirebaseController {
         print(postKey?.key)
     }
     
-    func newMessage(){
-        let messageKey = ref?.child("MessageList").childByAutoId()
+    func newMessage(postId: String, messageValueString: String, author: String){
+        let messageKey = ref?.child("UsedKeys").childByAutoId()
         
-        ref?.child("MessageList").child((messageKey?.key)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
+            let messageTitleString = messageKey?.key as! String
+            self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["active": true])
+            self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
         })
         
     }

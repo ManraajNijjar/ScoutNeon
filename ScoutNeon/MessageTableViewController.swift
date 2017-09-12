@@ -21,6 +21,7 @@ class MessageTableViewController: UIViewController {
     
     var messages: [[String: String]]!
     var selectedTopic: String!
+    var username: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +35,24 @@ class MessageTableViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
+        firebaseController.newMessage(postId: selectedTopic, messageValueString: textField.text!, author: username)
     }
     
     @IBAction func textFieldEdited(_ sender: Any) {
+        if (textField.text?.characters.count)! > 0 {
+            validateText()
+        } else {
+            submitButton.isEnabled = false
+        }
+    }
+    
+    func validateText() {
         let messageText = textField.text!.replacingOccurrences(of: " ", with: "")
-        print(messageText)
         if validator.validator.validateString(messageText){
             submitButton.isEnabled = true
         } else {
             submitButton.isEnabled = false
         }
-        
     }
     
     

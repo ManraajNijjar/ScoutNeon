@@ -171,6 +171,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let destinationViewController = segue.destination as! MessageTableViewController
             destinationViewController.messages = messageListForTransfer
             destinationViewController.selectedTopic = self.selectedTopic
+            destinationViewController.username = self.userProfile.username
         }
     }
 }
