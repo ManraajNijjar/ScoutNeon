@@ -54,8 +54,11 @@ class FirebaseController {
     func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double){
         //Generate the values for the database objects
         let postKey = ref?.child("Topics").childByAutoId()
-        let messageKey = ref?.child("MessageList").childByAutoId()
+        let messageKey = ref?.child("UsedKeys").childByAutoId()
         
+        
+        //Builds a list of used MessageKeys
+        ref?.child("UsedKeys").child((messageKey?.key)!).setValue(["used": true])
         
         //Builds a list of topics with unique ids that contain the topic title mainly as a filler value
         ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
@@ -72,13 +75,16 @@ class FirebaseController {
         //The message object that contains the username and the message.
         ref?.child("Message:"+(messageKey?.key)!).setValue(["author": username, "text": topicMessage])
         
+        
         print(postKey?.key)
     }
     
     func newMessage(){
         let messageKey = ref?.child("MessageList").childByAutoId()
         
-        ref?.child("MessageList").child((messageKey?.key)!).setValue(["message": messageKey?.key])
+        ref?.child("MessageList").child((messageKey?.key)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+        })
         
     }
     
