@@ -176,7 +176,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="80" id="Ji3-9T-WoZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="80" id="Ji3-9T-WoZ" customClass="MessageTableViewCell" customModule="ScoutNeon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ji3-9T-WoZ" id="OWi-s1-QAb">
@@ -209,6 +209,10 @@
                                                 <constraint firstItem="pQ0-dq-6NM" firstAttribute="leading" secondItem="OWi-s1-QAb" secondAttribute="leadingMargin" id="jDR-at-JbA"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="authorLabel" destination="pQ0-dq-6NM" id="Soc-w6-2uZ"/>
+                                            <outlet property="messageLabel" destination="Jag-yt-vGn" id="bPm-Yb-vAs"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

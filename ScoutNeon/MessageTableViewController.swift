@@ -50,8 +50,11 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         return messages.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell")
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
+        let value = messages[indexPath.row]
+        cell.authorLabel.text = value["author"]
+        cell.messageLabel.text = value["text"]
+        return cell
     }
     
 }

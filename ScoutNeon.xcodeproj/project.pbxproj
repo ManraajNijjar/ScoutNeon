@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		37BCA1CEA9983D6A771ACAFD /* Pods_ScoutNeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63CFBB25A33312A8DDFADF65 /* Pods_ScoutNeon.framework */; };
 		863F054A1F676AE000373152 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863F05491F676AE000373152 /* MessageTableViewController.swift */; };
+		863F054C1F6787D200373152 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863F054B1F6787D200373152 /* MessageTableViewCell.swift */; };
 		864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A37D51F3BF12700D4FF55 /* AppDelegate.swift */; };
 		864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A37D71F3BF12700D4FF55 /* ViewController.swift */; };
 		864A37DB1F3BF12700D4FF55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 864A37D91F3BF12700D4FF55 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		63CFBB25A33312A8DDFADF65 /* Pods_ScoutNeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoutNeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		843E704EC3493F73AF85C4E1 /* Pods-ScoutNeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoutNeon.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoutNeon/Pods-ScoutNeon.release.xcconfig"; sourceTree = "<group>"; };
 		863F05491F676AE000373152 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
+		863F054B1F6787D200373152 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		864A37D21F3BF12700D4FF55 /* ScoutNeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoutNeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		864A37D51F3BF12700D4FF55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		864A37D71F3BF12700D4FF55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				8659D7711F537A76006035ED /* FirebaseController.swift */,
 				863F05491F676AE000373152 /* MessageTableViewController.swift */,
 				8659D7671F520605006035ED /* TextValidationController.swift */,
+				863F054B1F6787D200373152 /* MessageTableViewCell.swift */,
 				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
 				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
 				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
@@ -289,6 +292,7 @@
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
 				863F054A1F676AE000373152 /* MessageTableViewController.swift in Sources */,
 				864A38751F46601C00D4FF55 /* TwitterApiController.swift in Sources */,
+				863F054C1F6787D200373152 /* MessageTableViewCell.swift in Sources */,
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
 				864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */,
 				8659D7701F534D46006035ED /* Profile+CoreDataProperties.swift in Sources */,
