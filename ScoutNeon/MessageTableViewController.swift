@@ -22,6 +22,8 @@ class MessageTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(messages)
+        tableView.delegate = self
+        tableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
@@ -38,4 +40,18 @@ class MessageTableViewController: UIViewController {
     
     
 
+}
+extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell")
+        return cell!
+    }
+    
 }
