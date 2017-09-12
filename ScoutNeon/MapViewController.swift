@@ -167,7 +167,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         if segue.identifier == "MessagesSegue" {
-            let destinationViewController = segue.destination as! MessagesTableViewController
+            let destinationViewController = segue.destination as! MessageTableViewController
             destinationViewController.messages = messageListForTransfer
         }
     }
