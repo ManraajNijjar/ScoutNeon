@@ -17,6 +17,7 @@ class MessageTableViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     let validator = TextValidationController.sharedInstance()
+    let firebaseController = FirebaseController.sharedInstance()
     
     var messages: [[String: String]]!
     var selectedTopic: String!
@@ -33,7 +34,6 @@ class MessageTableViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        
     }
     
     @IBAction func textFieldEdited(_ sender: Any) {

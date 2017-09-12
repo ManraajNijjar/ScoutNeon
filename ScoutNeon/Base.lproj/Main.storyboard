@@ -23,8 +23,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="qla-Vt-crA">
-                                <rect key="frame" x="10" y="7" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="qla-Vt-crA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S C O U T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uPc-MK-c8V">
                                 <rect key="frame" x="0.0" y="260" width="375" height="80"/>
@@ -421,8 +421,8 @@
                                     <constraint firstAttribute="height" constant="150" id="v3r-ta-BvG"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="DR1-kF-nHa">
-                                <rect key="frame" x="10" y="7" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="DR1-kF-nHa">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
