@@ -64,7 +64,7 @@ class FirebaseController {
         ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
         
         //Builds a list of messages with unique ids that contain reference to their associated topic
-        ref?.child("MessageList").child((postKey?.key)!).setValue(["message": messageKey?.key])
+        ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["active": true])
         
         //Builds the topic object with a unique name that contains the message list, location, and color
         ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
@@ -172,8 +172,9 @@ class FirebaseController {
         ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             totalCount = (value?.count)!
-            for (_, val) in value! {
-                self.retrieveMessageContents(messageID: val as! String, messageContentsCompletionHandler: { (messageContents) in
+            
+            for (key, _) in value! {
+                self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
                     messageDictArray.append(messageContents)
                     messageCount = messageCount + 1
                     if messageCount >= totalCount {
