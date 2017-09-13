@@ -37,6 +37,8 @@ class MessageTableViewController: UIViewController {
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         firebaseController.newMessage(postId: selectedTopic, messageValueString: textField.text!, author: username)
+        textField.text = ""
+        submitButton.isEnabled = false
     }
     
     @IBAction func textFieldEdited(_ sender: Any) {

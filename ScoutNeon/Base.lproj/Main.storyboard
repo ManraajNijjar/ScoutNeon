@@ -109,18 +109,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hQ-T8-lgg">
                                 <rect key="frame" x="0.0" y="416" width="375" height="251"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYH-y2-L4X">
-                                        <rect key="frame" x="321" y="8" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYH-y2-L4X">
+                                        <rect key="frame" x="172" y="8" width="30" height="30"/>
                                         <state key="normal" title="X"/>
                                         <connections>
                                             <action selector="slideOutMenuCancelled:" destination="MKa-BM-pl3" eventType="touchUpInside" id="yb3-CQ-cro"/>
                                         </connections>
                                     </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LLX-92-Tu3">
+                                        <rect key="frame" x="210" y="0.0" width="165" height="251"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="LLX-92-Tu3" firstAttribute="top" secondItem="4hQ-T8-lgg" secondAttribute="top" id="0sH-cJ-AqB"/>
+                                    <constraint firstAttribute="trailing" secondItem="LLX-92-Tu3" secondAttribute="trailing" id="2QF-bR-goK"/>
+                                    <constraint firstItem="pYH-y2-L4X" firstAttribute="top" secondItem="4hQ-T8-lgg" secondAttribute="top" constant="8" id="BEZ-EY-Tod"/>
+                                    <constraint firstItem="pYH-y2-L4X" firstAttribute="centerX" secondItem="4hQ-T8-lgg" secondAttribute="centerX" id="CCj-Zp-eBY"/>
                                     <constraint firstAttribute="height" constant="251" id="KIC-62-8m5"/>
+                                    <constraint firstItem="LLX-92-Tu3" firstAttribute="leading" secondItem="pYH-y2-L4X" secondAttribute="trailing" constant="8" id="gt8-9V-d3y"/>
+                                    <constraint firstAttribute="bottom" secondItem="LLX-92-Tu3" secondAttribute="bottom" id="v8j-TS-uXi"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -152,6 +161,8 @@
                         <outlet property="chromaViewConstraint" destination="Nk4-ic-MQV" id="6oI-HX-hBs"/>
                         <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>
                         <outlet property="scoutButton" destination="5Lf-Nm-k5B" id="bvb-1N-XQj"/>
+                        <outlet property="slideInCancelButton" destination="pYH-y2-L4X" id="3lh-7c-4IP"/>
+                        <outlet property="slideInTableView" destination="LLX-92-Tu3" id="m8h-n0-FH8"/>
                         <segue destination="k4E-JT-vFg" kind="show" identifier="NewPostSegue" id="dYM-cT-jPT"/>
                         <segue destination="VTg-ye-5Pf" kind="show" identifier="MessagesSegue" id="rAy-wi-7Bb"/>
                     </connections>

@@ -18,6 +18,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var chromaView: UIView!
     @IBOutlet weak var chromaViewConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var slideInTableView: UITableView!
+    @IBOutlet weak var slideInCancelButton: UIButton!
     
     let coreDataController = CoreDataController.sharedInstance()
     
@@ -50,6 +52,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        //Setup the TableView methods for the slide in menu
+        slideInTableView.delegate = self
+        slideInTableView.dataSource = self
         
         //Thread Safe implementation of retrieving the User Profile data
         coreDataController.getUserProfile(userID: userIDForProfile!) { (success, profile) in
@@ -117,7 +123,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func displayChromaColorPicker(_ sender: UITapGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {
-            chromaViewConstraint.constant = self.view.frame.height * 0.6
+            chromaViewConstraint.constant = self.view.frame.height * 0.5
             UIView.animate(withDuration: 0.15, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -142,17 +148,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func colorSliderMoved() {
+        //Don't really need the colorName here
+        /*
         operationQueue.async {
             self.colorAPI.getColorNameByHex(selectColor: self.colorPicker.currentColor) { (results, error) in
                 if error == nil {
                     DispatchQueue.main.async {
                         let resultsName = results!["name"]! as AnyObject
-                        print(resultsName["value"]! as? String!)
+                        print(resultsName["value"]! as! String!)
+                        
                         self.colorSwitched()
                     }
                 }
             }
-        }
+        }*/
+        self.colorSwitched()
     }
     func colorSwitched() {
         selectedColor = self.colorPicker.currentColor
@@ -223,7 +233,7 @@ extension MapViewController: ChromaColorPickerDelegate {
     
     //Triggers whenever the slider is moved
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
-        print(colorPicker.currentColor)
+        
     }
     
     
@@ -272,5 +282,20 @@ extension MapViewController: MKMapViewDelegate {
             }) */
         }
     }
+}
+
+extension MapViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        return UITableViewCell()
+        
+    }
+    
 }
 
