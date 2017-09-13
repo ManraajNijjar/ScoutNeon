@@ -24,6 +24,8 @@ class MessageTableViewController: UIViewController {
     var selectedTopic: String!
     var username: String!
     var titleText: String!
+    var userProfile: Profile!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,10 +77,8 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
-            let value = messages[indexPath.row]
-            cell.authorLabel.text = value["author"]
-            cell.messageLabel.text = titleText
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell") as! TitleTableViewCell
+            cell.titleLabel.text = titleText
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell

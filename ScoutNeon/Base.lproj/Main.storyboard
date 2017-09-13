@@ -191,7 +191,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ji3-9T-WoZ" id="OWi-s1-QAb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQ0-dq-6NM">
@@ -201,28 +201,63 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jag-yt-vGn">
-                                                    <rect key="frame" x="0.0" y="27" width="375" height="53"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="53" id="Cr4-8r-UgD"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="8" y="27" width="367" height="53"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Jag-yt-vGn" secondAttribute="bottom" id="3Cz-2q-Drw"/>
-                                                <constraint firstItem="Jag-yt-vGn" firstAttribute="leading" secondItem="OWi-s1-QAb" secondAttribute="leading" id="QhD-qc-jF3"/>
-                                                <constraint firstAttribute="bottom" secondItem="Jag-yt-vGn" secondAttribute="bottom" id="YGJ-gk-Ocv"/>
-                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="trailing" secondItem="OWi-s1-QAb" secondAttribute="trailingMargin" id="aWY-B1-dhg"/>
-                                                <constraint firstAttribute="trailing" secondItem="Jag-yt-vGn" secondAttribute="trailing" id="eSf-qR-CZV"/>
-                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="top" secondItem="OWi-s1-QAb" secondAttribute="topMargin" id="eyi-yw-dFV"/>
-                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="leading" secondItem="OWi-s1-QAb" secondAttribute="leadingMargin" id="jDR-at-JbA"/>
+                                                <constraint firstItem="Jag-yt-vGn" firstAttribute="centerX" secondItem="pQ0-dq-6NM" secondAttribute="centerX" constant="4" id="1BD-5z-EI2"/>
+                                                <constraint firstItem="Jag-yt-vGn" firstAttribute="leading" secondItem="OWi-s1-QAb" secondAttribute="leading" constant="8" id="IIB-B7-Wst"/>
+                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="trailing" secondItem="OWi-s1-QAb" secondAttribute="trailingMargin" id="JSm-mE-8kN"/>
+                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="top" secondItem="OWi-s1-QAb" secondAttribute="topMargin" id="WXM-oA-npc"/>
+                                                <constraint firstItem="Jag-yt-vGn" firstAttribute="top" secondItem="OWi-s1-QAb" secondAttribute="topMargin" constant="19" id="hp0-rE-uch"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Jag-yt-vGn" secondAttribute="bottom" constant="-8" id="pbO-eJ-1HG"/>
+                                                <constraint firstItem="pQ0-dq-6NM" firstAttribute="leading" secondItem="OWi-s1-QAb" secondAttribute="leadingMargin" id="yqs-5H-0MG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="authorLabel" destination="pQ0-dq-6NM" id="Soc-w6-2uZ"/>
                                             <outlet property="messageLabel" destination="Jag-yt-vGn" id="bPm-Yb-vAs"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" id="BJV-0v-PHr" customClass="TitleTableViewCell" customModule="ScoutNeon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="108" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BJV-0v-PHr" id="Qey-x1-uWw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleCell" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uR-bV-iCy">
+                                                    <rect key="frame" x="8" y="8" width="359" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="K0Y-JH-AcE"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0P-QS-3AN">
+                                                    <rect key="frame" x="172" y="49" width="30" height="30"/>
+                                                    <state key="normal" title="Star"/>
+                                                    <connections>
+                                                        <action selector="starButtonPressed:" destination="BJV-0v-PHr" eventType="touchUpInside" id="SCd-CK-IiF"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3uR-bV-iCy" secondAttribute="trailing" id="cRY-Bi-X4v"/>
+                                                <constraint firstItem="M0P-QS-3AN" firstAttribute="top" secondItem="3uR-bV-iCy" secondAttribute="bottom" constant="1" id="itP-v5-WXc"/>
+                                                <constraint firstItem="3uR-bV-iCy" firstAttribute="top" secondItem="Qey-x1-uWw" secondAttribute="topMargin" id="oaX-Aj-G1P"/>
+                                                <constraint firstItem="3uR-bV-iCy" firstAttribute="centerX" secondItem="Qey-x1-uWw" secondAttribute="centerX" id="tzT-Co-WfL"/>
+                                                <constraint firstItem="M0P-QS-3AN" firstAttribute="centerX" secondItem="Qey-x1-uWw" secondAttribute="centerX" id="xHt-Kd-hzq"/>
+                                                <constraint firstItem="3uR-bV-iCy" firstAttribute="leading" secondItem="Qey-x1-uWw" secondAttribute="leadingMargin" id="zfd-kX-oPx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="starButton" destination="M0P-QS-3AN" id="ndH-Of-bDl"/>
+                                            <outlet property="titleLabel" destination="3uR-bV-iCy" id="IRE-Ba-2tL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -185,6 +185,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             destinationViewController.selectedTopic = self.selectedTopic
             destinationViewController.username = self.userProfile.username
             destinationViewController.titleText = self.selectedTitle
+            destinationViewController.userProfile = self.userProfile
         }
     }
 }
