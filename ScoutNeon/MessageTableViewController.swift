@@ -23,6 +23,7 @@ class MessageTableViewController: UIViewController {
     var messages: [[String: String]]!
     var selectedTopic: String!
     var username: String!
+    var titleText: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +32,6 @@ class MessageTableViewController: UIViewController {
         submitButton.isEnabled = false
         
         setupListener()
-        
-        /*
-        var messageRef = firebaseController.getRef()
-        messageRef = messageRef?.child("MessageList").child(selectedTopic)
-        messageRef?.observe(.childAdded, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            print(value)
-            print("observertriggered")
-        }) */
-        // Do any additional setup after loading the view.
     }
     
     
@@ -78,14 +69,23 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return messages.count + 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
-        let value = messages[indexPath.row]
-        cell.authorLabel.text = value["author"]
-        cell.messageLabel.text = value["text"]
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
+            let value = messages[indexPath.row]
+            cell.authorLabel.text = value["author"]
+            cell.messageLabel.text = titleText
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
+            let value = messages[indexPath.row - 1]
+            cell.authorLabel.text = value["author"]
+            cell.messageLabel.text = value["text"]
+            return cell
+        }
+        
     }
     
 }
