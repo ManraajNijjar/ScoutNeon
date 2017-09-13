@@ -2,7 +2,7 @@
 //  Profile+CoreDataProperties.swift
 //  
 //
-//  Created by Manraaj Nijjar on 8/27/17.
+//  Created by Manraaj Nijjar on 9/13/17.
 //
 //
 
@@ -20,8 +20,25 @@ extension Profile {
     @NSManaged public var color: String?
     @NSManaged public var id: String?
     @NSManaged public var profilepicture: NSData?
-    @NSManaged public var username: String?
     @NSManaged public var twitterid: String?
-    @NSManaged public var favoritetopics: Topic?
+    @NSManaged public var username: String?
+    @NSManaged public var favoritetopics: NSSet?
+
+}
+
+// MARK: Generated accessors for favoritetopics
+extension Profile {
+
+    @objc(addFavoritetopicsObject:)
+    @NSManaged public func addToFavoritetopics(_ value: Topic)
+
+    @objc(removeFavoritetopicsObject:)
+    @NSManaged public func removeFromFavoritetopics(_ value: Topic)
+
+    @objc(addFavoritetopics:)
+    @NSManaged public func addToFavoritetopics(_ values: NSSet)
+
+    @objc(removeFavoritetopics:)
+    @NSManaged public func removeFromFavoritetopics(_ values: NSSet)
 
 }

@@ -2,7 +2,7 @@
 //  Topic+CoreDataClass.swift
 //  
 //
-//  Created by Manraaj Nijjar on 8/27/17.
+//  Created by Manraaj Nijjar on 9/13/17.
 //
 //
 
