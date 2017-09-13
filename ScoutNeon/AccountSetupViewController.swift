@@ -13,8 +13,6 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     
-    @IBOutlet weak var anonSwitch: UISegmentedControl!
-    
     @IBOutlet weak var submitButton: UIButton!
     
     @IBOutlet weak var favoriteColorLabel: UILabel!
@@ -76,6 +74,7 @@ class AccountSetupViewController: UIViewController {
                 self.profileImage.image = image
             }
         }
+        view.bringSubview(toFront: usernameTextField)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,7 +111,7 @@ class AccountSetupViewController: UIViewController {
     }
     
     @IBAction func submitPressed(_ sender: Any) {
-        let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: (anonSwitch.selectedSegmentIndex == 1))
+        let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: false)
         
         CoreDataController.saveContext()
         fireBaseController.createUser(userProfile: profile)
@@ -135,7 +134,9 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     
     func setupChromaColorPicker() -> ChromaColorPicker {
         //Sets up the chroma color picker
-        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
+        print(view.frame.size.height)
+        let sizeValue = view.frame.size.width * 0.586
+        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
         colorPicker.delegate = self
         colorPicker.padding = 5
         colorPicker.stroke = 3
@@ -149,7 +150,9 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
         //neatColorPicker.center = self.colorPickerView.center
         
         //colorPicker.center = self.view.center
-        colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 110)
+        let sizeHeight = view.frame.size.height * 0.1877
+        //Closest equivalent to 110 on iPhone7
+        colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
         return colorPicker
     }
     

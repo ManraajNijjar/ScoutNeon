@@ -122,6 +122,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func displayChromaColorPicker(_ sender: UITapGestureRecognizer) {
+        chromaView.bringSubview(toFront: slideInCancelButton)
         if sender.state == UIGestureRecognizerState.began {
             chromaViewConstraint.constant = self.view.frame.height * 0.5
             UIView.animate(withDuration: 0.15, animations: {
@@ -213,7 +214,8 @@ extension MapViewController: ChromaColorPickerDelegate {
     
     func setupChromaColorPicker() -> ChromaColorPicker {
         //Sets up the chroma color picker
-        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
+        let sizeValue = view.frame.size.width * 0.586
+        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
         colorPicker.delegate = self
         colorPicker.padding = 5
         colorPicker.stroke = 3
