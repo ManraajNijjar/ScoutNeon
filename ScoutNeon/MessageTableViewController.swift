@@ -30,17 +30,16 @@ class MessageTableViewController: UIViewController {
         tableView.dataSource = self
         submitButton.isEnabled = false
         
+        setupListener()
+        
+        /*
         var messageRef = firebaseController.getRef()
-        messageRef = messageRef?.child("MessageListener").child(selectedTopic)
-        /*messageRef?.observeSingleEvent(.value, with: { (snapshot) in
+        messageRef = messageRef?.child("MessageList").child(selectedTopic)
+        messageRef?.observe(.childAdded, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             print(value)
             print("observertriggered")
-        })*/
-        messageRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            print(value)
-        })
+        }) */
         // Do any additional setup after loading the view.
     }
     
@@ -67,13 +66,7 @@ class MessageTableViewController: UIViewController {
     }
     
     func setupListener() {
-        print("settingup")
-        let messageRef = firebaseController.getRef()
-        messageRef?.child("MessageListener").child(selectedTopic).observe(.childAdded, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            print(value)
-            print("observertriggered")
-        })
+        let value = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
     }
     
     

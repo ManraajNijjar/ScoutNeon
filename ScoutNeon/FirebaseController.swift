@@ -69,7 +69,7 @@ class FirebaseController {
         ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
         
         //Builds a list of messages with unique ids that contain reference to their associated topic
-        ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["active": true])
+        ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
         
         //Builds the topic object with a unique name that contains the message list, location, and color
         ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
@@ -90,7 +90,7 @@ class FirebaseController {
         ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             let messageTitleString = messageKey?.key as! String
-            self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["active": true])
+            self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
             self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
         })
         
@@ -218,11 +218,11 @@ class FirebaseController {
         var messageDictArray = [[String: String]]()
         var messageCount = 0
         var totalCount = 0
-        let listener = ref?.child("MessageListener").child(postId).observe(.childAdded, with: { (snapshot) in
+        let listener = ref?.child("MessageList").child(postId).observe(.childAdded, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             print("observertriggered")
             totalCount = (value?.count)!
-            for (key, _) in value! {
+            for (_,key) in value! {
                 self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
                     messageDictArray.append(messageContents)
                     messageCount = messageCount + 1
