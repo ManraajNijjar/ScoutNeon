@@ -8,12 +8,17 @@
 
 import Foundation
 import FirebaseDatabase
+import UIKit
 
 class FirebaseController {
     var ref:DatabaseReference?
     
     init() {
         ref = Database.database().reference()
+    }
+    
+    func getRef() -> DatabaseReference? {
+        return ref
     }
     
     func createUser(userProfile: Profile) {
@@ -203,6 +208,35 @@ class FirebaseController {
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    func messageListener(postId: String, messageTableView: MessageTableViewController) -> UInt{
+        var messageDictArray = [[String: String]]()
+        var messageCount = 0
+        var totalCount = 0
+        let listener = ref?.child("MessageListener").child(postId).observe(.childAdded, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            print("observertriggered")
+            totalCount = (value?.count)!
+            for (key, _) in value! {
+                self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
+                    messageDictArray.append(messageContents)
+                    messageCount = messageCount + 1
+                    if messageCount >= totalCount {
+                        messageTableView.messages = messageDictArray
+                        DispatchQueue.main.async {
+                            messageTableView.tableView.reloadData()
+                        }
+                    }
+                })
+            }
+        })
+        return listener!
+    }
+    
+    func detachListener(){
+        ref?.removeAllObservers()
+        
     }
     
     //Generate a Singleton instance of the TwitterAPIController

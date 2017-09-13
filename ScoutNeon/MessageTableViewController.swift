@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class MessageTableViewController: UIViewController {
     
@@ -29,7 +30,8 @@ class MessageTableViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         submitButton.isEnabled = false
-
+        
+        setupListener()
         // Do any additional setup after loading the view.
     }
     
@@ -53,6 +55,11 @@ class MessageTableViewController: UIViewController {
         } else {
             submitButton.isEnabled = false
         }
+    }
+    
+    func setupListener() {
+        let value = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
+        print(value)
     }
     
     
