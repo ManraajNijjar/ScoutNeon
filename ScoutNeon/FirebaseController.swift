@@ -104,22 +104,26 @@ class FirebaseController {
         ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            totalCount = (value?.count)!
-            for (_, val) in value! {
-                for (_, valTwo) in (val as? NSDictionary)! {
-                    self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
-                        print("keepin on keeping on")
-                        postCount = postCount + 1
-                        if postStatus {
-                            postArray.append(postId)
-                            postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
-                        }
-                        if postCount >= totalCount {
-                            print("internally ran")
-                            findPostsCompletionHandler(postDictionary)
-                        }
-                    })
+            if (value != nil) {
+                totalCount = (value?.count)!
+                for (_, val) in value! {
+                    for (_, valTwo) in (val as? NSDictionary)! {
+                        self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
+                            print("keepin on keeping on")
+                            postCount = postCount + 1
+                            if postStatus {
+                                postArray.append(postId)
+                                postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
+                            }
+                            if postCount >= totalCount {
+                                print("internally ran")
+                                findPostsCompletionHandler(postDictionary)
+                            }
+                        })
+                    }
                 }
+            } else {
+                print("No posts")
             }
             
             // ...
