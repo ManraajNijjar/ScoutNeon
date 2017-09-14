@@ -45,6 +45,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavBar()
+        
         mainMapView.delegate = self
         
         //Moves the slide in menu off screen
@@ -79,6 +81,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         chromaView.addSubview(colorPicker)
         
+    }
+    
+    func setupNavBar(){
+        //Sets up the color for the Navbar and Toolbar throughout the app
+        let navColor = UIColor.darkGray.withAlphaComponent(0.95)
+        
+        navigationController?.navigationBar.barTintColor = navColor
+        navigationController?.toolbar.barTintColor = navColor
     }
     
     func setupButton(){

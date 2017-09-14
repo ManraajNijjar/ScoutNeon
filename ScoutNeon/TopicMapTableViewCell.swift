@@ -10,6 +10,7 @@ import UIKit
 
 class TopicMapTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var mainLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
