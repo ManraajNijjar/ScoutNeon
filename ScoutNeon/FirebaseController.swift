@@ -261,9 +261,8 @@ class FirebaseController {
         return listener!
     }
     
-    func detachListener(){
+    func detachListeners(){
         ref?.removeAllObservers()
-        
     }
     
     //Generate a Singleton instance of the TwitterAPIController

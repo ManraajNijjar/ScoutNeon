@@ -36,6 +36,11 @@ class MessageTableViewController: UIViewController {
         setupListener()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        firebaseController.detachListeners()
+    }
+    
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitPosts() {
