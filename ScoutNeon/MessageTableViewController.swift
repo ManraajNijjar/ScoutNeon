@@ -79,6 +79,8 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell") as! TitleTableViewCell
             cell.titleLabel.text = titleText
+            cell.topicId = selectedTopic
+            cell.userProfile = userProfile
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell

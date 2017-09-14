@@ -15,6 +15,10 @@ class CoreDataController {
     class func getContext() -> NSManagedObjectContext {
         return CoreDataController.persistentContainer.viewContext
     }
+    
+    func getContext() -> NSManagedObjectContext {
+        return CoreDataController.persistentContainer.viewContext
+    }
 
     static var persistentContainer: NSPersistentContainer = {
         /*
@@ -77,6 +81,43 @@ class CoreDataController {
         profile.anonymous = anonymous
         
         return profile
+    }
+    
+    func createFavoriteTopic(userProfile: Profile, topicId: String){
+        let favTopic: Topic = NSEntityDescription.insertNewObject(forEntityName: "Topic", into: CoreDataController.getContext()) as! Topic
+        favTopic.topicId = topicId
+        favTopic.associateduser = userProfile
+        userProfile.addToFavoritetopics(favTopic)
+    }
+    
+    func deleteFavoriteTopic(userProfile: Profile, topicId: String) {
+        let fetchRequest: NSFetchRequest<Topic> = Topic.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "topicId == %@", topicId)
+        let context = getContext()
+        do {
+            let topicList = try CoreDataController.getContext().fetch(fetchRequest)
+            for topic in topicList {
+                userProfile.removeFromFavoritetopics(topic)
+                context.delete(topic)
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    func checkIfTopicFavorited(userProfile: Profile, topicId: String) -> Bool{
+        let topics = userProfile.favoritetopics
+        var favorited = false
+        if topics != nil {
+            for topic in topics! {
+                let castTopic = topic as! Topic
+                if castTopic.topicId == topicId {
+                    favorited = true
+                }
+            }
+        }
+        return favorited
     }
     
     

@@ -14,7 +14,10 @@ class TitleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starButton: UIButton!
     
+    let coreDataController = CoreDataController.sharedInstance()
     
+    var topicId = ""
+    var userProfile: Profile!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +31,17 @@ class TitleTableViewCell: UITableViewCell {
     }
     
     @IBAction func starButtonPressed(_ sender: Any) {
+        
+        if coreDataController.checkIfTopicFavorited(userProfile: userProfile, topicId: topicId) {
+            print("Deleted")
+            coreDataController.deleteFavoriteTopic(userProfile: userProfile, topicId: topicId)
+            
+        } else {
+            print("Saved")
+            coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId)
+            CoreDataController.saveContext()
+        }
+        
         
     }
     

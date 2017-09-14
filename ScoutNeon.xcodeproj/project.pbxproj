@@ -104,19 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				864A37D51F3BF12700D4FF55 /* AppDelegate.swift */,
-				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
-				864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */,
-				8659D7731F5387BC006035ED /* MapViewController.swift */,
-				864BC68B1F5E365500662303 /* NewPostViewController.swift */,
-				863F05491F676AE000373152 /* MessageTableViewController.swift */,
-				8659D7711F537A76006035ED /* FirebaseController.swift */,
-				8659D7671F520605006035ED /* TextValidationController.swift */,
-				863F054B1F6787D200373152 /* MessageTableViewCell.swift */,
-				863F054D1F69DBC200373152 /* TitleTableViewCell.swift */,
-				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
-				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
-				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
-				8659D7771F55F780006035ED /* ColorPinAnnotation.swift */,
+				86DC18811F69EF7000E2B955 /* Views */,
+				86DC18821F69EF9700E2B955 /* ViewModels */,
+				86DC18831F69EFB000E2B955 /* Controllers */,
 				864A37D91F3BF12700D4FF55 /* Main.storyboard */,
 				864A38591F40D88200D4FF55 /* Data Model */,
 				864A37DF1F3BF12700D4FF55 /* Assets.xcassets */,
@@ -138,6 +128,40 @@
 			);
 			name = "Data Model";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		86DC18811F69EF7000E2B955 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
+				864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */,
+				8659D7731F5387BC006035ED /* MapViewController.swift */,
+				864BC68B1F5E365500662303 /* NewPostViewController.swift */,
+				863F05491F676AE000373152 /* MessageTableViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		86DC18821F69EF9700E2B955 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				863F054B1F6787D200373152 /* MessageTableViewCell.swift */,
+				863F054D1F69DBC200373152 /* TitleTableViewCell.swift */,
+				8659D7771F55F780006035ED /* ColorPinAnnotation.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		86DC18831F69EFB000E2B955 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8659D7711F537A76006035ED /* FirebaseController.swift */,
+				8659D7671F520605006035ED /* TextValidationController.swift */,
+				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
+				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
+				864A385E1F43D36C00D4FF55 /* CoreDataController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		A1F09A75600D7359FF2222CC /* Frameworks */ = {

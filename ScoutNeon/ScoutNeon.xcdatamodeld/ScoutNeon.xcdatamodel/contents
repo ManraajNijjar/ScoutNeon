@@ -7,7 +7,7 @@
         <attribute name="profilepicture" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="twitterid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="favoritetopics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Topic" inverseName="associateduser" inverseEntity="Topic" syncable="YES"/>
+        <relationship name="favoritetopics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Topic" inverseName="associateduser" inverseEntity="Topic" syncable="YES"/>
     </entity>
     <entity name="Topic" representedClassName=".Topic" syncable="YES">
         <attribute name="topicId" optional="YES" attributeType="String" syncable="YES"/>
