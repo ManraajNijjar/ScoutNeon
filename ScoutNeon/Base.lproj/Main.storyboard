@@ -116,9 +116,55 @@
                                             <action selector="slideOutMenuCancelled:" destination="MKa-BM-pl3" eventType="touchUpInside" id="yb3-CQ-cro"/>
                                         </connections>
                                     </button>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LLX-92-Tu3">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LLX-92-Tu3">
                                         <rect key="frame" x="210" y="0.0" width="165" height="251"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jY0-jk-aZa">
+                                                <rect key="frame" x="0.0" y="55.5" width="165" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jY0-jk-aZa" id="XDp-yS-FAA">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZW-1s-53X">
+                                                            <rect key="frame" x="8" y="8" width="149" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="bZW-1s-53X" secondAttribute="trailing" id="7Fq-7K-phy"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="bZW-1s-53X" secondAttribute="bottom" id="9f5-tN-qwI"/>
+                                                        <constraint firstItem="bZW-1s-53X" firstAttribute="leading" secondItem="XDp-yS-FAA" secondAttribute="leadingMargin" id="TJJ-ER-C93"/>
+                                                        <constraint firstItem="bZW-1s-53X" firstAttribute="top" secondItem="XDp-yS-FAA" secondAttribute="topMargin" id="lWV-LJ-oea"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="edC-Zb-Dof">
+                                                <rect key="frame" x="0.0" y="99.5" width="165" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="edC-Zb-Dof" id="rS6-5I-r7C">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4D-cr-n7O">
+                                                            <rect key="frame" x="8" y="8" width="149" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="G4D-cr-n7O" firstAttribute="top" secondItem="rS6-5I-r7C" secondAttribute="topMargin" id="JiG-7I-jjp"/>
+                                                        <constraint firstItem="G4D-cr-n7O" firstAttribute="leading" secondItem="rS6-5I-r7C" secondAttribute="leadingMargin" id="SQ9-8d-32x"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="G4D-cr-n7O" secondAttribute="trailing" id="gAx-kK-eDs"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="G4D-cr-n7O" secondAttribute="bottom" id="jWM-Cq-wqz"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -183,7 +229,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKa-03-AUh">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKa-03-AUh">
                                 <rect key="frame" x="0.0" y="64" width="375" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>

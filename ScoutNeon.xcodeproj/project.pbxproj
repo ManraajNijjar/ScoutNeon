@@ -33,6 +33,8 @@
 		8659D7741F5387BC006035ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7731F5387BC006035ED /* MapViewController.swift */; };
 		8659D7761F55F5C0006035ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8659D7751F55F5C0006035ED /* MapKit.framework */; };
 		8659D7781F55F780006035ED /* ColorPinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D7771F55F780006035ED /* ColorPinAnnotation.swift */; };
+		86DC18851F6B44C000E2B955 /* TopicMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC18841F6B44C000E2B955 /* TopicMapTableViewCell.swift */; };
+		86DC18871F6B44E200E2B955 /* ColorMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC18861F6B44E200E2B955 /* ColorMapTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		8659D7731F5387BC006035ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8659D7751F55F5C0006035ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8659D7771F55F780006035ED /* ColorPinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPinAnnotation.swift; sourceTree = "<group>"; };
+		86DC18841F6B44C000E2B955 /* TopicMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicMapTableViewCell.swift; sourceTree = "<group>"; };
+		86DC18861F6B44E200E2B955 /* ColorMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMapTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,8 @@
 				863F054B1F6787D200373152 /* MessageTableViewCell.swift */,
 				863F054D1F69DBC200373152 /* TitleTableViewCell.swift */,
 				8659D7771F55F780006035ED /* ColorPinAnnotation.swift */,
+				86DC18841F6B44C000E2B955 /* TopicMapTableViewCell.swift */,
+				86DC18861F6B44E200E2B955 /* ColorMapTableViewCell.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 				864A37DE1F3BF12700D4FF55 /* ScoutNeon.xcdatamodeld in Sources */,
 				8659D7681F520605006035ED /* TextValidationController.swift in Sources */,
 				8659D7781F55F780006035ED /* ColorPinAnnotation.swift in Sources */,
+				86DC18871F6B44E200E2B955 /* ColorMapTableViewCell.swift in Sources */,
 				864BC68C1F5E365500662303 /* NewPostViewController.swift in Sources */,
 				864A38711F44FC5E00D4FF55 /* AccountSetupViewController.swift in Sources */,
 				864A385F1F43D36C00D4FF55 /* CoreDataController.swift in Sources */,
@@ -326,6 +333,7 @@
 				863F05661F69ED8400373152 /* Profile+CoreDataProperties.swift in Sources */,
 				8659D7721F537A76006035ED /* FirebaseController.swift in Sources */,
 				863F05641F69ED8400373152 /* Topic+CoreDataProperties.swift in Sources */,
+				86DC18851F6B44C000E2B955 /* TopicMapTableViewCell.swift in Sources */,
 				8659D7741F5387BC006035ED /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

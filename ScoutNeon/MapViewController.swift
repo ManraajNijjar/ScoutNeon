@@ -31,6 +31,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     
+    let sectionTitles = ["Favorite Topics", "Scout's Recommended Colors", "Favorite Colors"]
+    
     var userIDForProfile: String!
     var userProfile = Profile()
     var colorPicker = ChromaColorPicker()
@@ -38,6 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var messageListForTransfer = [[String:String]]()
     var selectedTopic = ""
     var selectedTitle = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -293,10 +296,31 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            if userProfile.favoritetopics != nil {
+                return (userProfile.favoritetopics?.count)!
+            }
+            return 0
+        }
+        if section == 1 {
+            return 4
+        }
+        if section == 2 {
+            return 0
+        }
+        return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
