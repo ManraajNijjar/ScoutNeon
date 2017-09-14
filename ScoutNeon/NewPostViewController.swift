@@ -46,7 +46,9 @@ class NewPostViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude)
+        if firebaseController.rateLimitPosts() {
+            firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude)
+        }
     }
     
     @IBAction func titleFieldChanged(_ sender: Any) {

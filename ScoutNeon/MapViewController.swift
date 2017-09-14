@@ -98,21 +98,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     @IBAction func scoutButtonPressed(_ sender: Any) {
-        operationQueue.async {
-            self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!) { (posts) in
-                DispatchQueue.main.async {
-                    self.mainMapView.removeAnnotations(self.mainMapView.annotations)
-                    for post in posts {
-                        let newPin = ColorPinAnnotation()
-                        newPin.coordinate = CLLocationCoordinate2D(latitude: post["latitude"] as! Double, longitude: post["longitude"] as! Double)
-                        newPin.pinTintColor = self.selectedColor
-                        newPin.title = post["title"] as? String
-                        newPin.subtitle = post["author"] as? String
-                        newPin.id = post["postID"] as? String
-                        self.mainMapView.addAnnotation(newPin)
+        if firebaseController.rateLimitScouts() {
+            operationQueue.async {
+                self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!) { (posts) in
+                    DispatchQueue.main.async {
+                        self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+                        for post in posts {
+                            let newPin = ColorPinAnnotation()
+                            newPin.coordinate = CLLocationCoordinate2D(latitude: post["latitude"] as! Double, longitude: post["longitude"] as! Double)
+                            newPin.pinTintColor = self.selectedColor
+                            newPin.title = post["title"] as? String
+                            newPin.subtitle = post["author"] as? String
+                            newPin.id = post["postID"] as? String
+                            self.mainMapView.addAnnotation(newPin)
+                        }
                     }
                 }
             }
+        } else {
+            print("rate limited")
         }
     }
     

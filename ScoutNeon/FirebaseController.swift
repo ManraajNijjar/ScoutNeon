@@ -13,6 +13,9 @@ import UIKit
 class FirebaseController {
     var ref:DatabaseReference?
     
+    var lastDbInteraction = Date()
+    var lastScout = Date()
+    
     init() {
         ref = Database.database().reference()
     }
@@ -54,6 +57,26 @@ class FirebaseController {
             print(error.localizedDescription)
         }
         
+    }
+    
+    func rateLimitPosts() -> Bool {
+        let currentTime = Date()
+        if currentTime.timeIntervalSince(lastDbInteraction) >= 60 {
+            lastDbInteraction = currentTime
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func rateLimitScouts() -> Bool {
+        let currentTime = Date()
+        if currentTime.timeIntervalSince(lastScout) >= 6 {
+            lastScout = currentTime
+            return true
+        } else {
+            return false
+        }
     }
     
     func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double){
