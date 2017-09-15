@@ -24,6 +24,7 @@ class MessageTableViewController: UIViewController {
     var selectedTopic: String!
     var username: String!
     var titleText: String!
+    var topicColor: String!
     var userProfile: Profile!
     
 
@@ -87,6 +88,7 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell") as! TitleTableViewCell
             cell.titleLabel.text = titleText
             cell.topicId = selectedTopic
+            cell.topicColor = topicColor
             cell.userProfile = userProfile
             return cell
         } else {

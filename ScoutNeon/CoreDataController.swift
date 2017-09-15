@@ -83,9 +83,11 @@ class CoreDataController {
         return profile
     }
     
-    func createFavoriteTopic(userProfile: Profile, topicId: String){
+    func createFavoriteTopic(userProfile: Profile, topicId: String, topicTitle: String, topicColor: String){
         let favTopic: Topic = NSEntityDescription.insertNewObject(forEntityName: "Topic", into: CoreDataController.getContext()) as! Topic
         favTopic.topicId = topicId
+        favTopic.title = topicTitle
+        favTopic.color = topicColor
         favTopic.associateduser = userProfile
         userProfile.addToFavoritetopics(favTopic)
     }

@@ -17,6 +17,7 @@ class TitleTableViewCell: UITableViewCell {
     let coreDataController = CoreDataController.sharedInstance()
     
     var topicId = ""
+    var topicColor = ""
     var userProfile: Profile!
 
     override func awakeFromNib() {
@@ -38,7 +39,7 @@ class TitleTableViewCell: UITableViewCell {
             
         } else {
             print("Saved")
-            coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId)
+            coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId, topicTitle: titleLabel.text!, topicColor: topicColor)
             CoreDataController.saveContext()
         }
         

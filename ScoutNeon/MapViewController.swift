@@ -203,6 +203,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             destinationViewController.username = self.userProfile.username
             destinationViewController.titleText = self.selectedTitle
             destinationViewController.userProfile = self.userProfile
+            destinationViewController.topicColor = self.selectedColor.hexCode
         }
     }
 }

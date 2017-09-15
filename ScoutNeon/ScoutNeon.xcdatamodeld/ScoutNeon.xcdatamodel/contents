@@ -10,11 +10,13 @@
         <relationship name="favoritetopics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Topic" inverseName="associateduser" inverseEntity="Topic" syncable="YES"/>
     </entity>
     <entity name="Topic" representedClassName=".Topic" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topicId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="associateduser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="favoritetopics" inverseEntity="Profile" syncable="YES"/>
     </entity>
     <elements>
         <element name="Profile" positionX="-18" positionY="36" width="128" height="150"/>
-        <element name="Topic" positionX="-45" positionY="0" width="128" height="75"/>
+        <element name="Topic" positionX="-45" positionY="0" width="128" height="105"/>
     </elements>
 </model>
