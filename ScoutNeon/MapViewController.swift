@@ -31,7 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     
-    let sectionTitles = ["Favorite Topics", "Scout's Recommended Colors", "Favorite Colors"]
+    let sectionTitles = ["Favorite Topics", "Scout's Recommended Colors"]
     
     var userIDForProfile: String!
     var userProfile = Profile()
@@ -41,6 +41,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var selectedTopic = ""
     var selectedTitle = ""
     
+    var favoriteTopics = [Topic]()
+    
     var scoutColors = [["name": "Scout Red", "hex": "FF3300"], ["name": "Scout Blue", "hex": "0999FF"], ["name": "Scout Green", "hex": "00FF66"], ["name": "Scout Purple", "hex": "9D00FF"]]
     
     
@@ -48,6 +50,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         
         setupNavBar()
+        
         
         mainMapView.delegate = self
         
@@ -60,10 +63,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        //Setup the TableView methods for the slide in menu
-        slideInTableView.delegate = self
-        slideInTableView.dataSource = self
-        
         //Thread Safe implementation of retrieving the User Profile data
         coreDataController.getUserProfile(userID: userIDForProfile!) { (success, profile) in
             if success {
@@ -72,6 +71,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 print("login as guest")
             }
         }
+        
+        for topic in userProfile.favoritetopics! {
+            let topicPicked = topic as! Topic
+            favoriteTopics.append(topicPicked)
+        }
+        
+        //Setup the TableView methods for the slide in menu
+        slideInTableView.delegate = self
+        slideInTableView.dataSource = self
         
         setupButton()
         
@@ -87,9 +95,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func setupNavBar(){
         //Sets up the color for the Navbar and Toolbar throughout the app
-        let navColor = UIColor.darkGray.withAlphaComponent(0.95)
+        let navColor = UIColor.black.withAlphaComponent(0.95)
         
         navigationController?.navigationBar.barTintColor = navColor
+        print(navigationController?.navigationBar.titleTextAttributes)
         navigationController?.toolbar.barTintColor = navColor
     }
     
@@ -309,7 +318,7 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sectionTitles.count
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -338,6 +347,13 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = String(indexPath.row)
+        if indexPath.section == 0 {
+            let cell = TopicMapTableViewCell()
+            let pickedTopic = favoriteTopics[indexPath.row]
+            cell.topicId = pickedTopic.topicId
+            cell.backgroundColor = UIColor(hex: pickedTopic.color!) 
+            return cell
+        }
         if indexPath.section == 1 {
             let cell = ColorMapTableViewCell()
             cell.textLabel?.text = scoutColors[indexPath.row]["name"]

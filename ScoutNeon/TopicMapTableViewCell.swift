@@ -11,6 +11,9 @@ import UIKit
 class TopicMapTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mainLabel: UILabel!
+    
+    var topicId: String!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

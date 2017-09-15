@@ -19,6 +19,7 @@ class TitleTableViewCell: UITableViewCell {
     var topicId = ""
     var topicColor = ""
     var userProfile: Profile!
+    var topicTitle = ""
 
     override func awakeFromNib() {
         super.awakeFromNib()
