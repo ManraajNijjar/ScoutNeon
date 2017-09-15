@@ -41,6 +41,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var selectedTopic = ""
     var selectedTitle = ""
     
+    var scoutColors = [["name": "Scout Red", "hex": "FF3300"], ["name": "Scout Blue", "hex": "0999FF"], ["name": "Scout Green", "hex": "00FF66"], ["name": "Scout Purple", "hex": "9D00FF"]]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -326,7 +328,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
         if section == 1 {
-            return 4
+            return scoutColors.count
         }
         if section == 2 {
             return 0
@@ -334,9 +336,18 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        return UITableViewCell()
-        
+        let cell = UITableViewCell()
+        cell.textLabel?.text = String(indexPath.row)
+        if indexPath.section == 1 {
+            let cell = ColorMapTableViewCell()
+            cell.textLabel?.text = scoutColors[indexPath.row]["name"]
+            let bgColorHex = scoutColors[indexPath.row]["hex"]
+            let bgColor = UIColor(hex: bgColorHex!)
+            cell.backgroundColor = bgColor
+            cell.chromaPicker = colorPicker
+            return cell
+        }
+        return cell
     }
     
 }

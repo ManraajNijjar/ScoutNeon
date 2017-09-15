@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import ChromaColorPicker
 
 class ColorMapTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mainLabel: UILabel!
+    
+    var chromaPicker: ChromaColorPicker!
     
     override func awakeFromNib() {
         super.awakeFromNib()
