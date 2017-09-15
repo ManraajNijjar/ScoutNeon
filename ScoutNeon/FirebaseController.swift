@@ -61,7 +61,7 @@ class FirebaseController {
     
     func rateLimitPosts() -> Bool {
         let currentTime = Date()
-        if currentTime.timeIntervalSince(lastDbInteraction) >= 60 {
+        if currentTime.timeIntervalSince(lastDbInteraction) >= 1 {
             lastDbInteraction = currentTime
             return true
         } else {

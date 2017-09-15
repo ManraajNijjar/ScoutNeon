@@ -40,7 +40,7 @@ class TitleTableViewCell: UITableViewCell {
             
         } else {
             print("Saved")
-            coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId, topicTitle: titleLabel.text!, topicColor: topicColor)
+            coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId, topicTitle: topicTitle, topicColor: topicColor)
             CoreDataController.saveContext()
         }
         

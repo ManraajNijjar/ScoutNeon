@@ -350,7 +350,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = TopicMapTableViewCell()
             let pickedTopic = favoriteTopics[indexPath.row]
-            cell.topicId = pickedTopic.topicId
+            cell.textLabel?.text = pickedTopic.title
             cell.backgroundColor = UIColor(hex: pickedTopic.color!) 
             return cell
         }

@@ -11,6 +11,7 @@ import UIKit
 class TopicMapTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mainLabel: UILabel!
+
     
     var topicId: String!
     
