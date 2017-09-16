@@ -48,10 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavBar()
-        
-        
         mainMapView.delegate = self
         
         //Moves the slide in menu off screen
@@ -91,6 +88,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         chromaView.addSubview(colorPicker)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        favoriteTopics.removeAll()
+        for topic in userProfile.favoritetopics! {
+            let topicPicked = topic as! Topic
+            favoriteTopics.append(topicPicked)
+        }
+        slideInTableView.reloadData()
     }
     
     func setupNavBar(){
@@ -347,6 +354,9 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = TopicMapTableViewCell()
             let pickedTopic = favoriteTopics[indexPath.row]
             cell.textLabel?.text = pickedTopic.title
+            print(indexPath.row)
+            print(UIColor(hex: pickedTopic.title!))
+            print(UIColor(hex: pickedTopic.color!))
             cell.backgroundColor = UIColor(hex: pickedTopic.color!) 
             return cell
         }
@@ -368,6 +378,8 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             let pickedTopic = favoriteTopics[indexPath.row]
             self.selectedTopic = pickedTopic.topicId!
             self.selectedTitle = pickedTopic.title!
+            self.selectedColor = UIColor(hex: pickedTopic.color!)
+            colorSwitched()
             firebaseController.messageForPostID(postID: selectedTopic, messageForPostCompletionHandler: { (messageList) in
                 self.messageListForTransfer = messageList
                 self.performSegue(withIdentifier: "MessagesSegue", sender: self)
