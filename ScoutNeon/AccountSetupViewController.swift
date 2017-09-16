@@ -104,7 +104,7 @@ class AccountSetupViewController: UIViewController {
         let potentialName = usernameTextField.text
         if validator.validator.validateString(potentialName!) {
             //Could move this part to when submit is presed if the app is connecting to Firebase too often
-            fireBaseController.userExists(userId: potentialName!, userExistsCompletionHandler: { (userStatus) in
+            fireBaseController.userExists(userId: potentialName!, baseView: self, userExistsCompletionHandler: { (userStatus) in
                 self.submitButton.isEnabled = !(userStatus)
             })
         } else {
@@ -116,7 +116,7 @@ class AccountSetupViewController: UIViewController {
         let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: false)
         
         CoreDataController.saveContext()
-        fireBaseController.createUser(userProfile: profile)
+        fireBaseController.createUser(userProfile: profile, baseView: self)
         self.performSegue(withIdentifier: "MapSegue", sender: self)
         
     }

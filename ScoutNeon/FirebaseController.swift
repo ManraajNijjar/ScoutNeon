@@ -13,6 +13,8 @@ import UIKit
 class FirebaseController {
     var ref:DatabaseReference?
     
+    let errorController = ErrorAlertController()
+    
     var lastDbInteraction = Date()
     var lastScout = Date()
     
@@ -24,13 +26,16 @@ class FirebaseController {
         return ref
     }
     
-    func createUser(userProfile: Profile) {
-        ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!])
+    func createUser(userProfile: Profile, baseView: UIViewController) {
+        /* ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!]) */
+        ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!], withCompletionBlock: { (error, ref) in
+            if (error != nil) {
+                self.errorController.displayAlert(title: "DB Issue", message: "There was an error creating your account", view: baseView)
+            }
+        })
     }
     
-    func userExists(userId: String, userExistsCompletionHandler: @escaping (_ userStatus: Bool) -> Void){
-        
-        //ref?.child("Users").queryOrderedByKey()
+    func userExists(userId: String, baseView: UIViewController, userExistsCompletionHandler: @escaping (_ userStatus: Bool) -> Void){
         
         ref?.child("Users").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -55,6 +60,7 @@ class FirebaseController {
             // ...
         }) { (error) in
             print(error.localizedDescription)
+            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
         }
         
     }
