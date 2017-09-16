@@ -354,9 +354,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = TopicMapTableViewCell()
             let pickedTopic = favoriteTopics[indexPath.row]
             cell.textLabel?.text = pickedTopic.title
-            print(indexPath.row)
-            print(UIColor(hex: pickedTopic.title!))
-            print(UIColor(hex: pickedTopic.color!))
             cell.backgroundColor = UIColor(hex: pickedTopic.color!) 
             return cell
         }
