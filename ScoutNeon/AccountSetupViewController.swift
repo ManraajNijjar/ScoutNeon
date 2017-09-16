@@ -75,6 +75,8 @@ class AccountSetupViewController: UIViewController {
             }
         }
         view.bringSubview(toFront: usernameTextField)
+        
+        usernameTextField.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -162,4 +164,10 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     }
     
     
+}
+extension AccountSetupViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }

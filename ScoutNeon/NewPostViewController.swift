@@ -42,12 +42,16 @@ class NewPostViewController: UIViewController {
         }
         self.view.backgroundColor = color.lighterColor(0.3)
         
+        titleTextField.delegate = self
+        messageTextField.delegate = self
+        
     }
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitPosts() {
             firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -68,5 +72,12 @@ class NewPostViewController: UIViewController {
         } else {
             submitButton.isEnabled = false
         }
+    }
+}
+
+extension NewPostViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
