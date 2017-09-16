@@ -307,11 +307,6 @@ extension MapViewController: MKMapViewDelegate {
                 self.messageListForTransfer = messageList
                 self.performSegue(withIdentifier: "MessagesSegue", sender: self)
             })
-            /*
-            firebaseController.messagesForPost(postID: colorPin.id!, messageForPostCompletionHanlder: { (messageList) in
-                self.messageListForTransfer = messageList
-                self.performSegue(withIdentifier: "MessagesSegue", sender: self)
-            }) */
         }
     }
 }
@@ -370,6 +365,13 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             tableView.deselectRow(at: indexPath, animated: true)
+            let pickedTopic = favoriteTopics[indexPath.row]
+            self.selectedTopic = pickedTopic.topicId!
+            self.selectedTitle = pickedTopic.title!
+            firebaseController.messageForPostID(postID: selectedTopic, messageForPostCompletionHandler: { (messageList) in
+                self.messageListForTransfer = messageList
+                self.performSegue(withIdentifier: "MessagesSegue", sender: self)
+            })
             
         }
         
