@@ -27,13 +27,17 @@ class MessageTableViewController: UIViewController {
     var topicColor: String!
     var userProfile: Profile!
     
+    var postCount = 0
+    
+    var alphaComponent: Double = 0.5
+    var alphaModifier: Double = 0
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         submitButton.isEnabled = false
-        
         setupListener()
     }
     
@@ -81,7 +85,9 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count + 1
+        postCount = messages.count + 1
+        alphaModifier = alphaComponent.divided(by: Double(postCount))
+        return postCount
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
@@ -91,12 +97,15 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
             cell.topicId = selectedTopic
             cell.topicColor = topicColor
             cell.userProfile = userProfile
+            cell.backgroundColor = UIColor(hex: topicColor).withAlphaComponent(CGFloat(alphaComponent))
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
             let value = messages[indexPath.row - 1]
             cell.authorLabel.text = value["author"]
             cell.messageLabel.text = value["text"]
+            let backgroundValue = CGFloat(alphaComponent - (alphaModifier * Double(indexPath.row)))
+            cell.backgroundColor = UIColor(hex: topicColor).withAlphaComponent(backgroundValue)
             return cell
         }
         
