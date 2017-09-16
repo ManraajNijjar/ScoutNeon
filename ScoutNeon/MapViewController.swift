@@ -344,6 +344,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = String(indexPath.row)
@@ -364,6 +365,19 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        }
+        
+        if indexPath.section == 1 {
+            tableView.deselectRow(at: indexPath, animated: true)
+            colorPicker.adjustToColor(UIColor(hex: scoutColors[indexPath.row]["hex"]!))
+            colorSwitched()
+        }
     }
     
 }
