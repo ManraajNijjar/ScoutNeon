@@ -19,6 +19,7 @@ class MessageTableViewController: UIViewController {
     
     let validator = TextValidationController.sharedInstance()
     let firebaseController = FirebaseController.sharedInstance()
+    let coreDataController = CoreDataController.sharedInstance()
     
     var messages: [[String: String]]!
     var selectedTopic: String!
@@ -98,6 +99,9 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
             cell.topicColor = topicColor
             cell.userProfile = userProfile
             cell.backgroundColor = UIColor(hex: topicColor).withAlphaComponent(CGFloat(alphaComponent))
+            if coreDataController.checkIfTopicFavorited(userProfile: userProfile, topicId: selectedTopic) {
+                cell.starButton.imageView?.image = UIImage(named: "YellowStar")
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell

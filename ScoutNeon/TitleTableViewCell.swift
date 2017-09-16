@@ -37,9 +37,11 @@ class TitleTableViewCell: UITableViewCell {
         if coreDataController.checkIfTopicFavorited(userProfile: userProfile, topicId: topicId) {
             print("Deleted")
             coreDataController.deleteFavoriteTopic(userProfile: userProfile, topicId: topicId)
+            starButton.imageView?.image = UIImage(named: "BlackStar")
             
         } else {
             print("Saved")
+            starButton.imageView?.image = UIImage(named: "YellowStar")
             coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId, topicTitle: topicTitle, topicColor: topicColor)
             CoreDataController.saveContext()
         }

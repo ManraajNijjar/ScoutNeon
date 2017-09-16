@@ -290,9 +290,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0P-QS-3AN">
-                                                    <rect key="frame" x="172" y="49" width="30" height="30"/>
-                                                    <state key="normal" title="Star"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0P-QS-3AN">
+                                                    <rect key="frame" x="175" y="49" width="24" height="24"/>
+                                                    <state key="normal" image="BlackStar"/>
                                                     <connections>
                                                         <action selector="starButtonPressed:" destination="BJV-0v-PHr" eventType="touchUpInside" id="SCd-CK-IiF"/>
                                                     </connections>
@@ -372,7 +372,7 @@
                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Thank You to Patrick Tomasso from Unsplash for the Background Image used on the Login Screen. Thank you to Freepik for the Icons used in the slideInMenu</string>
+                                <string key="text">Thank You to Patrick Tomasso from Unsplash for the Background Image used on the Login Screen. Thank you to Freepik for the Icons used in the slideInMenu, favoriting topics</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -584,6 +584,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BlackStar" width="24" height="24"/>
         <image name="NEON" width="640" height="400"/>
         <image name="navigate-arrows-pointing-to-down" width="24" height="24"/>
         <image name="patrick-tomasso-59247" width="3648" height="5472"/>
