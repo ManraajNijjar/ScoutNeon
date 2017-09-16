@@ -35,6 +35,7 @@
 		86DC188D1F6B718000E2B955 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC18891F6B718000E2B955 /* Profile+CoreDataProperties.swift */; };
 		86DC188E1F6B718000E2B955 /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC188A1F6B718000E2B955 /* Topic+CoreDataClass.swift */; };
 		86DC188F1F6B718000E2B955 /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC188B1F6B718000E2B955 /* Topic+CoreDataProperties.swift */; };
+		86DC18911F6DB59D00E2B955 /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC18901F6DB59C00E2B955 /* ErrorAlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		86DC18891F6B718000E2B955 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		86DC188A1F6B718000E2B955 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
 		86DC188B1F6B718000E2B955 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		86DC18901F6DB59C00E2B955 /* ErrorAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				8659D7711F537A76006035ED /* FirebaseController.swift */,
+				86DC18901F6DB59C00E2B955 /* ErrorAlertController.swift */,
 				8659D7671F520605006035ED /* TextValidationController.swift */,
 				864A38741F46601C00D4FF55 /* TwitterApiController.swift */,
 				864A38721F45250C00D4FF55 /* ColorApiController.swift */,
@@ -329,6 +332,7 @@
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
 				864A38731F45250C00D4FF55 /* ColorApiController.swift in Sources */,
 				863F054E1F69DBC200373152 /* TitleTableViewCell.swift in Sources */,
+				86DC18911F6DB59D00E2B955 /* ErrorAlertController.swift in Sources */,
 				86DC188F1F6B718000E2B955 /* Topic+CoreDataProperties.swift in Sources */,
 				86DC188D1F6B718000E2B955 /* Profile+CoreDataProperties.swift in Sources */,
 				8659D7721F537A76006035ED /* FirebaseController.swift in Sources */,

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let twitterAPI = TwitterApiController.sharedInstance()
+    let errorController = ErrorAlertController()
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
     var firebaseId = ""
@@ -56,11 +57,13 @@ class ViewController: UIViewController {
                         
                     } else {
                         print("error: \(String(describing: error?.localizedDescription))")
+                        self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
                     }
                 })
                 
             } else {
                 print("error: \(String(describing: error?.localizedDescription))")
+                self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Twitter Servers", view: self)
             }
         })
         
