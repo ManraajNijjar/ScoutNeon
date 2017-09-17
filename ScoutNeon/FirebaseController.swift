@@ -125,7 +125,7 @@ class FirebaseController {
         
     }
     
-    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
+    func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, baseView: UIViewController, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         var postArray = [String]()
         var postDictionary = [[String:Any]]()
         var postCount = 0
@@ -158,6 +158,7 @@ class FirebaseController {
             // ...
         }) { (error) in
             print(error.localizedDescription)
+            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
         }
     }
     
@@ -203,10 +204,11 @@ class FirebaseController {
         }
     }
     
-    func messageForPostID(postID: String, messageForPostCompletionHandler: @escaping (_ messageList: [[String: String]]) -> Void){
+    func messageForPostID(postID: String, baseView: UIViewController, messageForPostCompletionHandler: @escaping (_ messageList: [[String: String]]) -> Void){
         var messageDictArray = [[String: String]]()
         var messageCount = 0
         var totalCount = 0
+        /*
         ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             totalCount = (value?.count)!
@@ -220,7 +222,25 @@ class FirebaseController {
                     }
                 })
             }
+        })*/
+        
+        ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            totalCount = (value?.count)!
+            
+            for (key, _) in value! {
+                self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
+                    messageDictArray.append(messageContents)
+                    messageCount = messageCount + 1
+                    if messageCount >= totalCount {
+                        messageForPostCompletionHandler(messageDictArray)
+                    }
+                })
+            }
+        }, withCancel: { (error) in
+            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
         })
+        
     }
 
     

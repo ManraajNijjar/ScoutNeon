@@ -51,6 +51,10 @@ class NewPostViewController: UIViewController {
     @IBAction func submitButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitPosts() {
             firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude)
+            if let navController = self.navigationController, navController.viewControllers.count >= 2 {
+                let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController
+                viewController.fromNewPost = true
+            }
             navigationController?.popViewController(animated: true)
         }
     }

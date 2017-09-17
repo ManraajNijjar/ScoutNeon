@@ -43,6 +43,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var selectedTopic = ""
     var selectedTitle = ""
     
+    var fromNewPost = false
+    
     var favoriteTopics = [Topic]()
     
     var scoutColors = [["name": "Scout Red", "hex": "FF3300"], ["name": "Scout Blue", "hex": "0999FF"], ["name": "Scout Green", "hex": "00FF66"], ["name": "Scout Purple", "hex": "9D00FF"]]
@@ -66,8 +68,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         coreDataController.getUserProfile(userID: userIDForProfile!) { (success, profile) in
             if success {
                 self.userProfile = profile!
-            } else {
-                print("login as guest")
             }
         }
         
@@ -104,7 +104,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        if fromNewPost == true {
+            fromNewPost = false
+            scoutForTopics()
+        }
     }
     
     func setupNavBar(){
@@ -112,7 +115,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let navColor = UIColor.black.withAlphaComponent(0.95)
         
         navigationController?.navigationBar.barTintColor = navColor
-        print(navigationController?.navigationBar.titleTextAttributes)
         navigationController?.toolbar.barTintColor = navColor
     }
     
@@ -133,19 +135,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         scoutButton.addGestureRecognizer(longTouchRecognizer)
     }
     
-    
-    @IBAction func scoutButtonPressed(_ sender: Any) {
+    func scoutForTopics() {
         if firebaseController.rateLimitScouts() {
             scoutButton.alpha = 0
             scoutButton.setTitle("1 Sec", for: .normal)
-            UIView.animate(withDuration: 6, animations: { 
+            UIView.animate(withDuration: 6, animations: {
                 self.scoutButton.alpha = 1
             }, completion: { (value) in
                 self.scoutButton.setTitle("Scout", for: .normal)
             })
             activityIndicator.startAnimating()
             operationQueue.async {
-                self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!) { (posts) in
+                self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, baseView: self) { (posts) in
                     DispatchQueue.main.async {
                         self.mainMapView.removeAnnotations(self.mainMapView.annotations)
                         for post in posts {
@@ -164,6 +165,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             print("rate limited")
         }
+    }
+    
+    
+    @IBAction func scoutButtonPressed(_ sender: Any) {
+        scoutForTopics()
     }
     
     @IBAction func newPostButtonPressed(_ sender: Any) {
@@ -322,12 +328,14 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
         if view.annotation is ColorPinAnnotation {
+            activityIndicator.startAnimating()
             let colorPin = view.annotation as! ColorPinAnnotation
             self.selectedTopic = colorPin.id!
             self.selectedTitle = colorPin.title!
-            firebaseController.messageForPostID(postID: selectedTopic, messageForPostCompletionHandler: { (messageList) in
+            firebaseController.messageForPostID(postID: selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
                 self.messageListForTransfer = messageList
                 self.performSegue(withIdentifier: "MessagesSegue", sender: self)
+                self.activityIndicator.stopAnimating()
             })
         }
     }
@@ -392,7 +400,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             self.selectedTitle = pickedTopic.title!
             self.selectedColor = UIColor(hex: pickedTopic.color!)
             colorSwitched()
-            firebaseController.messageForPostID(postID: selectedTopic, messageForPostCompletionHandler: { (messageList) in
+            firebaseController.messageForPostID(postID: selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
                 self.messageListForTransfer = messageList
                 self.performSegue(withIdentifier: "MessagesSegue", sender: self)
             })

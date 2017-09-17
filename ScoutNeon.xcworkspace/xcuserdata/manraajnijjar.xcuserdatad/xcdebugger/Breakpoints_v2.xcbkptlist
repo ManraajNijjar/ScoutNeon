@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoutNeon/ViewController.swift"
+            timestampString = "527358572.816565"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ScoutNeon.ViewController.viewDidLoad () -&gt; ()"
+                  moduleName = "ScoutNeon"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manraajnijjar/Documents/Dev/iOS/Intermediate/ScoutNeon/ScoutNeon/ViewController.swift"
+                  timestampString = "527358427.355229"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "78">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ScoutNeon.ViewController.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "ScoutNeon"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/manraajnijjar/Documents/Dev/iOS/Intermediate/ScoutNeon/ScoutNeon/ViewController.swift"
+                  timestampString = "527358427.383565"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

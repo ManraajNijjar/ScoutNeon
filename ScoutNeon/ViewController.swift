@@ -31,7 +31,7 @@ class ViewController: UIViewController {
             if (session != nil) {
                 
                 //Should use this for the username
-                print("signed in as \(String(describing: session?.userName))")
+                //print("signed in as \(String(describing: session?.userName))")
                 self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
                 self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
                 let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
