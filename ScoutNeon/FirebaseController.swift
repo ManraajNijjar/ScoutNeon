@@ -208,37 +208,31 @@ class FirebaseController {
         var messageDictArray = [[String: String]]()
         var messageCount = 0
         var totalCount = 0
-        /*
-        ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            totalCount = (value?.count)!
-            
-            for (key, _) in value! {
-                self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
-                    messageDictArray.append(messageContents)
-                    messageCount = messageCount + 1
-                    if messageCount >= totalCount {
-                        messageForPostCompletionHandler(messageDictArray)
-                    }
-                })
-            }
-        })*/
         
-        ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            totalCount = (value?.count)!
-            
-            for (key, _) in value! {
-                self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
-                    messageDictArray.append(messageContents)
-                    messageCount = messageCount + 1
-                    if messageCount >= totalCount {
-                        messageForPostCompletionHandler(messageDictArray)
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                self.ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    totalCount = (value?.count)!
+                    
+                    for (key, _) in value! {
+                        self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
+                            messageDictArray.append(messageContents)
+                            messageCount = messageCount + 1
+                            if messageCount >= totalCount {
+                                messageForPostCompletionHandler(messageDictArray)
+                            }
+                        })
                     }
                 })
+            } else {
+                print("Not connected")
+                let mapView = baseView as! MapViewController
+                mapView.activityIndicator.stopAnimating()
+                self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
             }
-        }, withCancel: { (error) in
-            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
         })
         
     }

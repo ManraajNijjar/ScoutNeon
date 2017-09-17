@@ -90,6 +90,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         chromaView.addSubview(colorPicker)
         
+        activityIndicator.color = selectedColor
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
