@@ -184,9 +184,8 @@
                                     <constraint firstAttribute="bottom" secondItem="LLX-92-Tu3" secondAttribute="bottom" id="v8j-TS-uXi"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bRg-XA-d5i">
-                                <rect key="frame" x="169" y="325" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bRg-XA-d5i">
+                                <rect key="frame" x="169" y="293" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -194,10 +193,12 @@
                             <constraint firstItem="1g0-iV-vXm" firstAttribute="leading" secondItem="4vc-jJ-dRQ" secondAttribute="leading" id="17n-If-ckn"/>
                             <constraint firstItem="44S-A5-O5u" firstAttribute="top" secondItem="1g0-iV-vXm" secondAttribute="bottom" id="7fb-et-Rzu"/>
                             <constraint firstItem="1g0-iV-vXm" firstAttribute="top" secondItem="iZn-k1-5RD" secondAttribute="bottom" id="8dc-qe-FXh"/>
+                            <constraint firstItem="bRg-XA-d5i" firstAttribute="centerX" secondItem="4vc-jJ-dRQ" secondAttribute="centerX" id="MJf-Lo-IuC"/>
                             <constraint firstItem="4hQ-T8-lgg" firstAttribute="top" secondItem="iZn-k1-5RD" secondAttribute="bottom" constant="352" id="Nk4-ic-MQV"/>
                             <constraint firstAttribute="trailing" secondItem="1g0-iV-vXm" secondAttribute="trailing" id="qpP-tM-fyD"/>
                             <constraint firstAttribute="trailing" secondItem="4hQ-T8-lgg" secondAttribute="trailing" id="t59-ze-u1a"/>
                             <constraint firstItem="4hQ-T8-lgg" firstAttribute="leading" secondItem="4vc-jJ-dRQ" secondAttribute="leading" id="vOU-ie-CSE"/>
+                            <constraint firstItem="bRg-XA-d5i" firstAttribute="centerY" secondItem="4vc-jJ-dRQ" secondAttribute="centerY" id="yiJ-Eh-63t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ScoutNeon" id="Bfq-Lh-0hV">
@@ -335,14 +336,19 @@
                                     <action selector="textFieldEdited:" destination="VTg-ye-5Pf" eventType="editingChanged" id="OBc-FK-Ydr"/>
                                 </connections>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EQO-tJ-X59">
+                                <rect key="frame" x="169" y="293" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="baJ-vn-G3z" secondAttribute="trailing" id="4DQ-xJ-RiH"/>
+                            <constraint firstItem="EQO-tJ-X59" firstAttribute="centerX" secondItem="5hc-1H-zda" secondAttribute="centerX" id="66q-aM-POV"/>
                             <constraint firstItem="M7K-EI-eNa" firstAttribute="top" secondItem="DZV-Ba-W3Z" secondAttribute="bottom" id="ADj-bL-6mV"/>
                             <constraint firstItem="baJ-vn-G3z" firstAttribute="top" secondItem="YKa-03-AUh" secondAttribute="bottom" id="CE2-t7-8Rn"/>
                             <constraint firstItem="DZV-Ba-W3Z" firstAttribute="leading" secondItem="5hc-1H-zda" secondAttribute="leading" id="JUz-EL-Vnk"/>
                             <constraint firstItem="M7K-EI-eNa" firstAttribute="top" secondItem="DZV-Ba-W3Z" secondAttribute="bottom" id="Uqx-Jc-ZTG"/>
+                            <constraint firstItem="EQO-tJ-X59" firstAttribute="centerY" secondItem="5hc-1H-zda" secondAttribute="centerY" id="WHz-NF-dYb"/>
                             <constraint firstItem="DZV-Ba-W3Z" firstAttribute="top" secondItem="baJ-vn-G3z" secondAttribute="bottom" id="ZQo-vd-7Da"/>
                             <constraint firstItem="YKa-03-AUh" firstAttribute="top" secondItem="caE-zx-NTI" secondAttribute="bottom" id="Zen-VW-cAT"/>
                             <constraint firstAttribute="trailing" secondItem="DZV-Ba-W3Z" secondAttribute="trailing" id="ZsA-Vf-hVL"/>
@@ -352,6 +358,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="EQO-tJ-X59" id="C8W-33-RJ0"/>
                         <outlet property="submitButton" destination="DZV-Ba-W3Z" id="XvZ-UV-BkE"/>
                         <outlet property="tableView" destination="YKa-03-AUh" id="0md-qd-6by"/>
                         <outlet property="textField" destination="baJ-vn-G3z" id="qA3-SL-6Iw"/>
@@ -432,9 +439,14 @@
                                     <action selector="submitButtonPressed:" destination="k4E-JT-vFg" eventType="touchUpInside" id="XfH-CK-nZP"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CId-sF-tPT">
+                                <rect key="frame" x="169" y="293" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="CId-sF-tPT" firstAttribute="centerX" secondItem="25W-Kn-TAT" secondAttribute="centerX" id="03k-vn-XT3"/>
+                            <constraint firstItem="CId-sF-tPT" firstAttribute="centerY" secondItem="25W-Kn-TAT" secondAttribute="centerY" id="29E-XB-xJJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9QX-EF-D7P" secondAttribute="trailing" id="5rO-wK-QIo"/>
                             <constraint firstItem="9QX-EF-D7P" firstAttribute="top" secondItem="bSY-D9-7B8" secondAttribute="bottom" constant="40" id="Gkc-bG-oix"/>
                             <constraint firstItem="vAc-Wb-bNb" firstAttribute="centerX" secondItem="25W-Kn-TAT" secondAttribute="centerX" id="Oz5-9m-m7E"/>
@@ -450,6 +462,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="CId-sF-tPT" id="GzA-zF-YoR"/>
                         <outlet property="messageTextField" destination="V7f-7P-3B5" id="Jcd-cK-Tmw"/>
                         <outlet property="submitButton" destination="vAc-Wb-bNb" id="7yW-Li-hRm"/>
                         <outlet property="titleLabel" destination="bSY-D9-7B8" id="hI8-L9-Gaw"/>

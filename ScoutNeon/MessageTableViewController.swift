@@ -17,6 +17,8 @@ class MessageTableViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     let validator = TextValidationController.sharedInstance()
     let firebaseController = FirebaseController.sharedInstance()
     let coreDataController = CoreDataController.sharedInstance()
@@ -103,9 +105,6 @@ class MessageTableViewController: UIViewController {
 }
 extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         postCount = messages.count + 1
         alphaModifier = alphaComponent.divided(by: Double(postCount))

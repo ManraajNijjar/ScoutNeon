@@ -18,6 +18,9 @@ class FirebaseController {
     var lastDbInteraction = Date()
     var lastScout = Date()
     
+    var timeBetweenPosts: Double = 0
+    var timeBetweenScouts: Double = 0
+    
     init() {
         ref = Database.database().reference()
     }
@@ -67,7 +70,8 @@ class FirebaseController {
     
     func rateLimitPosts() -> Bool {
         let currentTime = Date()
-        if currentTime.timeIntervalSince(lastDbInteraction) >= 20 {
+        if currentTime.timeIntervalSince(lastDbInteraction) >= timeBetweenPosts {
+            timeBetweenPosts = 20
             lastDbInteraction = currentTime
             return true
         } else {
@@ -77,7 +81,8 @@ class FirebaseController {
     
     func rateLimitScouts() -> Bool {
         let currentTime = Date()
-        if currentTime.timeIntervalSince(lastScout) >= 6 {
+        if currentTime.timeIntervalSince(lastScout) >= timeBetweenScouts {
+            timeBetweenScouts = 6
             lastScout = currentTime
             return true
         } else {
@@ -85,39 +90,51 @@ class FirebaseController {
         }
     }
     
-    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double){
-        //Generate the values for the database objects
-        let postKey = ref?.child("Topics").childByAutoId()
-        let messageKey = ref?.child("UsedKeys").childByAutoId()
+    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController){
+        let postView = baseView as! NewPostViewController
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                //Generate the values for the database objects
+                let postKey = self.ref?.child("Topics").childByAutoId()
+                let messageKey = self.ref?.child("UsedKeys").childByAutoId()
+                
+                
+                //Builds a list of used MessageKeys
+                self.ref?.child("UsedKeys").child((messageKey?.key)!).setValue(["used": true])
+                
+                //Builds a list of topics with unique ids that contain the topic title mainly as a filler value
+                self.ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
+                
+                //Builds a list of messages with unique ids that contain reference to their associated topic
+                self.ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
+                
+                //Builds the topic object with a unique name that contains the message list, location, and color
+                self.ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
+                
+                //An object unique for each hex value that contains the topic key
+                self.ref?.child("Hex:"+color).childByAutoId().setValue(["topic": postKey?.key])
+                
+                //The message object that contains the username and the message.
+                self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": username, "text": topicMessage])
+                
+                postView.activityIndicator.stopAnimating()
+                
+            } else {
+                print("Not connected")
+                self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post", view: baseView)
+                postView.activityIndicator.stopAnimating()
+            }
+        })
         
-        
-        //Builds a list of used MessageKeys
-        ref?.child("UsedKeys").child((messageKey?.key)!).setValue(["used": true])
-        
-        //Builds a list of topics with unique ids that contain the topic title mainly as a filler value
-        ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
-        
-        //Builds a list of messages with unique ids that contain reference to their associated topic
-        ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
-        
-        //Builds the topic object with a unique name that contains the message list, location, and color
-        ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
-        
-        //An object unique for each hex value that contains the topic key
-        ref?.child("Hex:"+color).childByAutoId().setValue(["topic": postKey?.key])
-        
-        //The message object that contains the username and the message.
-        ref?.child("Message:"+(messageKey?.key)!).setValue(["author": username, "text": topicMessage])
-        
-        
-        print(postKey?.key)
     }
     
     func newMessage(postId: String, messageValueString: String, author: String){
         let messageKey = ref?.child("UsedKeys").childByAutoId()
         
         ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
+            _ = snapshot.value as? NSDictionary
             let messageTitleString = messageKey?.key as! String
             self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
             self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])

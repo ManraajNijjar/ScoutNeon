@@ -107,8 +107,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if fromNewPost == true {
-            fromNewPost = false
             scoutForTopics()
+            fromNewPost = false
         }
     }
     
@@ -146,7 +146,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             }, completion: { (value) in
                 self.scoutButton.setTitle("Scout", for: .normal)
             })
-            activityIndicator.startAnimating()
+            if fromNewPost == false {
+                activityIndicator.startAnimating()
+            }
             operationQueue.async {
                 self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, baseView: self) { (posts) in
                     DispatchQueue.main.async {
