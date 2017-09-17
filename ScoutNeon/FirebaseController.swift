@@ -93,7 +93,7 @@ class FirebaseController {
     func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController){
         let postView = baseView as! NewPostViewController
         let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observe(.value, with: { snapshot in
+        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 print("Connected")
                 //Generate the values for the database objects
@@ -123,21 +123,32 @@ class FirebaseController {
                 
             } else {
                 print("Not connected")
-                self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post", view: baseView)
+                self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your post later", view: baseView)
                 postView.activityIndicator.stopAnimating()
             }
         })
         
     }
     
-    func newMessage(postId: String, messageValueString: String, author: String){
+    func newMessage(postId: String, messageValueString: String, author: String, baseView: UIViewController){
         let messageKey = ref?.child("UsedKeys").childByAutoId()
+        let postView = baseView as! MessageTableViewController
         
-        ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
-            _ = snapshot.value as? NSDictionary
-            let messageTitleString = messageKey?.key as! String
-            self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
-            self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                postView.activityIndicator.stopAnimating()
+                self.ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
+                    _ = snapshot.value as? NSDictionary
+                    let messageTitleString = messageKey?.key as! String
+                    self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
+                    self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
+                })
+            } else {
+                
+                self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your message again later", view: baseView)
+                postView.activityIndicator.stopAnimating()
+            }
         })
         
     }

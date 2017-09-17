@@ -22,6 +22,7 @@ class MessageTableViewController: UIViewController {
     let validator = TextValidationController.sharedInstance()
     let firebaseController = FirebaseController.sharedInstance()
     let coreDataController = CoreDataController.sharedInstance()
+    let errorController = ErrorAlertController()
     
     var messages: [[String: String]]!
     var selectedTopic: String!
@@ -57,9 +58,12 @@ class MessageTableViewController: UIViewController {
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitPosts() {
-            firebaseController.newMessage(postId: selectedTopic, messageValueString: textField.text!, author: username)
+            activityIndicator.startAnimating()
+            firebaseController.newMessage(postId: selectedTopic, messageValueString: textField.text!, author: username, baseView: self)
             textField.text = ""
             submitButton.isEnabled = false
+        } else {
+            errorController.displayAlert(title: "Slow Down", message: "Please wait 20 seconds between posting", view: self)
         }
     }
     

@@ -336,7 +336,7 @@
                                     <action selector="textFieldEdited:" destination="VTg-ye-5Pf" eventType="editingChanged" id="OBc-FK-Ydr"/>
                                 </connections>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EQO-tJ-X59">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EQO-tJ-X59">
                                 <rect key="frame" x="169" y="293" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
