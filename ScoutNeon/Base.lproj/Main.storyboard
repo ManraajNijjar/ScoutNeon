@@ -184,6 +184,10 @@
                                     <constraint firstAttribute="bottom" secondItem="LLX-92-Tu3" secondAttribute="bottom" id="v8j-TS-uXi"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bRg-XA-d5i">
+                                <rect key="frame" x="169" y="325" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -209,6 +213,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="bRg-XA-d5i" id="Qzd-uC-UUx"/>
                         <outlet property="chromaView" destination="4hQ-T8-lgg" id="vGF-WF-mP7"/>
                         <outlet property="chromaViewConstraint" destination="Nk4-ic-MQV" id="6oI-HX-hBs"/>
                         <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>

@@ -21,6 +21,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var slideInTableView: UITableView!
     @IBOutlet weak var slideInCancelButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     let coreDataController = CoreDataController.sharedInstance()
     
     let firebaseController = FirebaseController.sharedInstance()
@@ -100,6 +102,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         slideInTableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+    }
+    
     func setupNavBar(){
         //Sets up the color for the Navbar and Toolbar throughout the app
         let navColor = UIColor.black.withAlphaComponent(0.95)
@@ -127,9 +134,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
     @IBAction func scoutButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitScouts() {
+            scoutButton.alpha = 0
+            scoutButton.setTitle("1 Sec", for: .normal)
+            UIView.animate(withDuration: 6, animations: { 
+                self.scoutButton.alpha = 1
+            }, completion: { (value) in
+                self.scoutButton.setTitle("Scout", for: .normal)
+            })
+            activityIndicator.startAnimating()
             operationQueue.async {
                 self.firebaseController.findPostsByHexAndLocation(colorHex: self.selectedColor.hexCode, latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!) { (posts) in
                     DispatchQueue.main.async {
@@ -143,6 +157,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                             newPin.id = post["postID"] as? String
                             self.mainMapView.addAnnotation(newPin)
                         }
+                        self.activityIndicator.stopAnimating()
                     }
                 }
             }
