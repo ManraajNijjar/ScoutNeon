@@ -93,7 +93,7 @@ class FirebaseController {
     func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController){
         let postView = baseView as! NewPostViewController
         let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
+        connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 print("Connected")
                 //Generate the values for the database objects
@@ -121,9 +121,12 @@ class FirebaseController {
                 
                 postView.activityIndicator.stopAnimating()
                 
+                connectedRef.cancelDisconnectOperations()
+                connectedRef.removeAllObservers()
+                
             } else {
                 print("Not connected")
-                self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your post later", view: baseView)
+                self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post", view: baseView)
                 postView.activityIndicator.stopAnimating()
             }
         })
@@ -135,7 +138,7 @@ class FirebaseController {
         let postView = baseView as! MessageTableViewController
         
         let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
+        connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 postView.activityIndicator.stopAnimating()
                 self.ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -144,16 +147,71 @@ class FirebaseController {
                     self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
                     self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
                 })
+                connectedRef.cancelDisconnectOperations()
+                connectedRef.removeAllObservers()
             } else {
                 
                 self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your message again later", view: baseView)
                 postView.activityIndicator.stopAnimating()
+                connectedRef.removeAllObservers()
             }
         })
         
     }
     
     func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, baseView: UIViewController, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
+        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                var postArray = [String]()
+                var postDictionary = [[String:Any]]()
+                var postCount = 0
+                var totalCount = 0
+                self.ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get user value
+                    let value = snapshot.value as? NSDictionary
+                    if (value != nil) {
+                        totalCount = (value?.count)!
+                        for (_, val) in value! {
+                            for (_, valTwo) in (val as? NSDictionary)! {
+                                self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
+                                    print("keepin on keeping on")
+                                    postCount = postCount + 1
+                                    if postStatus {
+                                        postArray.append(postId)
+                                        postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
+                                    }
+                                    if postCount >= totalCount {
+                                        print("internally ran")
+                                        findPostsCompletionHandler(postDictionary)
+                                    }
+                                })
+                            }
+                        }
+                    } else {
+                        print("No posts")
+                    }
+                    
+                    // ...
+                }) { (error) in
+                    print("hello")
+                    print(error.localizedDescription)
+                    print("hey")
+                    self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
+                }
+                connectedRef.cancelDisconnectOperations()
+                connectedRef.removeAllObservers()
+            } else {
+                print("Not connected")
+                let mapView = baseView as! MapViewController
+                mapView.activityIndicator.stopAnimating()
+                self.errorController.displayAlert(title: "Connection Issue", message: "There seems to be an issue with your connection", view: baseView)
+                connectedRef.removeAllObservers()
+            }
+        })
+        /*
         var postArray = [String]()
         var postDictionary = [[String:Any]]()
         var postCount = 0
@@ -185,9 +243,11 @@ class FirebaseController {
             
             // ...
         }) { (error) in
+            print("hello")
             print(error.localizedDescription)
+            print("hey")
             self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
-        }
+        }*/
     }
     
     func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double) -> Void){
@@ -238,7 +298,7 @@ class FirebaseController {
         var totalCount = 0
         
         let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observeSingleEvent(of: .value, with: { snapshot in
+        connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 print("Connected")
                 self.ref?.child("MessageList").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -255,11 +315,14 @@ class FirebaseController {
                         })
                     }
                 })
+                connectedRef.cancelDisconnectOperations()
+                connectedRef.removeAllObservers()
             } else {
                 print("Not connected")
                 let mapView = baseView as! MapViewController
                 mapView.activityIndicator.stopAnimating()
                 self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
+                connectedRef.removeAllObservers()
             }
         })
         

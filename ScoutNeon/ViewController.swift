@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //intilizes the login button this isn't placed in the API Controller as the actual Twitter connection elements are all contained within the TwitterKit library
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            //print(session)
+            //let store = Twitter.sharedInstance().sessionStore
             self.activityIndicator.startAnimating()
             if (session != nil) {
                 
