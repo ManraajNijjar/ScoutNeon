@@ -54,12 +54,17 @@ class NewPostViewController: UIViewController {
     @IBAction func submitButtonPressed(_ sender: Any) {
         if firebaseController.rateLimitPosts() {
             activityIndicator.startAnimating()
-            firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude, baseView: self)
-            if let navController = self.navigationController, navController.viewControllers.count >= 2 {
-                let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController
-                viewController.fromNewPost = true
-            }
-            navigationController?.popViewController(animated: true)
+            firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude, baseView: self, completionHandler: { (delayed) in
+                if delayed == false {
+                    if let navController = self.navigationController, navController.viewControllers.count >= 2 {
+                        let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController
+                        viewController.fromNewPost = true
+                    }
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.errorAlertController.displayAlert(title: "Update!", message: "Your post was sent succesfully!", view: self)
+                }
+            } )
         } else {
             errorAlertController.displayAlert(title: "Slow Down!", message: "Please wait 20 seconds between posting", view: self)
         }

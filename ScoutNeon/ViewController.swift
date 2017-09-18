@@ -28,7 +28,6 @@ class ViewController: UIViewController {
         //intilizes the login button this isn't placed in the API Controller as the actual Twitter connection elements are all contained within the TwitterKit library
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             //print(session)
-            //let store = Twitter.sharedInstance().sessionStore
             self.activityIndicator.startAnimating()
             if (session != nil) {
                 
@@ -72,6 +71,38 @@ class ViewController: UIViewController {
         //Places it in the center of the screen
         logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         self.view.addSubview(logInButton)
+        activityIndicator.startAnimating()
+        let store = Twitter.sharedInstance().sessionStore
+        if let session = store.session() {
+            self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
+            self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
+            let credentials = TwitterAuthProvider.credential(withToken: (session.authToken), secret: (session.authTokenSecret))
+            Auth.auth().signIn(with: credentials, completion: {(user, error) in
+                if user != nil {
+                    //Check for a corresponding core data user profile
+                    self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
+                        
+                        self.firebaseId = user!.uid
+                        //If one is found it succeeds
+                        if success {
+                            DispatchQueue.main.async { [unowned self] in
+                                self.performSegue(withIdentifier: "MapSegue", sender: self)
+                            }
+                        }
+                        //if one isn't found it fails and triggers the segue to the profile creation screen
+                        if !success {
+                            DispatchQueue.main.async { [unowned self] in
+                                self.performSegue(withIdentifier: "SetupSegue", sender: self)
+                            }
+                        }
+                    })
+                    
+                } else {
+                    print("error: \(String(describing: error?.localizedDescription))")
+                    self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
+                }
+            })
+        }
         
         
     }

@@ -90,9 +90,10 @@ class FirebaseController {
         }
     }
     
-    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController){
+    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController, completionHandler: @escaping (_ gotDelayed: Bool) -> Void){
         let postView = baseView as! NewPostViewController
         let connectedRef = Database.database().reference(withPath: ".info/connected")
+        var delayStatus = false
         connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 print("Connected")
@@ -123,10 +124,12 @@ class FirebaseController {
                 
                 connectedRef.cancelDisconnectOperations()
                 connectedRef.removeAllObservers()
+                completionHandler(delayStatus)
                 
             } else {
                 print("Not connected")
-                self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post", view: baseView)
+                self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post, if you leave this page your post will still be sent but you won't be notified", view: baseView)
+                delayStatus = true
                 postView.activityIndicator.stopAnimating()
             }
         })
@@ -177,14 +180,12 @@ class FirebaseController {
                         for (_, val) in value! {
                             for (_, valTwo) in (val as? NSDictionary)! {
                                 self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
-                                    print("keepin on keeping on")
                                     postCount = postCount + 1
                                     if postStatus {
                                         postArray.append(postId)
                                         postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
                                     }
                                     if postCount >= totalCount {
-                                        print("internally ran")
                                         findPostsCompletionHandler(postDictionary)
                                     }
                                 })
@@ -196,9 +197,7 @@ class FirebaseController {
                     
                     // ...
                 }) { (error) in
-                    print("hello")
                     print(error.localizedDescription)
-                    print("hey")
                     self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
                 }
                 connectedRef.cancelDisconnectOperations()
@@ -251,7 +250,6 @@ class FirebaseController {
     }
     
     func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double) -> Void){
-        print("Topic:"+postKey)
         ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
