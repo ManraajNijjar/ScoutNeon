@@ -202,6 +202,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ScoutNeon" id="Bfq-Lh-0hV">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="dYp-5C-iwE">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Y1t-Lp-gk7">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutButtonPressed:" destination="MKa-BM-pl3" eventType="touchUpInside" id="TEU-23-TUw"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="NZ3-vI-pBq">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G3g-Xf-YhA">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
@@ -223,6 +233,7 @@
                         <outlet property="slideInTableView" destination="LLX-92-Tu3" id="m8h-n0-FH8"/>
                         <segue destination="k4E-JT-vFg" kind="show" identifier="NewPostSegue" id="dYM-cT-jPT"/>
                         <segue destination="VTg-ye-5Pf" kind="show" identifier="MessagesSegue" id="rAy-wi-7Bb"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="ReturnToStart" id="1cp-SL-icx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ila-ax-M3h" userLabel="First Responder" sceneMemberID="firstResponder"/>

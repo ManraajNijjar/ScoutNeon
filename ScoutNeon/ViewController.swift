@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
     var firebaseId = ""
+    var autoLog = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,37 +31,7 @@ class ViewController: UIViewController {
             //print(session)
             self.activityIndicator.startAnimating()
             if (session != nil) {
-                
-                //Should use this for the username
-                //print("signed in as \(String(describing: session?.userName))")
-                self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
-                self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
-                let credentials = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
-                Auth.auth().signIn(with: credentials, completion: {(user, error) in
-                    if user != nil {
-                        //Check for a corresponding core data user profile
-                        self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
-                            
-                            self.firebaseId = user!.uid
-                            //If one is found it succeeds
-                            if success {
-                                DispatchQueue.main.async { [unowned self] in
-                                    self.performSegue(withIdentifier: "MapSegue", sender: self)
-                                }
-                            }
-                            //if one isn't found it fails and triggers the segue to the profile creation screen
-                            if !success {
-                                DispatchQueue.main.async { [unowned self] in
-                                    self.performSegue(withIdentifier: "SetupSegue", sender: self)
-                                }
-                            }
-                        })
-                        
-                    } else {
-                        print("error: \(String(describing: error?.localizedDescription))")
-                        self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
-                    }
-                })
+                self.completeLogin(session: session!)
                 
             } else {
                 print("error: \(String(describing: error?.localizedDescription))")
@@ -71,42 +42,48 @@ class ViewController: UIViewController {
         //Places it in the center of the screen
         logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         self.view.addSubview(logInButton)
-        activityIndicator.startAnimating()
+        
+        
         let store = Twitter.sharedInstance().sessionStore
         if let session = store.session() {
-            self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
-            self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
-            let credentials = TwitterAuthProvider.credential(withToken: (session.authToken), secret: (session.authTokenSecret))
-            Auth.auth().signIn(with: credentials, completion: {(user, error) in
-                if user != nil {
-                    //Check for a corresponding core data user profile
-                    self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
-                        
-                        self.firebaseId = user!.uid
-                        //If one is found it succeeds
-                        if success {
-                            DispatchQueue.main.async { [unowned self] in
-                                self.performSegue(withIdentifier: "MapSegue", sender: self)
-                            }
-                        }
-                        //if one isn't found it fails and triggers the segue to the profile creation screen
-                        if !success {
-                            DispatchQueue.main.async { [unowned self] in
-                                self.performSegue(withIdentifier: "SetupSegue", sender: self)
-                            }
-                        }
-                    })
-                    
-                } else {
-                    print("error: \(String(describing: error?.localizedDescription))")
-                    self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
-                }
-            })
+            if autoLog {
+                activityIndicator.startAnimating()
+                completeLogin(session: session as! TWTRSession)
+            }
         }
-        
-        
     }
     
+    func completeLogin(session: TWTRSession){
+        self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
+        self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
+        let credentials = TwitterAuthProvider.credential(withToken: (session.authToken), secret: (session.authTokenSecret))
+        Auth.auth().signIn(with: credentials, completion: {(user, error) in
+            if user != nil {
+                //Check for a corresponding core data user profile
+                self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
+                    
+                    self.firebaseId = user!.uid
+                    //If one is found it succeeds
+                    if success {
+                        DispatchQueue.main.async { [unowned self] in
+                            self.performSegue(withIdentifier: "MapSegue", sender: self)
+                        }
+                    }
+                    //if one isn't found it fails and triggers the segue to the profile creation screen
+                    if !success {
+                        DispatchQueue.main.async { [unowned self] in
+                            self.performSegue(withIdentifier: "SetupSegue", sender: self)
+                        }
+                    }
+                })
+                
+            } else {
+                print("error: \(String(describing: error?.localizedDescription))")
+                self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
+            }
+        })
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SetupSegue" {
             let viewController = segue.destination as! AccountSetupViewController

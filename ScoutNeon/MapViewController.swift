@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import ChromaColorPicker
+import TwitterKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -137,6 +138,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         scoutButton.addGestureRecognizer(longTouchRecognizer)
     }
     
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        let store = Twitter.sharedInstance().sessionStore
+        store.logOutUserID(userProfile.twitterid!)
+        self.performSegue(withIdentifier: "ReturnToStart", sender: self)
+    }
+    
+    
     func scoutForTopics() {
         if firebaseController.rateLimitScouts() {
             scoutButton.alpha = 0
@@ -247,6 +255,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             destinationViewController.titleText = self.selectedTitle
             destinationViewController.userProfile = self.userProfile
             destinationViewController.topicColor = self.selectedColor.hexCode
+        }
+        
+        if segue.identifier == "ReturnToStart" {
+            let destinationViewController = segue.destination as! ViewController
+            destinationViewController.autoLog = false
         }
     }
 }
