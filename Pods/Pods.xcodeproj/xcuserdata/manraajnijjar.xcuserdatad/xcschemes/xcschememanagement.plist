@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Validation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,22 +42,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>274D465649D44CCE4612DF945D535AF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3B49085FA3472AFC0C9EF4037470A4C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5D5597395BB8291739C006D4A074553F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5D5B67B3AA00C5080957A07A50856C9F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>915DD407C43DFD3A53232EE1E890B32A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CAF3A3B3001365D50FB8D59D94126F9F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

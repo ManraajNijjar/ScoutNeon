@@ -12,5 +12,6 @@ target 'ScoutNeon' do
   pod 'TwitterKit'
   pod 'ChromaColorPicker'
   pod 'Validation'
+  pod 'ReachabilitySwift'
 
 end
