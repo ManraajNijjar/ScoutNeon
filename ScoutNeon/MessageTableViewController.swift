@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import ReachabilitySwift
 
 class MessageTableViewController: UIViewController {
     
@@ -57,13 +58,30 @@ class MessageTableViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        if firebaseController.rateLimitPosts() {
-            activityIndicator.startAnimating()
-            firebaseController.newMessage(postId: selectedTopic, messageValueString: textField.text!, author: username, baseView: self)
-            textField.text = ""
-            submitButton.isEnabled = false
-        } else {
-            errorController.displayAlert(title: "Slow Down", message: "Please wait 20 seconds between posting", view: self)
+        let reachability = Reachability()!
+        
+        reachability.whenReachable = { reachability in
+            DispatchQueue.main.async {
+                if self.firebaseController.rateLimitPosts() {
+                    self.activityIndicator.startAnimating()
+                    self.firebaseController.newMessage(postId: self.selectedTopic, messageValueString: self.textField.text!, author: self.username, baseView: self)
+                    self.textField.text = ""
+                    self.submitButton.isEnabled = false
+                } else {
+                    self.errorController.displayAlert(title: "Slow Down", message: "Please wait 20 seconds between posting", view: self)
+                }
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            DispatchQueue.main.async {
+                self.errorController.displayAlert(title: "Connection Issue!", message: "There was an issue sending your message, please try again later", view: self)
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
         }
     }
     

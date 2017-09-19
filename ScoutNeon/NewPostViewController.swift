@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import ReachabilitySwift
 
 
 class NewPostViewController: UIViewController {
@@ -26,6 +27,7 @@ class NewPostViewController: UIViewController {
     let firebaseController = FirebaseController.sharedInstance()
     let validator = TextValidationController.sharedInstance()
     let errorAlertController = ErrorAlertController()
+    var reachability = Reachability()!
     
     var color: UIColor!
     var userProfile: Profile!
@@ -52,22 +54,40 @@ class NewPostViewController: UIViewController {
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        if firebaseController.rateLimitPosts() {
-            activityIndicator.startAnimating()
-            firebaseController.newPost(username: userProfile.username!, topicTitle: titleTextField.text!, topicMessage: messageTextField.text!, color: color.hexCode, latitude: postLatitude, longitude: postLongitude, baseView: self, completionHandler: { (delayed) in
-                if delayed == false {
-                    if let navController = self.navigationController, navController.viewControllers.count >= 2 {
-                        let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController
-                        viewController.fromNewPost = true
-                    }
-                    self.navigationController?.popViewController(animated: true)
+        
+        reachability.whenReachable = { reachable in
+            DispatchQueue.main.async {
+                if self.firebaseController.rateLimitPosts() {
+                    self.activityIndicator.startAnimating()
+                    self.firebaseController.newPost(username: self.userProfile.username!, topicTitle: self.titleTextField.text!, topicMessage: self.messageTextField.text!, color: self.color.hexCode, latitude: self.postLatitude, longitude: self.postLongitude, baseView: self, completionHandler: { (delayed) in
+                        if delayed == false {
+                            if let navController = self.navigationController, navController.viewControllers.count >= 2 {
+                                let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController
+                                viewController.fromNewPost = true
+                            }
+                            self.navigationController?.popViewController(animated: true)
+                        } else {
+                            self.errorAlertController.displayAlert(title: "Update!", message: "Your post was sent succesfully!", view: self)
+                        }
+                    } )
                 } else {
-                    self.errorAlertController.displayAlert(title: "Update!", message: "Your post was sent succesfully!", view: self)
+                    self.errorAlertController.displayAlert(title: "Slow Down!", message: "Please wait 20 seconds between posting", view: self)
+                    self.reachability = Reachability()!
                 }
-            } )
-        } else {
-            errorAlertController.displayAlert(title: "Slow Down!", message: "Please wait 20 seconds between posting", view: self)
+            }
         }
+        reachability.whenUnreachable = { _ in
+            DispatchQueue.main.async {
+                self.errorAlertController.displayAlert(title: "Connection Issue", message: "There was an issue with your connection, we'll keep trying to post though!", view: self)
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
     
     @IBAction func titleFieldChanged(_ sender: Any) {
