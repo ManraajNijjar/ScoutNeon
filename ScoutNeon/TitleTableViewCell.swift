@@ -14,7 +14,7 @@ class TitleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starButton: UIButton!
     
-    let coreDataController = CoreDataController.sharedInstance()
+    let coreDataController = CoreDataController.sharedInstance
     
     var topicId = ""
     var topicColor = ""

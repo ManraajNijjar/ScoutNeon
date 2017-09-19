@@ -20,9 +20,9 @@ class MessageTableViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    let validator = TextValidationController.sharedInstance()
-    let firebaseController = FirebaseController.sharedInstance()
-    let coreDataController = CoreDataController.sharedInstance()
+    let validator = TextValidationController.sharedInstance
+    let firebaseController = FirebaseController.sharedInstance
+    let coreDataController = CoreDataController.sharedInstance
     let errorController = ErrorAlertController()
     
     var messages: [[String: String]]!

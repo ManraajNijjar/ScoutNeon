@@ -11,18 +11,10 @@ import Validation
 
 class TextValidationController{
     var validator = Validation()
+    static let sharedInstance = TextValidationController()
     
     init() {
         validator.characterSet = NSCharacterSet.alphanumerics
-
-        
     }
     
-    //Generate a Singleton instance of the TwitterAPIController
-    class func sharedInstance() -> TextValidationController {
-        struct Singleton {
-            static var sharedInstance = TextValidationController()
-        }
-        return Singleton.sharedInstance
-    }
 }

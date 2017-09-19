@@ -11,6 +11,9 @@ import TwitterKit
 import FirebaseAuth
 
 class TwitterApiController {
+    
+    static let sharedInstance = TwitterApiController()
+    
     //Sets up the client with a guest connection at the start.
     var client = TWTRAPIClient()
     
@@ -70,11 +73,4 @@ class TwitterApiController {
         }
     }
     
-    //Generate a Singleton instance of the TwitterAPIController
-    class func sharedInstance() -> TwitterApiController {
-        struct Singleton {
-            static var sharedInstance = TwitterApiController()
-        }
-        return Singleton.sharedInstance
-    }
 }

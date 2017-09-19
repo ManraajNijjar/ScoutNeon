@@ -12,6 +12,8 @@ import UIKit
 
 class CoreDataController {
     
+    static let sharedInstance = CoreDataController()
+    
     class func getContext() -> NSManagedObjectContext {
         return CoreDataController.persistentContainer.viewContext
     }
@@ -135,13 +137,5 @@ class CoreDataController {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-    
-    //Generate a Singleton instance of the CoreDataController
-    class func sharedInstance() -> CoreDataController {
-        struct Singleton {
-            static var sharedInstance = CoreDataController()
-        }
-        return Singleton.sharedInstance
     }
 }

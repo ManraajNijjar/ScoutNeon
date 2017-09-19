@@ -25,9 +25,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    let coreDataController = CoreDataController.sharedInstance()
+    let coreDataController = CoreDataController.sharedInstance
     
-    let firebaseController = FirebaseController.sharedInstance()
+    //let firebaseController = FirebaseController.sharedInstance()
+    let firebaseController = FirebaseController.sharedInstance
     
     let errorAlertController = ErrorAlertController()
     

@@ -24,8 +24,8 @@ class NewPostViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    let firebaseController = FirebaseController.sharedInstance()
-    let validator = TextValidationController.sharedInstance()
+    let firebaseController = FirebaseController.sharedInstance
+    let validator = TextValidationController.sharedInstance
     let errorAlertController = ErrorAlertController()
     var reachability = Reachability()!
     

@@ -35,15 +35,15 @@ class AccountSetupViewController: UIViewController {
     
     var colorPicker = ChromaColorPicker()
     
-    let twitterAPI = TwitterApiController.sharedInstance()
+    let twitterAPI = TwitterApiController.sharedInstance
     
     let colorAPI = ColorApiController()
     
-    let validator = TextValidationController.sharedInstance()
+    let validator = TextValidationController.sharedInstance
     
-    let coreDataController = CoreDataController.sharedInstance()
+    let coreDataController = CoreDataController.sharedInstance
     
-    let fireBaseController = FirebaseController.sharedInstance()
+    let fireBaseController = FirebaseController.sharedInstance
     
     let errorAlertController = ErrorAlertController()
     

@@ -11,6 +11,9 @@ import FirebaseDatabase
 import UIKit
 
 class FirebaseController {
+    
+    static let sharedInstance = FirebaseController()
+    
     var ref:DatabaseReference?
     
     let errorController = ErrorAlertController()
@@ -20,6 +23,7 @@ class FirebaseController {
     
     var timeBetweenPosts: Double = 0
     var timeBetweenScouts: Double = 0
+    
     
     
     init() {
@@ -339,13 +343,5 @@ class FirebaseController {
     
     func detachListeners(){
         ref?.removeAllObservers()
-    }
-    
-    //Generate a Singleton instance of the TwitterAPIController
-    class func sharedInstance() -> FirebaseController {
-        struct Singleton {
-            static var sharedInstance = FirebaseController()
-        }
-        return Singleton.sharedInstance
     }
 }
