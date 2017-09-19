@@ -32,6 +32,7 @@ class AccountSetupViewController: UIViewController {
     var editmode = false
     var editProfile: Profile!
     var editColor: UIColor!
+    var firstEdit = true
     
     var userIDFromLogin: String!
     
@@ -117,6 +118,12 @@ class AccountSetupViewController: UIViewController {
 
     @IBAction func textFieldChanged(_ sender: Any) {
         let potentialName = usernameTextField.text
+        
+        if editmode && firstEdit {
+            errorAlertController.displayAlert(title: "Warning", message: "Changing your username will only affect future posts", view: self)
+            firstEdit = false
+        }
+        
         if validator.validator.validateString(potentialName!) {
             //Could move this part to when submit is presed if the app is connecting to Firebase too often
             activityIndicator.startAnimating()
@@ -133,6 +140,7 @@ class AccountSetupViewController: UIViewController {
         
         let reachability = Reachability()!
         if editmode {
+            
             reachability.whenReachable = { reachability in
                 DispatchQueue.main.async {
                     self.editProfile.color = self.colorPicker.currentColor.hexCode
