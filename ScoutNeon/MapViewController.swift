@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import ChromaColorPicker
 import TwitterKit
+import ReachabilitySwift
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -27,6 +28,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let coreDataController = CoreDataController.sharedInstance()
     
     let firebaseController = FirebaseController.sharedInstance()
+    
+    let errorAlertController = ErrorAlertController()
+    
+    let reachability = Reachability()!
     
     let colorAPI = ColorApiController()
     
@@ -150,6 +155,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func scoutForTopics() {
+        
         if firebaseController.rateLimitScouts() {
             scoutButton.alpha = 0
             scoutButton.setTitle("1 Sec", for: .normal)
@@ -185,7 +191,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     @IBAction func scoutButtonPressed(_ sender: Any) {
-        scoutForTopics()
+        let internalReach = Reachability()!
+        internalReach.whenReachable = { reachable in
+            DispatchQueue.main.async {
+                self.scoutForTopics()
+            }
+        }
+        internalReach.whenUnreachable = { _ in
+            self.errorAlertController.displayAlert(title: "Connection Issue", message: "There seems to be an issue with your connection, please try again later!", view: self)
+        }
+        
+        do {
+            try internalReach.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
     
     @IBAction func newPostButtonPressed(_ sender: Any) {
@@ -347,17 +368,34 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
-        if view.annotation is ColorPinAnnotation {
-            activityIndicator.startAnimating()
-            let colorPin = view.annotation as! ColorPinAnnotation
-            self.selectedTopic = colorPin.id!
-            self.selectedTitle = colorPin.title!
-            firebaseController.messageForPostID(postID: selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
-                self.messageListForTransfer = messageList
-                self.performSegue(withIdentifier: "MessagesSegue", sender: self)
-                self.activityIndicator.stopAnimating()
-            })
+        
+        
+        let internalReach = Reachability()!
+        internalReach.whenReachable = { reachable in
+            DispatchQueue.main.async {
+                if view.annotation is ColorPinAnnotation {
+                    self.activityIndicator.startAnimating()
+                    let colorPin = view.annotation as! ColorPinAnnotation
+                    self.selectedTopic = colorPin.id!
+                    self.selectedTitle = colorPin.title!
+                    self.firebaseController.messageForPostID(postID: self.selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
+                        self.messageListForTransfer = messageList
+                        self.performSegue(withIdentifier: "MessagesSegue", sender: self)
+                        self.activityIndicator.stopAnimating()
+                    })
+                }
+            }
         }
+        internalReach.whenUnreachable = { _ in
+            self.errorAlertController.displayAlert(title: "Connection Issue", message: "There seems to be an issue with your connection, please try again later!", view: self)
+        }
+        
+        do {
+            try internalReach.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
 }
 
@@ -410,16 +448,31 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            tableView.deselectRow(at: indexPath, animated: true)
-            let pickedTopic = favoriteTopics[indexPath.row]
-            self.selectedTopic = pickedTopic.topicId!
-            self.selectedTitle = pickedTopic.title!
-            self.selectedColor = UIColor(hex: pickedTopic.color!)
-            colorSwitched()
-            firebaseController.messageForPostID(postID: selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
-                self.messageListForTransfer = messageList
-                self.performSegue(withIdentifier: "MessagesSegue", sender: self)
-            })
+            
+            let internalReach = Reachability()!
+            internalReach.whenReachable = { reachable in
+                DispatchQueue.main.async {
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    let pickedTopic = self.favoriteTopics[indexPath.row]
+                    self.selectedTopic = pickedTopic.topicId!
+                    self.selectedTitle = pickedTopic.title!
+                    self.selectedColor = UIColor(hex: pickedTopic.color!)
+                    self.colorSwitched()
+                    self.firebaseController.messageForPostID(postID: self.selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
+                        self.messageListForTransfer = messageList
+                        self.performSegue(withIdentifier: "MessagesSegue", sender: self)
+                    })
+                }
+            }
+            internalReach.whenUnreachable = { _ in
+                self.errorAlertController.displayAlert(title: "Connection Issue", message: "There seems to be an issue with your connection, please try again later!", view: self)
+            }
+            
+            do {
+                try internalReach.startNotifier()
+            } catch {
+                print("Unable to start notifier")
+            }
             
         }
         

@@ -9,6 +9,7 @@
 import UIKit
 import TwitterKit
 import FirebaseAuth
+import ReachabilitySwift
 
 class ViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class ViewController: UIViewController {
     
     let twitterAPI = TwitterApiController.sharedInstance()
     let errorController = ErrorAlertController()
+    let reachability = Reachability()!
+    
     //A variable that's to be setup and pulled in the segue
     var loginId = ""
     var firebaseId = ""
@@ -40,7 +43,6 @@ class ViewController: UIViewController {
         
         //Places it in the center of the screen
         logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
-        self.view.addSubview(logInButton)
         
         
         let store = Twitter.sharedInstance().sessionStore
@@ -49,6 +51,22 @@ class ViewController: UIViewController {
                 activityIndicator.startAnimating()
                 completeLogin(session: session as! TWTRSession)
             }
+        }
+        
+        reachability.whenReachable = { reachability in
+            DispatchQueue.main.async {
+                self.view.addSubview(logInButton)
+                reachability.stopNotifier()
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting the internet", view: self)
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
         }
     }
     

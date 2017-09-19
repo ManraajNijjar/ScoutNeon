@@ -21,6 +21,7 @@ class FirebaseController {
     var timeBetweenPosts: Double = 0
     var timeBetweenScouts: Double = 0
     
+    
     init() {
         ref = Database.database().reference()
     }
@@ -192,6 +193,9 @@ class FirebaseController {
                             }
                         }
                     } else {
+                        let mapView = baseView as! MapViewController
+                        mapView.activityIndicator.stopAnimating()
+                        mapView.mainMapView.removeAnnotations(mapView.mainMapView.annotations)
                         print("No posts")
                     }
                     
@@ -210,43 +214,6 @@ class FirebaseController {
                 connectedRef.removeAllObservers()
             }
         })
-        /*
-        var postArray = [String]()
-        var postDictionary = [[String:Any]]()
-        var postCount = 0
-        var totalCount = 0
-        ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            if (value != nil) {
-                totalCount = (value?.count)!
-                for (_, val) in value! {
-                    for (_, valTwo) in (val as? NSDictionary)! {
-                        self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
-                            print("keepin on keeping on")
-                            postCount = postCount + 1
-                            if postStatus {
-                                postArray.append(postId)
-                                postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
-                            }
-                            if postCount >= totalCount {
-                                print("internally ran")
-                                findPostsCompletionHandler(postDictionary)
-                            }
-                        })
-                    }
-                }
-            } else {
-                print("No posts")
-            }
-            
-            // ...
-        }) { (error) in
-            print("hello")
-            print(error.localizedDescription)
-            print("hey")
-            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
-        }*/
     }
     
     func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double) -> Void){

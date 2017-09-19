@@ -8,6 +8,7 @@
 
 import UIKit
 import ChromaColorPicker
+import ReachabilitySwift
 
 class AccountSetupViewController: UIViewController {
     
@@ -43,6 +44,10 @@ class AccountSetupViewController: UIViewController {
     let coreDataController = CoreDataController.sharedInstance()
     
     let fireBaseController = FirebaseController.sharedInstance()
+    
+    let errorAlertController = ErrorAlertController()
+    
+    let reachability = Reachability()!
     
     var blurEffectView = UIVisualEffectView()
 
@@ -117,11 +122,29 @@ class AccountSetupViewController: UIViewController {
     }
     
     @IBAction func submitPressed(_ sender: Any) {
+        
         let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: false)
         
         CoreDataController.saveContext()
-        fireBaseController.createUser(userProfile: profile, baseView: self)
-        self.performSegue(withIdentifier: "MapSegue", sender: self)
+        
+        reachability.whenReachable = { reachability in
+            self.fireBaseController.createUser(userProfile: profile, baseView: self)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "MapSegue", sender: self)
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            DispatchQueue.main.async {
+                self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet, we'll keep trying!", view: self)
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
         
     }
     
