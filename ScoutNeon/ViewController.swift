@@ -112,6 +112,10 @@ class ViewController: UIViewController {
     @IBAction func unwindToLoginView(segue:UIStoryboardSegue) {
         
     }
+    @IBAction func creditsPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "CreditsSegue", sender: self)
+        
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SetupSegue" {
