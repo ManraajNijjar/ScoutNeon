@@ -28,6 +28,10 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    //Variables to make the editing process easier
+    var editmode = false
+    var editProfile: Profile!
+    var editColor: UIColor!
     
     var userIDFromLogin: String!
     
@@ -84,6 +88,10 @@ class AccountSetupViewController: UIViewController {
         view.bringSubview(toFront: usernameTextField)
         
         usernameTextField.delegate = self
+        if editmode {
+            usernameTextField.text = editProfile.username
+            colorPicker.adjustToColor(editColor)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -124,29 +132,53 @@ class AccountSetupViewController: UIViewController {
     @IBAction func submitPressed(_ sender: Any) {
         
         let reachability = Reachability()!
-        
-        reachability.whenReachable = { reachability in
-            DispatchQueue.main.async {
-                let profile = self.coreDataController.createUserProfile(twitterId: self.userIDFromLogin, firebaseId: self.firebaseIDFromLogin, profileImage: self.profileImage.image!, username: self.usernameTextField.text!, color: self.colorPicker.currentColor.hexCode, anonymous: false)
-                
-                CoreDataController.saveContext()
-                
-                self.fireBaseController.createUser(userProfile: profile, baseView: self)
-                self.performSegue(withIdentifier: "MapSegue", sender: self)
+        if editmode {
+            reachability.whenReachable = { reachability in
+                DispatchQueue.main.async {
+                    self.editProfile.color = self.colorPicker.currentColor.hexCode
+                    self.editProfile.username = self.usernameTextField.text!
+                    
+                    CoreDataController.saveContext()
+                    
+                    self.fireBaseController.createUser(userProfile: self.editProfile, baseView: self)
+                    self.performSegue(withIdentifier: "MapSegue", sender: self)
+                }
+            }
+            reachability.whenUnreachable = { _ in
+                DispatchQueue.main.async {
+                    self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
+                }
+            }
+            
+            do {
+                try reachability.startNotifier()
+            } catch {
+                print("Unable to start notifier")
+            }
+            
+        } else {
+            reachability.whenReachable = { reachability in
+                DispatchQueue.main.async {
+                    let profile = self.coreDataController.createUserProfile(twitterId: self.userIDFromLogin, firebaseId: self.firebaseIDFromLogin, profileImage: self.profileImage.image!, username: self.usernameTextField.text!, color: self.colorPicker.currentColor.hexCode, anonymous: false)
+                    
+                    CoreDataController.saveContext()
+                    
+                    self.fireBaseController.createUser(userProfile: profile, baseView: self)
+                    self.performSegue(withIdentifier: "MapSegue", sender: self)
+                }
+            }
+            reachability.whenUnreachable = { _ in
+                DispatchQueue.main.async {
+                    self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
+                }
+            }
+            
+            do {
+                try reachability.startNotifier()
+            } catch {
+                print("Unable to start notifier")
             }
         }
-        reachability.whenUnreachable = { _ in
-            DispatchQueue.main.async {
-                self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
-            }
-        }
-        
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
-        
         
     }
     
@@ -155,7 +187,6 @@ class AccountSetupViewController: UIViewController {
             let destinationNavigationController = segue.destination as! UINavigationController
             let targetController = destinationNavigationController.topViewController as! MapViewController
             targetController.userIDForProfile = firebaseIDFromLogin
-            targetController.fromLogin = true
         }
     }
     
