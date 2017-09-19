@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var loginId = ""
     var firebaseId = ""
     var autoLog = true
+    var loginAdded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +56,18 @@ class ViewController: UIViewController {
         
         reachability.whenReachable = { reachability in
             DispatchQueue.main.async {
-                self.view.addSubview(logInButton)
-                reachability.stopNotifier()
+                print("Hello")
+                if self.loginAdded == false {
+                    self.view.addSubview(logInButton)
+                    self.loginAdded = true
+                }
+                logInButton.isEnabled = true
+                
             }
         }
         reachability.whenUnreachable = { _ in
             self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting the internet", view: self)
+            logInButton.isEnabled = false
         }
         
         do {

@@ -28,10 +28,7 @@ class TwitterApiController {
     }
     
     func getUserData(userID: String, completionHandlerForUser: @escaping (_ userResult: TWTRUser?, _ error: Error?) -> Void){
-        /*
-        print("Getting User Data")
-        print(client.userID)
-        print(userID) */
+        
         client.loadUser(withID: userID) { (user, error) -> Void in
             // handle the response or error
             
