@@ -47,8 +47,6 @@ class AccountSetupViewController: UIViewController {
     
     let errorAlertController = ErrorAlertController()
     
-    let reachability = Reachability()!
-    
     var blurEffectView = UIVisualEffectView()
 
     override func viewDidLoad() {
@@ -68,10 +66,10 @@ class AccountSetupViewController: UIViewController {
 
         view.addSubview(colorPicker)
         
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
-        self.profileImage.clipsToBounds = true
-        self.backgroundColorView.layer.cornerRadius = self.profileImage.frame.size.width / 2;
-        self.backgroundColorView.clipsToBounds = true
+        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
+        profileImage.clipsToBounds = true
+        backgroundColorView.layer.cornerRadius = profileImage.frame.size.width / 2
+        backgroundColorView.clipsToBounds = true
         view.sendSubview(toBack: backgroundColorView)
         view.sendSubview(toBack: blurEffectView)
         view.sendSubview(toBack: backgroundImage)
@@ -113,8 +111,10 @@ class AccountSetupViewController: UIViewController {
         let potentialName = usernameTextField.text
         if validator.validator.validateString(potentialName!) {
             //Could move this part to when submit is presed if the app is connecting to Firebase too often
+            activityIndicator.startAnimating()
             fireBaseController.userExists(userId: potentialName!, baseView: self, userExistsCompletionHandler: { (userStatus) in
                 self.submitButton.isEnabled = !(userStatus)
+                self.activityIndicator.stopAnimating()
             })
         } else {
             submitButton.isEnabled = false
@@ -123,19 +123,21 @@ class AccountSetupViewController: UIViewController {
     
     @IBAction func submitPressed(_ sender: Any) {
         
-        let profile = coreDataController.createUserProfile(twitterId: userIDFromLogin, firebaseId: firebaseIDFromLogin, profileImage: profileImage.image!, username: usernameTextField.text!, color: colorPicker.currentColor.hexCode, anonymous: false)
-        
-        CoreDataController.saveContext()
+        let reachability = Reachability()!
         
         reachability.whenReachable = { reachability in
-            self.fireBaseController.createUser(userProfile: profile, baseView: self)
             DispatchQueue.main.async {
+                let profile = self.coreDataController.createUserProfile(twitterId: self.userIDFromLogin, firebaseId: self.firebaseIDFromLogin, profileImage: self.profileImage.image!, username: self.usernameTextField.text!, color: self.colorPicker.currentColor.hexCode, anonymous: false)
+                
+                CoreDataController.saveContext()
+                
+                self.fireBaseController.createUser(userProfile: profile, baseView: self)
                 self.performSegue(withIdentifier: "MapSegue", sender: self)
             }
         }
         reachability.whenUnreachable = { _ in
             DispatchQueue.main.async {
-                self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet, we'll keep trying!", view: self)
+                self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
             }
         }
         
@@ -153,9 +155,13 @@ class AccountSetupViewController: UIViewController {
             let destinationNavigationController = segue.destination as! UINavigationController
             let targetController = destinationNavigationController.topViewController as! MapViewController
             targetController.userIDForProfile = firebaseIDFromLogin
+            targetController.fromLogin = true
         }
     }
     
+    @IBAction func unwindToAccountView(segue:UIStoryboardSegue) {
+        
+    }
 
 }
 
@@ -189,6 +195,7 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
         print(colorPicker.currentColor)
     }
+    
     
     
 }

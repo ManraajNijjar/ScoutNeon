@@ -124,6 +124,7 @@ class ViewController: UIViewController {
             let destinationNavigationController = segue.destination as! UINavigationController
             let targetController = destinationNavigationController.topViewController as! MapViewController
             targetController.userIDForProfile = firebaseId
+            targetController.fromLogin = true
         }
     }
 

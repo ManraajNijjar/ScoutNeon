@@ -51,6 +51,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var selectedTitle = ""
     
     var fromNewPost = false
+    var fromLogin = false
     
     var favoriteTopics = [Topic]()
     
@@ -150,11 +151,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.performSegue(withIdentifier: "unwindSegueToLogin", sender: self)
     }
     
-    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-        
-    }
-    
-    
     func scoutForTopics() {
         
         if firebaseController.rateLimitScouts() {
@@ -243,25 +239,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func colorSliderMoved() {
-        //Don't really need the colorName here
-        /*
-        operationQueue.async {
-            self.colorAPI.getColorNameByHex(selectColor: self.colorPicker.currentColor) { (results, error) in
-                if error == nil {
-                    DispatchQueue.main.async {
-                        let resultsName = results!["name"]! as AnyObject
-                        print(resultsName["value"]! as! String!)
-                        
-                        self.colorSwitched()
-                    }
-                }
-            }
-        }*/
         self.colorSwitched()
     }
     func colorSwitched() {
         selectedColor = self.colorPicker.currentColor
         scoutButton.backgroundColor = selectedColor
+    }
+    
+    @IBAction func editButtonPressed(_ sender: Any) {
+        if fromLogin {
+            fromLogin = false
+            self.performSegue(withIdentifier: "MapToAccountSegue", sender: self)
+        } else {
+            print("hello")
+            self.performSegue(withIdentifier: "unwindSegueToAccount", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -285,6 +277,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         if segue.identifier == "unwindSegueToLogin" {
             let destinationViewController = segue.destination as! ViewController
             destinationViewController.autoLog = false
+        }
+        if segue.identifier == "unwindSegueToAccount" {
+            let destinationViewController = segue.destination as! AccountSetupViewController
+            destinationViewController.userIDFromLogin = userProfile.twitterid
+            destinationViewController.firebaseIDFromLogin = userProfile.id
+        }
+        if segue.identifier == "MapToAccountSegue" {
+            let destinationViewController = segue.destination as! AccountSetupViewController
+            destinationViewController.userIDFromLogin = userProfile.twitterid
+            destinationViewController.firebaseIDFromLogin = userProfile.id
         }
     }
 }
