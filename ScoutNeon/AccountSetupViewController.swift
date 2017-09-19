@@ -25,6 +25,7 @@ class AccountSetupViewController: UIViewController {
     
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     var userIDFromLogin: String!
@@ -69,9 +70,12 @@ class AccountSetupViewController: UIViewController {
         view.sendSubview(toBack: backgroundColorView)
         view.sendSubview(toBack: blurEffectView)
         view.sendSubview(toBack: backgroundImage)
+        
+        activityIndicator.startAnimating()
         twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Large") { (image) in
             DispatchQueue.main.async {
                 self.profileImage.image = image
+                self.activityIndicator.stopAnimating()
             }
         }
         view.bringSubview(toFront: usernameTextField)

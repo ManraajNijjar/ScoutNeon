@@ -141,7 +141,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func logoutButtonPressed(_ sender: Any) {
         let store = Twitter.sharedInstance().sessionStore
         store.logOutUserID(userProfile.twitterid!)
-        self.performSegue(withIdentifier: "ReturnToStart", sender: self)
+        self.performSegue(withIdentifier: "unwindSegueToLogin", sender: self)
+    }
+    
+    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        
     }
     
     
@@ -256,8 +260,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             destinationViewController.userProfile = self.userProfile
             destinationViewController.topicColor = self.selectedColor.hexCode
         }
-        
-        if segue.identifier == "ReturnToStart" {
+        if segue.identifier == "unwindSegueToLogin" {
             let destinationViewController = segue.destination as! ViewController
             destinationViewController.autoLog = false
         }
@@ -361,10 +364,6 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
-    }
-    
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return nil
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -28,13 +28,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //intilizes the login button this isn't placed in the API Controller as the actual Twitter connection elements are all contained within the TwitterKit library
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
-            //print(session)
             self.activityIndicator.startAnimating()
             if (session != nil) {
                 self.completeLogin(session: session!)
-                
             } else {
                 print("error: \(String(describing: error?.localizedDescription))")
+                self.activityIndicator.stopAnimating()
                 self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Twitter Servers", view: self)
             }
         })
@@ -61,7 +60,7 @@ class ViewController: UIViewController {
             if user != nil {
                 //Check for a corresponding core data user profile
                 self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
-                    
+                    self.activityIndicator.stopAnimating()
                     self.firebaseId = user!.uid
                     //If one is found it succeeds
                     if success {
@@ -79,9 +78,14 @@ class ViewController: UIViewController {
                 
             } else {
                 print("error: \(String(describing: error?.localizedDescription))")
+                self.activityIndicator.stopAnimating()
                 self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Google Servers", view: self)
             }
         })
+    }
+    
+    @IBAction func unwindToLoginView(segue:UIStoryboardSegue) {
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

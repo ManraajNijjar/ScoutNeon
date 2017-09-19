@@ -209,6 +209,7 @@
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="logoutButtonPressed:" destination="MKa-BM-pl3" eventType="touchUpInside" id="TEU-23-TUw"/>
+                                    <segue destination="VUj-PC-FN7" kind="unwind" identifier="unwindSegueToLogin" unwindAction="unwindToLoginViewWithSegue:" id="TKd-4Y-4QE"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -233,10 +234,10 @@
                         <outlet property="slideInTableView" destination="LLX-92-Tu3" id="m8h-n0-FH8"/>
                         <segue destination="k4E-JT-vFg" kind="show" identifier="NewPostSegue" id="dYM-cT-jPT"/>
                         <segue destination="VTg-ye-5Pf" kind="show" identifier="MessagesSegue" id="rAy-wi-7Bb"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="ReturnToStart" id="1cp-SL-icx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ila-ax-M3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="VUj-PC-FN7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1348" y="873.91304347826099"/>
         </scene>
@@ -571,6 +572,9 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Sdz-uU-iMO">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -586,8 +590,10 @@
                             <constraint firstItem="Jvk-gy-QEp" firstAttribute="leading" secondItem="UuP-m7-MbI" secondAttribute="leadingMargin" id="lgI-rs-Jv7"/>
                             <constraint firstItem="peR-xV-GxY" firstAttribute="centerY" secondItem="UuP-m7-MbI" secondAttribute="centerY" id="nQE-ZM-AnP"/>
                             <constraint firstItem="Jvk-gy-QEp" firstAttribute="top" secondItem="Ygz-tv-Tri" secondAttribute="bottom" constant="10" id="o6e-0V-58n"/>
+                            <constraint firstItem="Sdz-uU-iMO" firstAttribute="centerX" secondItem="UuP-m7-MbI" secondAttribute="centerX" id="prk-j7-k4a"/>
                             <constraint firstItem="BbY-QD-oYD" firstAttribute="leading" secondItem="Jvk-gy-QEp" secondAttribute="trailing" constant="8" symbolic="YES" id="r1H-Ou-cnA"/>
                             <constraint firstItem="DR1-kF-nHa" firstAttribute="top" secondItem="UuP-m7-MbI" secondAttribute="top" id="r7Z-uE-vng"/>
+                            <constraint firstItem="Sdz-uU-iMO" firstAttribute="centerY" secondItem="UuP-m7-MbI" secondAttribute="centerY" id="s73-H6-I0h"/>
                             <constraint firstItem="peR-xV-GxY" firstAttribute="top" secondItem="1FN-Dw-8lk" secondAttribute="bottom" constant="32" id="sCC-ou-oPt"/>
                             <constraint firstItem="1FN-Dw-8lk" firstAttribute="centerX" secondItem="UuP-m7-MbI" secondAttribute="centerX" id="sbe-c9-hwB"/>
                             <constraint firstItem="Jvk-gy-QEp" firstAttribute="leading" secondItem="Ygz-tv-Tri" secondAttribute="leading" id="u87-Mb-qhI"/>
@@ -597,6 +603,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Sdz-uU-iMO" id="4xn-TR-S4z"/>
                         <outlet property="backgroundColorView" destination="7rp-dP-AbX" id="RzO-5A-ug3"/>
                         <outlet property="backgroundImage" destination="DR1-kF-nHa" id="BUC-Sg-h53"/>
                         <outlet property="favoriteColorLabel" destination="peR-xV-GxY" id="uxz-cd-gPb"/>
