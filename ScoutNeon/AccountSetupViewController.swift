@@ -254,6 +254,45 @@ class AccountSetupViewController: UIViewController {
 extension AccountSetupViewController: ChromaColorPickerDelegate {
     
     func setupChromaColorPicker() -> ChromaColorPicker {
+        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
+        //https://github.com/joncardasis/ChromaColorPicker/issues/8
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            //Sets up the chroma color picker
+            let sizeValue = view.frame.size.width * 0.4
+            let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
+            colorPicker.delegate = self
+            colorPicker.padding = 5
+            colorPicker.stroke = 3
+            colorPicker.hexLabel.textColor = UIColor.black
+            //Places it in the center of the view should likely implement a place to put it so it has constraints
+            //neatColorPicker.center = self.colorPickerView.center
+            
+            //colorPicker.center = self.view.center
+            let sizeHeight = view.frame.size.height * 0.1877
+            //Closest equivalent to 110 on iPhone7
+            colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
+            return colorPicker
+        case .phone:
+            //Sets up the chroma color picker
+            let sizeValue = view.frame.size.width * 0.586
+            let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
+            colorPicker.delegate = self
+            colorPicker.padding = 5
+            colorPicker.stroke = 3
+            colorPicker.hexLabel.textColor = UIColor.black
+            //Places it in the center of the view should likely implement a place to put it so it has constraints
+            //neatColorPicker.center = self.colorPickerView.center
+            
+            //colorPicker.center = self.view.center
+            let sizeHeight = view.frame.size.height * 0.1877
+            //Closest equivalent to 110 on iPhone7
+            colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
+            return colorPicker
+        default: print("Case not Found")
+        }
+        /*
         //Sets up the chroma color picker
         let sizeValue = view.frame.size.width * 0.586
         let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
@@ -261,11 +300,6 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
         colorPicker.padding = 5
         colorPicker.stroke = 3
         colorPicker.hexLabel.textColor = UIColor.black
-        
-        
-        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
-        //https://github.com/joncardasis/ChromaColorPicker/issues/8
-        
         //Places it in the center of the view should likely implement a place to put it so it has constraints
         //neatColorPicker.center = self.colorPickerView.center
         
@@ -273,7 +307,8 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
         let sizeHeight = view.frame.size.height * 0.1877
         //Closest equivalent to 110 on iPhone7
         colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
-        return colorPicker
+        return colorPicker */
+        return ChromaColorPicker()
     }
     
     //Triggers whenever the slider is moved
