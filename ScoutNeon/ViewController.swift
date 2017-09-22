@@ -42,9 +42,20 @@ class ViewController: UIViewController {
             }
         })
         
-        //Places it in the center of the screen
-        logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+        // It's an iPhone
+            print("iphone")
+            logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
+        case .pad:
+        // It's an iPad
+            print("ipad")
+            logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
+            
+        default: return
+        }
         
         let store = Twitter.sharedInstance().sessionStore
         if let session = store.session() {

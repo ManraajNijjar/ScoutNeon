@@ -56,6 +56,13 @@ class AccountSetupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            backgroundColorView.isHidden = true
+            
+        default: return
+        }
         //Disables the submit button at the start of account settings creation
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -70,7 +77,7 @@ class AccountSetupViewController: UIViewController {
         colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
 
         view.addSubview(colorPicker)
-        
+
         profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
         profileImage.clipsToBounds = true
         backgroundColorView.layer.cornerRadius = profileImage.frame.size.width / 2
@@ -82,8 +89,22 @@ class AccountSetupViewController: UIViewController {
         activityIndicator.startAnimating()
         twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Large") { (image) in
             DispatchQueue.main.async {
-                self.profileImage.image = image
                 self.activityIndicator.stopAnimating()
+                
+                switch UIDevice.current.userInterfaceIdiom {
+                case .phone:
+                    self.profileImage.image = image
+                case .pad:
+                    // It's an iPad
+                    let screenSize: CGRect = UIScreen.main.bounds
+                    let selectedSize = screenSize.width/2.5
+                    self.profileImage.image = self.ResizeImage(image: image!, targetSize: CGSize(width: selectedSize, height: selectedSize))
+                    self.profileImage.removeConstraints(self.profileImage.constraints)
+                    self.profileImage.frame = CGRect(x: 0, y: 0, width: Int(selectedSize), height: Int(selectedSize))
+                    
+                    
+                default: return
+                }
             }
         }
         view.bringSubview(toFront: usernameTextField)
@@ -190,6 +211,32 @@ class AccountSetupViewController: UIViewController {
         
     }
     
+    func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapSegue" {
             let destinationNavigationController = segue.destination as! UINavigationController
@@ -208,7 +255,6 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     
     func setupChromaColorPicker() -> ChromaColorPicker {
         //Sets up the chroma color picker
-        print(view.frame.size.height)
         let sizeValue = view.frame.size.width * 0.586
         let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
         colorPicker.delegate = self

@@ -66,6 +66,7 @@
 		8659D7731F5387BC006035ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8659D7751F55F5C0006035ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8659D7771F55F780006035ED /* ColorPinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPinAnnotation.swift; sourceTree = "<group>"; };
+		86711ADC1F721B6B00C52739 /* ScoutNeon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScoutNeon.entitlements; sourceTree = "<group>"; };
 		86DC18841F6B44C000E2B955 /* TopicMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicMapTableViewCell.swift; sourceTree = "<group>"; };
 		86DC18861F6B44E200E2B955 /* ColorMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMapTableViewCell.swift; sourceTree = "<group>"; };
 		86DC18881F6B718000E2B955 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		864A37D41F3BF12700D4FF55 /* ScoutNeon */ = {
 			isa = PBXGroup;
 			children = (
+				86711ADC1F721B6B00C52739 /* ScoutNeon.entitlements */,
 				864A37D51F3BF12700D4FF55 /* AppDelegate.swift */,
 				86DC18811F69EF7000E2B955 /* Views */,
 				86DC18821F69EF9700E2B955 /* ViewModels */,
@@ -232,6 +234,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = QPAAN3UY4S;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -468,12 +475,15 @@
 			baseConfigurationReference = 2CFF76BBC9D78051F1CFA70B /* Pods-ScoutNeon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScoutNeon/ScoutNeon.entitlements;
 				DEVELOPMENT_TEAM = QPAAN3UY4S;
 				INFOPLIST_FILE = ScoutNeon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.none.ScoutNeon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.none.ScoutNeon2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -482,12 +492,15 @@
 			baseConfigurationReference = 843E704EC3493F73AF85C4E1 /* Pods-ScoutNeon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScoutNeon/ScoutNeon.entitlements;
 				DEVELOPMENT_TEAM = QPAAN3UY4S;
 				INFOPLIST_FILE = ScoutNeon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.none.ScoutNeon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.none.ScoutNeon2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
