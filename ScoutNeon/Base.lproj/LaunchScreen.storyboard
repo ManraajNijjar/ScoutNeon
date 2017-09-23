@@ -1,45 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wNd-G2-P8R">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="Lrw-u5-13i">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="wNd-G2-P8R" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="TqK-no-trx"/>
+                        <viewControllerLayoutGuide type="bottom" id="nxm-bP-qX8"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="e0H-j6-ZPM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-736" translatesAutoresizingMaskIntoConstraints="NO" id="LMr-3v-r87">
+                            <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="patrick-tomasso-59247" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-bB-RtS">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S C O U T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eEb-AQ-7EW">
+                                <rect key="frame" x="0.0" y="260" width="375" height="80"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="ff0-Kl-Ttk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="70"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="4" height="0.0"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NEON" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-kt-oDA">
+                                <rect key="frame" x="16" y="309" width="343" height="205"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="205" id="zRS-nc-iX6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.7010113442" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LMr-3v-r87" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="2XV-fu-ytp"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="LMr-3v-r87" secondAttribute="bottom" id="9pM-Dr-7LA"/>
-                            <constraint firstAttribute="trailing" secondItem="LMr-3v-r87" secondAttribute="trailing" id="JMb-6o-7Ut"/>
-                            <constraint firstItem="LMr-3v-r87" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ppZ-oH-cCv"/>
+                            <constraint firstAttribute="trailing" secondItem="zAa-bB-RtS" secondAttribute="trailing" id="1iI-DM-7K0"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="top" secondItem="eEb-AQ-7EW" secondAttribute="bottom" constant="-31" id="309-Fa-d3C"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="trailing" secondItem="e0H-j6-ZPM" secondAttribute="trailingMargin" id="JZF-gg-aO7"/>
+                            <constraint firstItem="eEb-AQ-7EW" firstAttribute="leading" secondItem="e0H-j6-ZPM" secondAttribute="leading" id="KrB-kx-2O5"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="trailing" secondItem="e0H-j6-ZPM" secondAttribute="trailingMargin" id="V2S-J3-Fmo"/>
+                            <constraint firstAttribute="trailing" secondItem="eEb-AQ-7EW" secondAttribute="trailing" id="VaK-fc-PAy"/>
+                            <constraint firstItem="zAa-bB-RtS" firstAttribute="leading" secondItem="e0H-j6-ZPM" secondAttribute="leading" id="Y9y-LF-hnp"/>
+                            <constraint firstItem="nxm-bP-qX8" firstAttribute="top" secondItem="zAa-bB-RtS" secondAttribute="bottom" id="Zp4-fc-BSS"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="leading" secondItem="e0H-j6-ZPM" secondAttribute="leadingMargin" id="gWb-yi-Kpn"/>
+                            <constraint firstItem="zAa-bB-RtS" firstAttribute="top" secondItem="e0H-j6-ZPM" secondAttribute="top" id="jMe-xi-AYC"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="top" secondItem="eEb-AQ-7EW" secondAttribute="bottom" id="m9I-XG-qma"/>
+                            <constraint firstItem="eEb-AQ-7EW" firstAttribute="centerY" secondItem="e0H-j6-ZPM" secondAttribute="centerY" multiplier="0.9" id="qTk-xh-LoH"/>
+                            <constraint firstItem="fdw-kt-oDA" firstAttribute="leading" secondItem="e0H-j6-ZPM" secondAttribute="leadingMargin" id="yC1-N4-Frz"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="m9I-XG-qma"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SzX-vu-s3n" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="32.799999999999997" y="129.98500749625188"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Default-736" width="621" height="1104"/>
+        <image name="NEON" width="640" height="400"/>
+        <image name="patrick-tomasso-59247" width="3648" height="5472"/>
     </resources>
 </document>
