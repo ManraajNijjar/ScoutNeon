@@ -254,6 +254,7 @@
                         <outlet property="activityIndicator" destination="bRg-XA-d5i" id="Qzd-uC-UUx"/>
                         <outlet property="chromaView" destination="4hQ-T8-lgg" id="vGF-WF-mP7"/>
                         <outlet property="chromaViewConstraint" destination="Nk4-ic-MQV" id="6oI-HX-hBs"/>
+                        <outlet property="chromaViewHeightConstraint" destination="KIC-62-8m5" id="foB-PB-RRc"/>
                         <outlet property="mainMapView" destination="1g0-iV-vXm" id="xT3-qq-FtV"/>
                         <outlet property="scoutButton" destination="5Lf-Nm-k5B" id="bvb-1N-XQj"/>
                         <outlet property="slideInCancelButton" destination="pYH-y2-L4X" id="3lh-7c-4IP"/>

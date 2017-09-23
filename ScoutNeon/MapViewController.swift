@@ -20,6 +20,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var chromaView: UIView!
     @IBOutlet weak var chromaViewConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var chromaViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var slideInTableView: UITableView!
     @IBOutlet weak var slideInCancelButton: UIButton!
     
@@ -96,7 +97,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
         colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
         
-        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            chromaViewHeightConstraint.constant = view.frame.size.height / 2
+            chromaView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: (view.frame.size.height / 2))
+            
+        default: print("Not pad")
+        }
         
         chromaView.addSubview(colorPicker)
         
@@ -325,7 +332,15 @@ extension MapViewController: ChromaColorPickerDelegate {
     
     func setupChromaColorPicker() -> ChromaColorPicker {
         //Sets up the chroma color picker
-        let sizeValue = view.frame.size.width * 0.586
+        var sizeValue = view.frame.size.width * 0.586
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            sizeValue = view.frame.size.width * 0.5
+            
+        default: print("Not pad")
+        }
+        
         let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
         colorPicker.delegate = self
         colorPicker.padding = 5
