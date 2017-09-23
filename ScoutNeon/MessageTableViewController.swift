@@ -37,6 +37,8 @@ class MessageTableViewController: UIViewController {
     var alphaComponent: Double = 0.5
     var alphaModifier: Double = 0
     
+    var keyboardShowing = false
+    var keyboardHeight : CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()

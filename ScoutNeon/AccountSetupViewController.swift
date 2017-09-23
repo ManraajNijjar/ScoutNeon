@@ -61,7 +61,7 @@ class AccountSetupViewController: UIViewController {
         case .pad:
             backgroundColorView.isHidden = true
             
-        default: return
+        default: print("Not pad")
         }
         //Disables the submit button at the start of account settings creation
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
@@ -276,6 +276,7 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
             return colorPicker
         case .phone:
             //Sets up the chroma color picker
+            print("Phone case")
             let sizeValue = view.frame.size.width * 0.586
             let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
             colorPicker.delegate = self

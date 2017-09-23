@@ -96,6 +96,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
         colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
         
+        
+        
         chromaView.addSubview(colorPicker)
         
         activityIndicator.color = selectedColor

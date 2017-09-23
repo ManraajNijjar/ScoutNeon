@@ -277,11 +277,11 @@
                         <viewControllerLayoutGuide type="bottom" id="M7K-EI-eNa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5hc-1H-zda">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YKa-03-AUh">
-                                <rect key="frame" x="0.0" y="64" width="414" height="568"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="656"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="80" id="Ji3-9T-WoZ" customClass="MessageTableViewCell" customModule="ScoutNeon" customModuleProvider="target">
@@ -360,14 +360,14 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZV-Ba-W3Z">
-                                <rect key="frame" x="0.0" y="662" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="706" width="414" height="30"/>
                                 <state key="normal" title="Post!"/>
                                 <connections>
                                     <action selector="submitButtonPressed:" destination="VTg-ye-5Pf" eventType="touchUpInside" id="yMb-R5-JV4"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Message" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="baJ-vn-G3z">
-                                <rect key="frame" x="0.0" y="632" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="676" width="414" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -376,7 +376,7 @@
                                 </connections>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EQO-tJ-X59">
-                                <rect key="frame" x="188.66666666666666" y="327.66666666666669" width="37" height="37"/>
+                                <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,17 +464,17 @@ Thank you to Elvis Nunez for the Validation Library</string>
                         <viewControllerLayoutGuide type="bottom" id="wjU-0M-j0f"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="25W-Kn-TAT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSY-D9-7B8">
-                                <rect key="frame" x="20" y="64" width="374" height="21"/>
+                                <rect key="frame" x="20" y="20" width="374" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Post Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9QX-EF-D7P">
-                                <rect key="frame" x="20" y="125" width="374" height="30"/>
+                                <rect key="frame" x="20" y="81" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -483,7 +483,7 @@ Thank you to Elvis Nunez for the Validation Library</string>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-7P-3B5">
-                                <rect key="frame" x="20" y="196" width="374" height="30"/>
+                                <rect key="frame" x="20" y="152" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -492,14 +492,14 @@ Thank you to Elvis Nunez for the Validation Library</string>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-Wb-bNb">
-                                <rect key="frame" x="191.66666666666666" y="350" width="31" height="30"/>
+                                <rect key="frame" x="191.66666666666666" y="306" width="31" height="30"/>
                                 <state key="normal" title="Post"/>
                                 <connections>
                                     <action selector="submitButtonPressed:" destination="k4E-JT-vFg" eventType="touchUpInside" id="XfH-CK-nZP"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CId-sF-tPT">
-                                <rect key="frame" x="188.66666666666666" y="327.66666666666669" width="37" height="37"/>
+                                <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -675,6 +675,6 @@ Thank you to Elvis Nunez for the Validation Library</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EI2-Kb-hFr"/>
-        <segue reference="7xt-ha-DLd"/>
+        <segue reference="Be7-Lf-shE"/>
     </inferredMetricsTieBreakers>
 </document>
