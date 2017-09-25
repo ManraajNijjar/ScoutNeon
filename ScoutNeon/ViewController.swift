@@ -53,20 +53,15 @@ class ViewController: UIViewController {
             }
         })
         
-        //Currently not used for anything
-        /*
+
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
-        // It's an iPhone
-            print("iphone")
             logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         case .pad:
-        // It's an iPad
-            print("ipad")
             logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
             
         default: return
-        } */
+        }
         
         
         //Attempts to Autologin
