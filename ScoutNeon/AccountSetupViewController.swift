@@ -150,6 +150,7 @@ class AccountSetupViewController: UIViewController {
                 DispatchQueue.main.async {
                     let resultsName = results!["name"]! as AnyObject
                     self.favoriteColorLabel.text = resultsName["value"]! as? String
+                    self.favoriteColorLabel.textColor = self.colorPicker.currentColor
                 }
             }
         }
@@ -171,9 +172,17 @@ class AccountSetupViewController: UIViewController {
             fireBaseController.userExists(userId: potentialName!, baseView: self, userExistsCompletionHandler: { (userStatus) in
                 self.submitButton.isEnabled = !(userStatus)
                 self.activityIndicator.stopAnimating()
+                if userStatus {
+                    DispatchQueue.main.async {
+                        self.favoriteColorLabel.text = potentialName! + " is already taken"
+                        self.favoriteColorLabel.textColor = UIColor.red
+                    }
+                }
             })
         } else {
             submitButton.isEnabled = false
+            self.favoriteColorLabel.text = "Names can only have characters from a-Z and 0-9"
+            self.favoriteColorLabel.textColor = UIColor.red
         }
     }
     
