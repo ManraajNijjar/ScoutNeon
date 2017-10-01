@@ -291,7 +291,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let destinationViewController = segue.destination as! AccountSetupViewController
             destinationViewController.userIDFromLogin = userProfile.twitterid
             destinationViewController.firebaseIDFromLogin = userProfile.id
-            destinationViewController.editmode = true
+            destinationViewController.editModeIsActive = true
             destinationViewController.editProfile = userProfile
             destinationViewController.usernameTextField.text = userProfile.username
             destinationViewController.colorPicker.adjustToColor(UIColor(hex: userProfile.color!))
@@ -300,7 +300,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let destinationViewController = segue.destination as! AccountSetupViewController
             destinationViewController.userIDFromLogin = userProfile.twitterid
             destinationViewController.firebaseIDFromLogin = userProfile.id
-            destinationViewController.editmode = true
+            destinationViewController.editModeIsActive = true
             destinationViewController.editProfile = userProfile
             destinationViewController.editColor = UIColor(hex: userProfile.color!)
         }

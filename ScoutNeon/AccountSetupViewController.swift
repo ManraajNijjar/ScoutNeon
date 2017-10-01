@@ -30,7 +30,7 @@ class AccountSetupViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //Variables to make the editing process easier
-    var editmode = false
+    var editModeIsActive = false
     var editProfile: Profile!
     var editColor: UIColor!
     
@@ -102,7 +102,7 @@ class AccountSetupViewController: UIViewController {
         view.bringSubview(toFront: usernameTextField)
         
         //If the view is in editmode and not login changes the values accordinglty
-        if editmode {
+        if editModeIsActive {
             self.usernameTextField.text = editProfile.username
             colorPicker.adjustToColor(editColor)
         }
@@ -126,58 +126,48 @@ class AccountSetupViewController: UIViewController {
     @IBAction func submitPressed(_ sender: Any) {
         
         let reachability = Reachability()!
-        //Determines if a user already exists so as to edit the profile rather than make a new one
-        //Only does the configuration on the client if the configuration can be done on the server to preserve parity
-        if editmode {
-            reachability.whenReachable = { reachability in
-                DispatchQueue.main.async {
-                    self.editProfile.color = self.colorPicker.currentColor.hexCode
-                    self.editProfile.username = self.usernameTextField.text!
-                    CoreDataController.saveContext()
-                    //Pushes the new profile to the Firebase database
-                    self.fireBaseController.createUser(userProfile: self.editProfile, baseView: self)
-                    self.performSegue(withIdentifier: "MapSegue", sender: self)
-                }
-            }
-            reachability.whenUnreachable = { _ in
-                DispatchQueue.main.async {
-                    self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
-                }
-            }
-            
-            do {
-                try reachability.startNotifier()
-            } catch {
-                print("Unable to start notifier")
-            }
+        
+        //Only does the configuration on the client since no changes are needed on the back end
+        if editModeIsActive {
+            self.editProfile.color = self.colorPicker.currentColor.hexCode
+            self.editProfile.username = self.usernameTextField.text!
+            CoreDataController.saveContext()
+            self.performSegue(withIdentifier: "MapSegue", sender: self)
             
         } else {
+            
+            //Determines if the app has an active internet connection, if not it listens until it does and then performs
+            //The push to Firebase
             reachability.whenReachable = { reachability in
                 DispatchQueue.main.async {
+                    //Generates a new Profile from the CoreData model
                     let profile = self.coreDataController.createUserProfile(twitterId: self.userIDFromLogin, firebaseId: self.firebaseIDFromLogin, profileImage: self.profileImage.image!, username: self.usernameTextField.text!, color: self.colorPicker.currentColor.hexCode, anonymous: false)
                     
                     CoreDataController.saveContext()
                     
+                    //Sends the new model to Firebase
                     self.fireBaseController.createUser(userProfile: profile, baseView: self)
                     self.performSegue(withIdentifier: "MapSegue", sender: self)
                 }
             }
+            //Displays an alert if there is no active internet connection
             reachability.whenUnreachable = { _ in
                 DispatchQueue.main.async {
                     self.errorAlertController.displayAlert(title: "Connection Issue!", message: "We can't seem to find your connection to the internet", view: self)
                 }
             }
             
+            //Starts the Listener
             do {
                 try reachability.startNotifier()
             } catch {
-                print("Unable to start notifier")
+                print("Reachability Notifier did not properly start")
             }
         }
         
     }
     
-    //Takes an image and resizes it
+    //Takes an image and resizes it, used to increase the size of the imageView when on iPad
     func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
