@@ -25,17 +25,17 @@ class ViewController: UIViewController {
     
     //Used to transfer information between ViewControllers
     //Stored here to be transferred during Segue
-    var loginId = ""
-    var firebaseId = ""
+    private var loginIdFromTwitter = ""
+    private var loginIdFromFirebase = ""
     
     
     //Checks to see whether or not to auto login accounts
     //Used so that if a User logs out but there's another session stored it doesn't Autolog them into that account
     //Should never happen but guards against that case
-    var autoLog = true
+    var automaticLoginEnabled = true
     
     //Tracks whether the loginButton has been added through the reachability container. Could maybe be replaced by an optional
-    var loginAdded = false
+    var loginButtonAdded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,22 +52,12 @@ class ViewController: UIViewController {
                 self.errorController.displayAlert(title: "Connection Issue", message: "Sorry there was an issue connecting to Twitter Servers", view: self)
             }
         })
+        logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
         
-
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
-        case .pad:
-            logInButton.center = CGPoint(x: self.view.center.x, y: (self.view.center.y * 1.55))
-            
-        default: return
-        }
-        
-        
-        //Attempts to Autologin
+        //Attempts to automatically login if
         let store = Twitter.sharedInstance().sessionStore
         if let session = store.session() {
-            if autoLog {
+            if automaticLoginEnabled {
                 activityIndicator.startAnimating()
                 completeLogin(session: session as! TWTRSession)
             }
@@ -76,12 +66,11 @@ class ViewController: UIViewController {
         //Creates a listener that places the LoginButton if there's an active internet connection and enables it
         reachability.whenReachable = { reachability in
             DispatchQueue.main.async {
-                if self.loginAdded == false {
+                if self.loginButtonAdded == false {
                     self.view.addSubview(logInButton)
-                    self.loginAdded = true
+                    self.loginButtonAdded = true
                 }
                 logInButton.isEnabled = true
-                
             }
         }
         
@@ -102,7 +91,7 @@ class ViewController: UIViewController {
     
     func completeLogin(session: TWTRSession){
         //Pulls the login ID from the Twitter instance
-        self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
+        self.loginIdFromTwitter = (Twitter.sharedInstance().sessionStore.session()?.userID)!
                 
         //Sets up the Twitter API to use the Users's session token
         self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
@@ -117,7 +106,7 @@ class ViewController: UIViewController {
                 //SetupView if it's not
                 self.coreDataController.getUserProfile(userID: user!.uid, completionHandler: { (success, userProfile) in
                     self.activityIndicator.stopAnimating()
-                    self.firebaseId = user!.uid
+                    self.loginIdFromFirebase = user!.uid
                     //If one is found it succeeds
                     if success {
                         DispatchQueue.main.async { [unowned self] in
@@ -157,14 +146,14 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SetupSegue" {
             let viewController = segue.destination as! AccountSetupViewController
-            viewController.userIDFromLogin = loginId
-            viewController.firebaseIDFromLogin = firebaseId
+            viewController.userIDFromLogin = loginIdFromTwitter
+            viewController.firebaseIDFromLogin = loginIdFromFirebase
         }
         
         if segue.identifier == "MapSegue" {
             let destinationNavigationController = segue.destination as! UINavigationController
             let targetController = destinationNavigationController.topViewController as! MapViewController
-            targetController.userIDForProfile = firebaseId
+            targetController.userIDForProfile = loginIdFromFirebase
             targetController.fromLogin = true
         }
     }

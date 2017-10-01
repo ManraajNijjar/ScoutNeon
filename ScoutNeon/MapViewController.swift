@@ -285,7 +285,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         if segue.identifier == "unwindSegueToLogin" {
             let destinationViewController = segue.destination as! ViewController
-            destinationViewController.autoLog = false
+            destinationViewController.automaticLoginEnabled = false
         }
         if segue.identifier == "unwindSegueToAccount"{
             let destinationViewController = segue.destination as! AccountSetupViewController
