@@ -33,7 +33,6 @@ class AccountSetupViewController: UIViewController {
     var editmode = false
     var editProfile: Profile!
     var editColor: UIColor!
-    var firstEdit = true
     
     //Pulled from the Login View Controller
     var userIDFromLogin: String!
@@ -58,20 +57,8 @@ class AccountSetupViewController: UIViewController {
             backgroundColorView.isHidden = true
         }
         
-        //Sets up the blur effect to the photo and moves it to the back
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.alpha = 0
-        view.addSubview(blurEffectView)
-        submitButton.isEnabled = false
-        
         //Sets up the Chroma Color Picker and connects two methods to the actions you can use with it
         colorPicker = setupChromaColorPicker()
-        colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
-        colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
-
         view.addSubview(colorPicker)
         
         //Turns the Image and the Background Color View into a circle
@@ -114,10 +101,9 @@ class AccountSetupViewController: UIViewController {
         //Moves the usernameTextField to the front
         view.bringSubview(toFront: usernameTextField)
         
-        usernameTextField.delegate = self
-        
         //If the view is in editmode and not login changes the values accordinglty
         if editmode {
+            self.usernameTextField.text = editProfile.username
             colorPicker.adjustToColor(editColor)
         }
         
@@ -136,26 +122,12 @@ class AccountSetupViewController: UIViewController {
             self.blurEffectView.alpha = 0.5
         })
     }
-    
-    
-    //The function called by the interactions with the Chroma Elements
-    func colorSliderMoved() {
-        backgroundColorView.backgroundColor = colorPicker.currentColor
-        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
-            if error == nil {
-                DispatchQueue.main.async {
-                    let resultsName = results!["name"]! as AnyObject
-                    self.favoriteColorLabel.text = resultsName["value"]! as? String
-                    self.favoriteColorLabel.textColor = self.colorPicker.currentColor
-                }
-            }
-        }
-    }
 
     @IBAction func submitPressed(_ sender: Any) {
         
         let reachability = Reachability()!
         //Determines if a user already exists so as to edit the profile rather than make a new one
+        //Only does the configuration on the client if the configuration can be done on the server to preserve parity
         if editmode {
             reachability.whenReachable = { reachability in
                 DispatchQueue.main.async {
@@ -241,66 +213,70 @@ class AccountSetupViewController: UIViewController {
     @IBAction func unwindToAccountView(segue:UIStoryboardSegue) {
         
     }
+    
+    func blurSetup(){
+        //Sets up the blur effect to the photo and moves it to the back
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0
+        view.addSubview(blurEffectView)
+    }
 
 }
 
 extension AccountSetupViewController: ChromaColorPickerDelegate {
     
-    func setupChromaColorPicker() -> ChromaColorPicker {
-        //Resolves inherent issue with ChromaColorPicker that was not resolved on the most recent version for some reason
-        //https://github.com/joncardasis/ChromaColorPicker/issues/8
-        
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
-            //Sets up the chroma color picker
-            let sizeValue = view.frame.size.width * 0.4
-            let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
-            colorPicker.delegate = self
-            colorPicker.padding = 5
-            colorPicker.stroke = 3
-            colorPicker.hexLabel.textColor = UIColor.black
-            //Places it in the center of the view should likely implement a place to put it so it has constraints
-            //neatColorPicker.center = self.colorPickerView.center
-            
-            //colorPicker.center = self.view.center
-            let sizeHeight = view.frame.size.height * 0.1877
-            //Closest equivalent to 110 on iPhone7
-            colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
-            return colorPicker
-        case .phone:
-            //Sets up the chroma color picker
-            print("Phone case")
-            let sizeValue = view.frame.size.width * 0.586
-            let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
-            colorPicker.delegate = self
-            colorPicker.padding = 5
-            colorPicker.stroke = 3
-            colorPicker.hexLabel.textColor = UIColor.black
-            //Places it in the center of the view should likely implement a place to put it so it has constraints
-            //neatColorPicker.center = self.colorPickerView.center
-            
-            //colorPicker.center = self.view.center
-            let sizeHeight = view.frame.size.height * 0.1877
-            //Closest equivalent to 110 on iPhone7
-            colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
-            return colorPicker
-        default: print("Case not Found")
+    //The function called by the interactions with the Chroma Elements
+    func colorSliderMoved() {
+        backgroundColorView.backgroundColor = colorPicker.currentColor
+        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    let resultsName = results!["name"]! as AnyObject
+                    self.favoriteColorLabel.text = resultsName["value"]! as? String
+                    self.favoriteColorLabel.textColor = self.colorPicker.currentColor
+                }
+            }
         }
-        return ChromaColorPicker()
     }
     
-    //Triggers whenever the slider is moved
+    func setupChromaColorPicker() -> ChromaColorPicker {
+        //Resolves inherent issue with ChromaColorPicker that is resolved on the repo but not in the pod
+        //https://github.com/joncardasis/ChromaColorPicker/issues/8
+        var sizeValue: CGFloat = 0
+        let sizeHeight: CGFloat = view.frame.size.height * 0.1877
+        
+        //Switches up the size of the Picker depending on if the device is a phone or a pad
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            sizeValue = view.frame.size.width * 0.4
+        }
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            sizeValue = view.frame.size.width * 0.586
+        }
+        
+        //Sets up the UI aspects of the picker
+        let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: sizeValue, height: sizeValue))
+        colorPicker.delegate = self
+        colorPicker.padding = 5
+        colorPicker.stroke = 3
+        colorPicker.hexLabel.textColor = UIColor.black
+        colorPicker.center = CGPoint(x: self.view.center.x, y: self.view.center.y + sizeHeight)
+        
+        //Removes a button from the Chroma Picker
+        colorPicker.addButton.isHidden = true
+        colorPicker.addButton.isEnabled = false
+        
+        //Attaches methods to two interactions on the picker
+        colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
+        colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
+        
+        return colorPicker
+    }
+    
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
-        print(colorPicker.currentColor)
+        //Enabled to fit Chroma Delegate requirements, unused as the addbutton is disabled
     }
     
-    
-    
-}
-//Makes it so the TextFields close the keyboard on return
-extension AccountSetupViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
 }
