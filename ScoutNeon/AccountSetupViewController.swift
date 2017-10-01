@@ -12,6 +12,7 @@ import ReachabilitySwift
 
 class AccountSetupViewController: UIViewController {
     
+    //Storyboard Elements
     @IBOutlet weak var usernameTextField: UITextField!
     
     @IBOutlet weak var submitButton: UIButton!
@@ -36,36 +37,25 @@ class AccountSetupViewController: UIViewController {
     
     //Pulled from the Login View Controller
     var userIDFromLogin: String!
-    
     var firebaseIDFromLogin: String!
     
-    
-    var colorPicker = ChromaColorPicker()
-    
+    //Controllers and APIs
     let twitterAPI = TwitterApiController.sharedInstance
-    
     let colorAPI = ColorApiController()
-    
-    let validator = TextValidationController.sharedInstance
-    
     let coreDataController = CoreDataController.sharedInstance
-    
     let fireBaseController = FirebaseController.sharedInstance
-    
     let errorAlertController = ErrorAlertController()
     
-    var blurEffectView = UIVisualEffectView()
+    //Programatic UIElements that need a global call
+    private var blurEffectView = UIVisualEffectView()
+    var colorPicker = ChromaColorPicker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Removes the background Color if the device is an iPad
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
+        if UIDevice.current.userInterfaceIdiom == .pad {
             backgroundColorView.isHidden = true
-            
-        default: print("Not pad")
-            
         }
         
         //Sets up the blur effect to the photo and moves it to the back
@@ -118,17 +108,23 @@ class AccountSetupViewController: UIViewController {
                 default: return
                 }
             }
+            
         }
         
         //Moves the usernameTextField to the front
         view.bringSubview(toFront: usernameTextField)
         
         usernameTextField.delegate = self
-        //If the view is in editmode and not login changes teh values accordinglty
         
+        //If the view is in editmode and not login changes the values accordinglty
         if editmode {
-            usernameTextField.text = editProfile.username
             colorPicker.adjustToColor(editColor)
+        }
+        
+        twitterAPI.getUserData(userID: userIDFromLogin) { (user, error) in
+            if let user = user {
+                self.usernameTextField.text = user.screenName
+            }
         }
     }
     
@@ -156,36 +152,6 @@ class AccountSetupViewController: UIViewController {
         }
     }
 
-    @IBAction func textFieldChanged(_ sender: Any) {
-        let potentialName = usernameTextField.text
-        
-        if editmode && firstEdit {
-            errorAlertController.displayAlert(title: "Warning", message: "Changing your username will only affect future posts", view: self)
-            firstEdit = false
-        }
-        
-        
-        if validator.validator.validateString(potentialName!) {
-            //Could move this part to when submit is presed if the app is connecting to Firebase too often
-            activityIndicator.startAnimating()
-            //Checks to see if the username is already taken
-            fireBaseController.userExists(userId: potentialName!, baseView: self, userExistsCompletionHandler: { (userStatus) in
-                self.submitButton.isEnabled = !(userStatus)
-                self.activityIndicator.stopAnimating()
-                if userStatus {
-                    DispatchQueue.main.async {
-                        self.favoriteColorLabel.text = potentialName! + " is already taken"
-                        self.favoriteColorLabel.textColor = UIColor.red
-                    }
-                }
-            })
-        } else {
-            submitButton.isEnabled = false
-            self.favoriteColorLabel.text = "Names can only have characters from a-Z and 0-9"
-            self.favoriteColorLabel.textColor = UIColor.red
-        }
-    }
-    
     @IBAction func submitPressed(_ sender: Any) {
         
         let reachability = Reachability()!

@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     func completeLogin(session: TWTRSession){
         //Pulls the login ID from the Twitter instance
         self.loginId = (Twitter.sharedInstance().sessionStore.session()?.userID)!
-        
+                
         //Sets up the Twitter API to use the Users's session token
         self.twitterAPI.guestToUserClientSwitch(userID: (Twitter.sharedInstance().sessionStore.session()?.userID)!)
         

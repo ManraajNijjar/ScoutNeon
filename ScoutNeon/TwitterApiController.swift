@@ -34,7 +34,6 @@ class TwitterApiController {
         
         client.loadUser(withID: userID) { (user, error) -> Void in
             // handle the response or error
-            
             if error == nil {
              completionHandlerForUser(user, nil)
             }

@@ -35,7 +35,6 @@ class FirebaseController {
     }
     
     func createUser(userProfile: Profile, baseView: UIViewController) {
-        /* ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!]) */
         ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!], withCompletionBlock: { (error, ref) in
             if (error != nil) {
                 self.errorController.displayAlert(title: "DB Issue", message: "There was an error creating your account", view: baseView)
