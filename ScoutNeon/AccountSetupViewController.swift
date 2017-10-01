@@ -221,11 +221,14 @@ extension AccountSetupViewController: ChromaColorPickerDelegate {
     //The function called by the interactions with the Chroma Elements
     func colorSliderMoved() {
         backgroundColorView.backgroundColor = colorPicker.currentColor
-        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (results, error) in
-            if error == nil {
+        colorAPI.getColorNameByHex(selectColor: colorPicker.currentColor) { (apiCallResults, error) in
+            if let result = apiCallResults {
                 DispatchQueue.main.async {
-                    let resultsName = results!["name"]! as AnyObject
-                    self.favoriteColorLabel.text = resultsName["value"]! as? String
+                    let resultsColorName = result["name"]! as AnyObject
+                    let resultsContrastColor = result["contrast"]! as AnyObject
+                    
+                    self.favoriteColorLabel.backgroundColor = UIColor(hex: resultsContrastColor["value"]! as! String)
+                    self.favoriteColorLabel.text = resultsColorName["value"]! as? String
                     self.favoriteColorLabel.textColor = self.colorPicker.currentColor
                 }
             }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37BCA1CEA9983D6A771ACAFD /* Pods_ScoutNeon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63CFBB25A33312A8DDFADF65 /* Pods_ScoutNeon.framework */; };
+		8623E54E1F8194D900FCF174 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8623E54D1F8194D900FCF174 /* UIColorExtension.swift */; };
 		863F054A1F676AE000373152 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863F05491F676AE000373152 /* MessageTableViewController.swift */; };
 		863F054C1F6787D200373152 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863F054B1F6787D200373152 /* MessageTableViewCell.swift */; };
 		863F054E1F69DBC200373152 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863F054D1F69DBC200373152 /* TitleTableViewCell.swift */; };
@@ -43,6 +44,7 @@
 		2CFF76BBC9D78051F1CFA70B /* Pods-ScoutNeon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoutNeon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoutNeon/Pods-ScoutNeon.debug.xcconfig"; sourceTree = "<group>"; };
 		63CFBB25A33312A8DDFADF65 /* Pods_ScoutNeon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoutNeon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		843E704EC3493F73AF85C4E1 /* Pods-ScoutNeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoutNeon.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoutNeon/Pods-ScoutNeon.release.xcconfig"; sourceTree = "<group>"; };
+		8623E54D1F8194D900FCF174 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		863F05491F676AE000373152 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		863F054B1F6787D200373152 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		863F054D1F69DBC200373152 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8623E54C1F8194BC00FCF174 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8623E54D1F8194D900FCF174 /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		864A37C91F3BF12700D4FF55 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +153,7 @@
 		86DC18811F69EF7000E2B955 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8623E54C1F8194BC00FCF174 /* Extensions */,
 				864A37D71F3BF12700D4FF55 /* ViewController.swift */,
 				864A38701F44FC5E00D4FF55 /* AccountSetupViewController.swift */,
 				8659D7731F5387BC006035ED /* MapViewController.swift */,
@@ -338,6 +349,7 @@
 				86DC188C1F6B718000E2B955 /* Profile+CoreDataClass.swift in Sources */,
 				864A37D81F3BF12700D4FF55 /* ViewController.swift in Sources */,
 				863F054A1F676AE000373152 /* MessageTableViewController.swift in Sources */,
+				8623E54E1F8194D900FCF174 /* UIColorExtension.swift in Sources */,
 				864A38751F46601C00D4FF55 /* TwitterApiController.swift in Sources */,
 				863F054C1F6787D200373152 /* MessageTableViewCell.swift in Sources */,
 				864A37D61F3BF12700D4FF55 /* AppDelegate.swift in Sources */,
