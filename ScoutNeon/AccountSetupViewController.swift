@@ -56,44 +56,50 @@ class AccountSetupViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .pad {
             backgroundColorView.isHidden = true
         }
+        //Makes background view circular if device is a phone
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            backgroundColorView.layer.cornerRadius = profileImage.frame.size.width / 2
+            backgroundColorView.clipsToBounds = true
+        }
         
         //Sets up the Chroma Color Picker and connects two methods to the actions you can use with it
         colorPicker = setupChromaColorPicker()
         view.addSubview(colorPicker)
         
-        //Turns the Image and the Background Color View into a circle
-        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
-        profileImage.clipsToBounds = true
-        backgroundColorView.layer.cornerRadius = profileImage.frame.size.width / 2
-        backgroundColorView.clipsToBounds = true
         
         //Sends the subviews to the back of the View in order to make everything function properly
         view.sendSubview(toBack: backgroundColorView)
         view.sendSubview(toBack: blurEffectView)
         view.sendSubview(toBack: backgroundImage)
         
+        //Retreives the user name from Twitter
+        twitterAPI.getUserData(userID: userIDFromLogin) { (user, error) in
+            if let user = user {
+                self.usernameTextField.text = user.screenName
+            }
+        }
         
         //Begins to retrieve the users image from Twitter
         activityIndicator.startAnimating()
         twitterAPI.getImageForUserID(userID: userIDFromLogin, size: "Large") { (image) in
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
-                
-                switch UIDevice.current.userInterfaceIdiom {
-                case .phone:
-                    self.profileImage.image = image
-                case .pad:
-                    
-                    //Scales the image for iPad sizes
+                //Scales image/imageView size for iPad
+                if UIDevice.current.userInterfaceIdiom == .pad {
                     let screenSize: CGRect = UIScreen.main.bounds
                     let selectedSize = screenSize.width/2.5
                     self.profileImage.image = self.ResizeImage(image: image!, targetSize: CGSize(width: selectedSize, height: selectedSize))
                     self.profileImage.removeConstraints(self.profileImage.constraints)
                     self.profileImage.frame = CGRect(x: 0, y: 0, width: Int(selectedSize), height: Int(selectedSize))
-                    
-                    
-                default: return
                 }
+                
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    self.profileImage.image = image
+                }
+                
+                //Turns the Image into a circle
+                self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
+                self.profileImage.clipsToBounds = true
             }
             
         }
@@ -105,12 +111,6 @@ class AccountSetupViewController: UIViewController {
         if editModeIsActive {
             self.usernameTextField.text = editProfile.username
             colorPicker.adjustToColor(editColor)
-        }
-        
-        twitterAPI.getUserData(userID: userIDFromLogin) { (user, error) in
-            if let user = user {
-                self.usernameTextField.text = user.screenName
-            }
         }
     }
     
@@ -215,6 +215,8 @@ class AccountSetupViewController: UIViewController {
     }
 
 }
+
+//Chroma Delegate Extension
 
 extension AccountSetupViewController: ChromaColorPickerDelegate {
     
