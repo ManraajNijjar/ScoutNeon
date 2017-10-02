@@ -57,9 +57,12 @@ class NewPostViewController: UIViewController {
         
         reachability.whenReachable = { reachable in
             DispatchQueue.main.async {
-                if self.firebaseController.rateLimitPosts() {
+                if self.firebaseController.enforceNewPostRateLimit() {
                     self.activityIndicator.startAnimating()
-                    self.firebaseController.newPost(username: self.userProfile.username!, topicTitle: self.titleTextField.text!, topicMessage: self.messageTextField.text!, color: self.color.hexCode, latitude: self.postLatitude, longitude: self.postLongitude, baseView: self, completionHandler: { (delayed) in
+                    
+                    let dictionaryOfNewTopicValues = ["username": self.userProfile.username!, "twitterID": self.userProfile.twitterid!, "topicTitle": self.titleTextField.text!, "topicMessage": self.messageTextField.text!, "color": self.color.hexCode, "latitude": self.postLatitude, "longitude": self.postLongitude] as [String : Any]
+                    
+                    self.firebaseController.createNewTopicPostOnFirebase(dictionaryOfNewPostValues: dictionaryOfNewTopicValues, baseView: self, completionHandler: { (delayed) in
                         if delayed == false {
                             if let navController = self.navigationController, navController.viewControllers.count >= 2 {
                                 let viewController = navController.viewControllers[navController.viewControllers.count - 2] as! MapViewController

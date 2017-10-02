@@ -162,7 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func scoutForTopics() {
         
-        if firebaseController.rateLimitScouts() {
+        if firebaseController.enforcePostSearchLimit() {
             scoutButton.alpha = 0
             scoutButton.setTitle("1 Sec", for: .normal)
             UIView.animate(withDuration: 6, animations: {

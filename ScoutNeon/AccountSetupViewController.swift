@@ -146,7 +146,7 @@ class AccountSetupViewController: UIViewController {
                     CoreDataController.saveContext()
                     
                     //Sends the new model to Firebase
-                    self.fireBaseController.createUser(userProfile: profile, baseView: self)
+                    self.fireBaseController.createNewUserOnFirebase(userProfile: profile, baseView: self)
                     self.performSegue(withIdentifier: "MapSegue", sender: self)
                 }
             }

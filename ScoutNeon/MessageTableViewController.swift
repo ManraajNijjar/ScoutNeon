@@ -64,7 +64,7 @@ class MessageTableViewController: UIViewController {
         
         reachability.whenReachable = { reachability in
             DispatchQueue.main.async {
-                if self.firebaseController.rateLimitPosts() {
+                if self.firebaseController.enforceNewPostRateLimit() {
                     self.activityIndicator.startAnimating()
                     self.firebaseController.newMessage(postId: self.selectedTopic, messageValueString: self.textField.text!, author: self.username, baseView: self)
                     self.textField.text = ""

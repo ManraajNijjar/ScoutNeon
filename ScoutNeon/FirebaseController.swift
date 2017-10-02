@@ -18,127 +18,127 @@ class FirebaseController {
     
     let errorController = ErrorAlertController()
     
-    var lastDbInteraction = Date()
-    var lastScout = Date()
     
-    var timeBetweenPosts: Double = 0
-    var timeBetweenScouts: Double = 0
-    
+    //Manages the rate limit on new posts from the user
+    private var timeOfLastDatabaseInsert = Date()
+    private var timeOfLastDatabaseQuery = Date()
+    private var minimumTimeBetweenInserts: Double = 0
+    private var minimumTimeBetweenQueries: Double = 0
     
     
     init() {
         ref = Database.database().reference()
     }
     
+    //Used for removing the listener when exiting the MessageTableView
     func getRef() -> DatabaseReference? {
         return ref
     }
     
-    func createUser(userProfile: Profile, baseView: UIViewController) {
+    //Prevents users from posting too frequently by enforcing a time limit
+    func enforceNewPostRateLimit() -> Bool {
+        let currentTimeForNewPost = Date()
+        if currentTimeForNewPost.timeIntervalSince(timeOfLastDatabaseInsert) >= minimumTimeBetweenInserts {
+            //If this is the first interaction between the user and Firebase we don't want to limit that so
+            //we create the actual time limit here
+            minimumTimeBetweenInserts = 20
+            
+            timeOfLastDatabaseInsert = currentTimeForNewPost
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    //Prevents users from searching too frequently by enforcing a time limit
+    func enforcePostSearchLimit() -> Bool {
+        let currentTimeForNewSearch = Date()
+        if currentTimeForNewSearch.timeIntervalSince(timeOfLastDatabaseQuery) >= minimumTimeBetweenQueries {
+            //If this is the first interaction between the user and Firebase we don't want to limit that so
+            //we create the actual time limit here
+            minimumTimeBetweenQueries = 6
+            
+            timeOfLastDatabaseQuery = currentTimeForNewSearch
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func createNewUserOnFirebase(userProfile: Profile, baseView: UIViewController) {
+        
         ref?.child("Users").child(userProfile.id!).setValue(["username": userProfile.username!, "twitterId": userProfile.twitterid!], withCompletionBlock: { (error, ref) in
+            
             if (error != nil) {
                 self.errorController.displayAlert(title: "DB Issue", message: "There was an error creating your account", view: baseView)
             }
+            
         })
     }
     
-    func userExists(userId: String, baseView: UIViewController, userExistsCompletionHandler: @escaping (_ userStatus: Bool) -> Void){
+    func createNewTopicPostOnFirebase(dictionaryOfNewPostValues: [String: Any], baseView: UIViewController, completionHandler: @escaping (_ gotDelayed: Bool) -> Void){
         
-        ref?.child("Users").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            if((value?.count)! > 0) {
-                var userCheck = false
-                //Goes through each value for the user and processes each to check if has a similar username
-                //This was done because it was too far along to change the data structure
-                for (_, val) in value! {
-                    for (keyTwo, valTwo) in (val as? NSDictionary)! {
-                        if (keyTwo as! String) == "username" {
-                            if (valTwo as! String) == userId {
-                                userCheck = true
-                            }
-                        }
-                    }
-                }
-                userExistsCompletionHandler(userCheck)
-            } else {
-                userExistsCompletionHandler(false)
-            }
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-            self.errorController.displayAlert(title: "Connection Issue", message: "There was an error connecting to our Databases", view: baseView)
-        }
+        //Used to indicate if the post happened immediately or the listener had to wait
+        var postWasDelayedStatus = false
         
-    }
-    
-    func rateLimitPosts() -> Bool {
-        let currentTime = Date()
-        if currentTime.timeIntervalSince(lastDbInteraction) >= timeBetweenPosts {
-            timeBetweenPosts = 20
-            lastDbInteraction = currentTime
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func rateLimitScouts() -> Bool {
-        let currentTime = Date()
-        if currentTime.timeIntervalSince(lastScout) >= timeBetweenScouts {
-            timeBetweenScouts = 6
-            lastScout = currentTime
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func newPost(username: String, topicTitle: String, topicMessage: String, color: String, latitude: Double, longitude: Double, baseView: UIViewController, completionHandler: @escaping (_ gotDelayed: Bool) -> Void){
-        let postView = baseView as! NewPostViewController
-        let connectedRef = Database.database().reference(withPath: ".info/connected")
-        var delayStatus = false
-        connectedRef.observe(.value, with: { snapshot in
+        //Reference to the view this was pulled from to manipulate it's activity indicator
+        let newPostViewController = baseView as! NewPostViewController
+        
+        //Checks if the connection to Firebase is active
+        let connectionToFirebaseServers = Database.database().reference(withPath: ".info/connected")
+        
+        connectionToFirebaseServers.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
-                print("Connected")
-                //Generate the values for the database objects
-                let postKey = self.ref?.child("Topics").childByAutoId()
-                let messageKey = self.ref?.child("UsedKeys").childByAutoId()
+                
+                //Pull keys for a new post and message from Firebase
+                let postKey = self.ref?.child("Topics").childByAutoId().key
+                let messageKey = self.ref?.child("UsedKeys").childByAutoId().key
+                
+                //Instantiate each object from the dictionary
+                let newPostUsername = dictionaryOfNewPostValues["username"] as! String
+                let newPostTwitterID = dictionaryOfNewPostValues["twitterID"] as! String
+                let newPostTopicTitle = dictionaryOfNewPostValues["topicTitle"] as! String
+                let newPostTopicMessage = dictionaryOfNewPostValues["topicMessage"] as! String
+                let newPostColor = dictionaryOfNewPostValues["color"] as! String
+                
+                let newPostLatitude = dictionaryOfNewPostValues["latitude"] as! Double
+                let newPostLongitude = dictionaryOfNewPostValues["longitude"] as! Double
                 
                 
                 //Builds a list of used MessageKeys
-                self.ref?.child("UsedKeys").child((messageKey?.key)!).setValue(["used": true])
+                self.ref?.child("UsedKeys").child((messageKey)!).setValue(["used": true])
                 
                 //Builds a list of topics with unique ids that contain the topic title mainly as a filler value
-                self.ref?.child("TopicList").child((postKey?.key)!).setValue(["title": topicTitle])
+                self.ref?.child("TopicList").child((postKey)!).setValue(["title": newPostTopicTitle])
                 
                 //Builds a list of messages with unique ids that contain reference to their associated topic
-                self.ref?.child("MessageList").child((postKey?.key)!).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
+                self.ref?.child("MessageList").child((postKey)!).child((messageKey)!).setValue(["messagekey": messageKey])
                 
                 //Builds the topic object with a unique name that contains the message list, location, and color
-                self.ref?.child("Topic:"+(postKey?.key)!).setValue(["messageId": messageKey?.key, "latitude": latitude, "longitude": longitude, "color": color, "title" : topicTitle, "author": username])
+                self.ref?.child("Topic:"+(postKey)!).setValue(["messageId": messageKey!, "latitude": newPostLatitude, "longitude": newPostLongitude, "color": newPostColor, "title" : newPostTopicTitle, "author": newPostUsername, "twitterID": newPostTwitterID])
                 
                 //An object unique for each hex value that contains the topic key
-                self.ref?.child("Hex:"+color).childByAutoId().setValue(["topic": postKey?.key])
+                self.ref?.child("Hex:"+newPostColor).childByAutoId().setValue(["topic": postKey])
                 
                 //The message object that contains the username and the message.
-                self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": username, "text": topicMessage])
+                self.ref?.child("Message:"+messageKey!).setValue(["author": newPostUsername, "twitterID": newPostTwitterID,"text": newPostTopicMessage])
                 
-                postView.activityIndicator.stopAnimating()
+                newPostViewController.activityIndicator.stopAnimating()
                 
-                connectedRef.cancelDisconnectOperations()
-                connectedRef.removeAllObservers()
-                completionHandler(delayStatus)
+                connectionToFirebaseServers.cancelDisconnectOperations()
+                connectionToFirebaseServers.removeAllObservers()
+                
+                completionHandler(postWasDelayedStatus)
                 
             } else {
-                print("Not connected")
                 self.errorController.displayAlert(title: "Connection Issue", message: "We will keep trying to send your post, if you leave this page your post will still be sent but you won't be notified", view: baseView)
-                delayStatus = true
-                postView.activityIndicator.stopAnimating()
+                postWasDelayedStatus = true
+                newPostViewController.activityIndicator.stopAnimating()
             }
         })
         
     }
+    
     
     func newMessage(postId: String, messageValueString: String, author: String, baseView: UIViewController){
         let messageKey = ref?.child("UsedKeys").childByAutoId()
