@@ -66,7 +66,8 @@ class MessageTableViewController: UIViewController {
             DispatchQueue.main.async {
                 if self.firebaseController.enforceNewPostRateLimit() {
                     self.activityIndicator.startAnimating()
-                    self.firebaseController.newMessage(postId: self.selectedTopic, messageValueString: self.textField.text!, author: self.username, baseView: self)
+                    let dictionaryOfNewMessageValues = ["postId": self.selectedTopic, "messageValueString": self.textField.text!, "author": self.username, "twitterId": self.userProfile.twitterid] as! [String: String]
+                    self.firebaseController.createMessageOnFirebase(dictionaryOfNewMessageValues: dictionaryOfNewMessageValues, baseView: self)
                     self.textField.text = ""
                     self.submitButton.isEnabled = false
                 } else {

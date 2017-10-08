@@ -139,8 +139,39 @@ class FirebaseController {
         
     }
     
+    func createMessageOnFirebase(dictionaryOfNewMessageValues: [String: String], baseView: UIViewController){
+        let messageKey = ref?.child("UsedKeys").childByAutoId().key
+        let postView = baseView as! MessageTableViewController
+        
+        let newMessageUsername = dictionaryOfNewMessageValues["username"]
+        let newMessageTwitterID = dictionaryOfNewMessageValues["twitterID"]
+        let newMessageTextValue = dictionaryOfNewMessageValues["messageValueString"]
+        let newMessagePostId = dictionaryOfNewMessageValues["postId"]
+        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                postView.activityIndicator.stopAnimating()
+                self.ref?.child("MessageList").child(newMessagePostId!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    _ = snapshot.value as? NSDictionary
+                    let messageTitleString = messageKey
+                    self.ref?.child("MessageList").child(newMessagePostId!).child((messageKey)!).setValue(["messagekey": messageKey])
+                    self.ref?.child("Message:"+(messageKey)!).setValue(["author": newMessageUsername, "text": newMessageTextValue, "twitterId": newMessageTwitterID])
+                })
+                connectedRef.cancelDisconnectOperations()
+                connectedRef.removeAllObservers()
+            } else {
+                
+                self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your message again later", view: baseView)
+                postView.activityIndicator.stopAnimating()
+                connectedRef.removeAllObservers()
+            }
+        })
+        
+    }
     
-    func newMessage(postId: String, messageValueString: String, author: String, baseView: UIViewController){
+    
+    /*func newMessage(postId: String, messageValueString: String, author: String, baseView: UIViewController){
         let messageKey = ref?.child("UsedKeys").childByAutoId()
         let postView = baseView as! MessageTableViewController
         
@@ -164,7 +195,7 @@ class FirebaseController {
             }
         })
         
-    }
+    }*/
     
     func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, baseView: UIViewController, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         
