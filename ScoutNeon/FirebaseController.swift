@@ -165,7 +165,7 @@ class FirebaseController {
                     self.ref?.child("MessageList").child(newMessagePostId!).child((messageKey)!).setValue(["messagekey": messageKey])
                     
                     //Creates the Database Entity for the Message to the Firebase Instance
-                    self.ref?.child("Message:"+(messageKey)!).setValue(["author": newMessageUsername, "text": newMessageTextValue, "twitterId": newMessageTwitterID])
+                    self.ref?.child("Message:"+(messageKey)!).setValue(["author": newMessageUsername, "text": newMessageTextValue, "twitterId": newMessageTwitterID, "filtered": false])
                 })
                 
                 connectionToFireBaseServers.cancelDisconnectOperations()
@@ -318,10 +318,10 @@ class FirebaseController {
             var tempMessageDict = [String: String]()
             for (key, val) in value! {
                 if key as! String == "author" {
-                  tempMessageDict["author"] = val as! String
+                    tempMessageDict["author"] = val as? String
                 }
                 if key as! String == "text" {
-                    tempMessageDict["text"] = val as! String
+                    tempMessageDict["text"] = val as? String
                 }
             }
             messageContentsCompletionHandler(tempMessageDict)
