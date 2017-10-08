@@ -276,12 +276,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         if segue.identifier == "MessagesSegue" {
             let destinationViewController = segue.destination as! MessageTableViewController
-            destinationViewController.messages = messageListForTransfer
+            destinationViewController.messageList = messageListForTransfer
             destinationViewController.selectedTopic = self.selectedTopic
-            destinationViewController.username = self.userProfile.username
-            destinationViewController.titleText = self.selectedTitle
+            destinationViewController.titleTextForSelectedTopic = self.selectedTitle
             destinationViewController.userProfile = self.userProfile
-            destinationViewController.topicColor = self.selectedColor.hexCode
+            destinationViewController.topicColorForSelectedTopic = self.selectedColor.hexCode
         }
         if segue.identifier == "unwindSegueToLogin" {
             let destinationViewController = segue.destination as! ViewController

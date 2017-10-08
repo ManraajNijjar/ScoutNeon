@@ -25,17 +25,16 @@ class MessageTableViewController: UIViewController {
     let coreDataController = CoreDataController.sharedInstance
     let errorController = ErrorAlertController()
     
-    var messages: [[String: String]]!
+    var messageList: [[String: String]]!
     var selectedTopic: String!
-    var username: String!
-    var titleText: String!
-    var topicColor: String!
+    var titleTextForSelectedTopic: String!
+    var topicColorForSelectedTopic: String!
+    
     var userProfile: Profile!
     
-    var postCount = 0
-    
-    var alphaComponent: Double = 0.5
-    var alphaModifier: Double = 0
+    var postCountForCalculatingAlpha = 0
+    var alphaComponentBaseForTableViewCells: Double = 0.5
+    var alphaModifierForTableViewCells: Double = 0
     
     var keyboardShowing = false
     var keyboardHeight : CGFloat = 0
@@ -66,7 +65,7 @@ class MessageTableViewController: UIViewController {
             DispatchQueue.main.async {
                 if self.firebaseController.enforceNewPostRateLimit() {
                     self.activityIndicator.startAnimating()
-                    let dictionaryOfNewMessageValues = ["postId": self.selectedTopic, "messageValueString": self.textField.text!, "author": self.username, "twitterId": self.userProfile.twitterid] as! [String: String]
+                    let dictionaryOfNewMessageValues = ["postId": self.selectedTopic, "messageValueString": self.textField.text!, "author": self.userProfile.username, "twitterId": self.userProfile.twitterid] as! [String: String]
                     self.firebaseController.createMessageOnFirebase(dictionaryOfNewMessageValues: dictionaryOfNewMessageValues, baseView: self)
                     self.textField.text = ""
                     self.submitButton.isEnabled = false
@@ -106,7 +105,7 @@ class MessageTableViewController: UIViewController {
     }
     
     func setupListener() {
-        let value = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
+        let _ = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -131,31 +130,31 @@ class MessageTableViewController: UIViewController {
 extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        postCount = messages.count + 1
-        alphaModifier = alphaComponent.divided(by: Double(postCount))
-        return postCount
+        postCountForCalculatingAlpha = messageList.count + 1
+        alphaModifierForTableViewCells = alphaComponentBaseForTableViewCells.divided(by: Double(postCountForCalculatingAlpha))
+        return postCountForCalculatingAlpha
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell") as! TitleTableViewCell
-            cell.titleLabel.text = titleText
-            cell.topicTitle = titleText
-            cell.topicId = selectedTopic
-            cell.topicColor = topicColor
-            cell.userProfile = userProfile
-            cell.backgroundColor = UIColor(hex: topicColor).withAlphaComponent(CGFloat(alphaComponent))
+            let cellForTopic = tableView.dequeueReusableCell(withIdentifier: "TitleCell") as! TitleTableViewCell
+            cellForTopic.titleLabel.text = titleTextForSelectedTopic
+            cellForTopic.topicTitle = titleTextForSelectedTopic
+            cellForTopic.topicId = selectedTopic
+            cellForTopic.topicColor = topicColorForSelectedTopic
+            cellForTopic.userProfile = userProfile
+            cellForTopic.backgroundColor = UIColor(hex: topicColorForSelectedTopic).withAlphaComponent(CGFloat(alphaComponentBaseForTableViewCells))
             if coreDataController.checkIfTopicFavorited(userProfile: userProfile, topicId: selectedTopic) {
-                cell.starButton.imageView?.image = UIImage(named: "YellowStar")
+                cellForTopic.starButton.imageView?.image = UIImage(named: "YellowStar")
             }
-            return cell
+            return cellForTopic
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
-            let value = messages[indexPath.row - 1]
-            cell.authorLabel.text = value["author"]
-            cell.messageLabel.text = value["text"]
-            let backgroundValue = CGFloat(alphaComponent - (alphaModifier * Double(indexPath.row)))
-            cell.backgroundColor = UIColor(hex: topicColor).withAlphaComponent(backgroundValue)
-            return cell
+            let cellForMessage = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
+            let value = messageList[indexPath.row - 1]
+            cellForMessage.authorLabel.text = value["author"]
+            cellForMessage.messageLabel.text = value["text"]
+            let backgroundValue = CGFloat(alphaComponentBaseForTableViewCells - (alphaModifierForTableViewCells * Double(indexPath.row)))
+            cellForMessage.backgroundColor = UIColor(hex: topicColorForSelectedTopic).withAlphaComponent(backgroundValue)
+            return cellForMessage
         }
         
     }

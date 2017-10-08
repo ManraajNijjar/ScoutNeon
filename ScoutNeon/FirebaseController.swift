@@ -143,59 +143,43 @@ class FirebaseController {
         let messageKey = ref?.child("UsedKeys").childByAutoId().key
         let postView = baseView as! MessageTableViewController
         
+        //Pull Values from Dictionary
         let newMessageUsername = dictionaryOfNewMessageValues["username"]
         let newMessageTwitterID = dictionaryOfNewMessageValues["twitterID"]
         let newMessageTextValue = dictionaryOfNewMessageValues["messageValueString"]
         let newMessagePostId = dictionaryOfNewMessageValues["postId"]
         
-        let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observe(.value, with: { snapshot in
+        let connectionToFireBaseServers = Database.database().reference(withPath: ".info/connected")
+        
+        connectionToFireBaseServers.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
+                
+                //Stops the activity indicator on the MessageTableViewController
                 postView.activityIndicator.stopAnimating()
+                
+                //Makes the connection to the MessageList Table
                 self.ref?.child("MessageList").child(newMessagePostId!).observeSingleEvent(of: .value, with: { (snapshot) in
                     _ = snapshot.value as? NSDictionary
-                    let messageTitleString = messageKey
+                    
+                    //Adds the post to the MessageList
                     self.ref?.child("MessageList").child(newMessagePostId!).child((messageKey)!).setValue(["messagekey": messageKey])
+                    
+                    //Creates the Database Entity for the Message to the Firebase Instance
                     self.ref?.child("Message:"+(messageKey)!).setValue(["author": newMessageUsername, "text": newMessageTextValue, "twitterId": newMessageTwitterID])
                 })
-                connectedRef.cancelDisconnectOperations()
-                connectedRef.removeAllObservers()
+                
+                connectionToFireBaseServers.cancelDisconnectOperations()
+                connectionToFireBaseServers.removeAllObservers()
             } else {
                 
                 self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your message again later", view: baseView)
                 postView.activityIndicator.stopAnimating()
-                connectedRef.removeAllObservers()
+                connectionToFireBaseServers.removeAllObservers()
             }
         })
         
     }
     
-    
-    /*func newMessage(postId: String, messageValueString: String, author: String, baseView: UIViewController){
-        let messageKey = ref?.child("UsedKeys").childByAutoId()
-        let postView = baseView as! MessageTableViewController
-        
-        let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observe(.value, with: { snapshot in
-            if let connected = snapshot.value as? Bool, connected {
-                postView.activityIndicator.stopAnimating()
-                self.ref?.child("MessageList").child(postId).observeSingleEvent(of: .value, with: { (snapshot) in
-                    _ = snapshot.value as? NSDictionary
-                    let messageTitleString = messageKey?.key as! String
-                    self.ref?.child("MessageList").child(postId).child((messageKey?.key)!).setValue(["messagekey": messageKey?.key])
-                    self.ref?.child("Message:"+(messageKey?.key)!).setValue(["author": author, "text": messageValueString])
-                })
-                connectedRef.cancelDisconnectOperations()
-                connectedRef.removeAllObservers()
-            } else {
-                
-                self.errorController.displayAlert(title: "Connection Issue", message: "Please try sending your message again later", view: baseView)
-                postView.activityIndicator.stopAnimating()
-                connectedRef.removeAllObservers()
-            }
-        })
-        
-    }*/
     
     func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, baseView: UIViewController, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         
@@ -360,7 +344,7 @@ class FirebaseController {
                     messageDictArray.append(messageContents)
                     messageCount = messageCount + 1
                     if messageCount >= totalCount {
-                        messageTableView.messages = messageDictArray
+                        messageTableView.messageList = messageDictArray
                         DispatchQueue.main.async {
                             messageTableView.tableView.reloadData()
                         }
