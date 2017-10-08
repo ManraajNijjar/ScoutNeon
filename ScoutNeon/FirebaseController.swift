@@ -115,7 +115,7 @@ class FirebaseController {
                 self.ref?.child("MessageList").child((postKey)!).child((messageKey)!).setValue(["messagekey": messageKey])
                 
                 //Builds the topic object with a unique name that contains the message list, location, and color
-                self.ref?.child("Topic:"+(postKey)!).setValue(["messageId": messageKey!, "latitude": newPostLatitude, "longitude": newPostLongitude, "color": newPostColor, "title" : newPostTopicTitle, "author": newPostUsername, "twitterID": newPostTwitterID])
+                self.ref?.child("Topic:"+(postKey)!).setValue(["messageId": messageKey!, "latitude": newPostLatitude, "longitude": newPostLongitude, "color": newPostColor, "title" : newPostTopicTitle, "author": newPostUsername, "twitterID": newPostTwitterID, "filtered": false])
                 
                 //An object unique for each hex value that contains the topic key
                 self.ref?.child("Hex:"+newPostColor).childByAutoId().setValue(["topic": postKey])
