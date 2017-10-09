@@ -198,7 +198,7 @@ class FirebaseController {
                         totalCount = (value?.count)!
                         for (_, val) in value! {
                             for (_, valTwo) in (val as? NSDictionary)! {
-                                self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude) in
+                                self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude, filterStatus) in
                                     postCount = postCount + 1
                                     if postStatus {
                                         postArray.append(postId)
@@ -234,7 +234,7 @@ class FirebaseController {
         })
     }
     
-    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double) -> Void){
+    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double, _ filterStatus: Int) -> Void){
         ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
@@ -242,6 +242,7 @@ class FirebaseController {
             var longitudeInRange = true
             var postLatitude:Double = 0
             var postLongitude:Double = 0
+            var postFiltered = 0
             var author = ""
             var title = ""
             for (key, val) in value! {
@@ -263,11 +264,14 @@ class FirebaseController {
                         longitudeInRange = false
                     }
                 }
+                if (key as! String) == "filtered" {
+                    postFiltered = val as! Int
+                }
             }
             if latitudeInRange && longitudeInRange {
-                postInProximityCompletionHandler(true, postKey, author, title, postLatitude, postLongitude)
+                postInProximityCompletionHandler(true, postKey, author, title, postLatitude, postLongitude, postFiltered)
             } else {
-                postInProximityCompletionHandler(false, postKey, author, title, postLatitude, postLongitude)
+                postInProximityCompletionHandler(false, postKey, author, title, postLatitude, postLongitude, postFiltered)
             }
             // ...
         }) { (error) in
