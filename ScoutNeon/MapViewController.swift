@@ -87,15 +87,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         activityIndicator.color = selectedColor
         
         colorPicker = setupChromaColorPicker()
-        colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
-        colorPicker.shadeSlider.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
+        colorPicker.addTarget(self, action: #selector(MapViewController.colorSwitched), for: .touchUpInside)
+        colorPicker.shadeSlider.addTarget(self, action: #selector(MapViewController.colorSwitched), for: .touchUpInside)
         
         switch UIDevice.current.userInterfaceIdiom {
         case .pad:
             chromaViewHeightConstraint.constant = view.frame.size.height / 2
             chromaView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: (view.frame.size.height / 2))
             
-        default: return
+        default:
+            break
         }
         
         chromaView.addSubview(colorPicker)
@@ -234,10 +235,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.mainMapView.showsUserLocation = true
     }
     
-    
-    func colorSliderMoved() {
-        self.colorSwitched()
-    }
     func colorSwitched() {
         selectedColor = self.colorPicker.currentColor
         scoutButton.backgroundColor = selectedColor
@@ -325,10 +322,8 @@ extension MapViewController: ChromaColorPickerDelegate {
         return colorPicker
     }
     
-    //Triggers whenever the slider is moved
-    func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {
-        
-    }
+    //Kept to meet delegate requirements
+    func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor) {}
     
     
 }
@@ -354,15 +349,11 @@ extension MapViewController: MKMapViewDelegate {
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIButton(type: .infoDark)
             (annotationView?.annotation as! ColorPinAnnotation).id = annotation.id
-
         }
-        
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
-        
-        
         let internalReach = Reachability()!
         internalReach.whenReachable = { reachable in
             DispatchQueue.main.async {
@@ -406,13 +397,9 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             if userProfile.favoritetopics != nil {
                 return (userProfile.favoritetopics?.count)!
             }
-            return 0
         }
         if section == 1 {
             return scoutColors.count
-        }
-        if section == 2 {
-            return 0
         }
         return 0
     }
@@ -441,7 +428,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            
             let internalReach = Reachability()!
             internalReach.whenReachable = { reachable in
                 DispatchQueue.main.async {
@@ -460,7 +446,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             internalReach.whenUnreachable = { _ in
                 self.errorAlertController.displayAlert(title: "Connection Issue", message: "There seems to be an issue with your connection, please try again later!", view: self)
             }
-            
             do {
                 try internalReach.startNotifier()
             } catch {
