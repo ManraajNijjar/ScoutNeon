@@ -87,12 +87,8 @@ class MessageTableViewController: UIViewController {
         }
     }
     
-    @IBAction func textFieldEdited(_ sender: Any) {
-        if (textField.text?.characters.count)! > 0 {
-            validateText()
-        } else {
-            submitButton.isEnabled = false
-        }
+    func setupListener() {
+        let _ = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
     }
     
     func validateText() {
@@ -104,8 +100,12 @@ class MessageTableViewController: UIViewController {
         }
     }
     
-    func setupListener() {
-        let _ = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
+    @IBAction func textFieldEdited(_ sender: Any) {
+        if (textField.text?.characters.count)! > 0 {
+            validateText()
+        } else {
+            submitButton.isEnabled = false
+        }
     }
     
     func keyboardWillShow(notification: NSNotification) {

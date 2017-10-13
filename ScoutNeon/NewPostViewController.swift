@@ -80,12 +80,13 @@ class NewPostViewController: UIViewController {
                 }
             }
         }
+        
         reachabilityNetworkConnection.whenUnreachable = { _ in
             DispatchQueue.main.async {
                 self.errorAlertController.displayAlert(title: "Connection Issue", message: "There was an issue with your connection, we'll keep trying to post though!", view: self)
             }
         }
-        
+
         do {
             try reachabilityNetworkConnection.startNotifier()
         } catch {

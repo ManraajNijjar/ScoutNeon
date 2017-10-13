@@ -19,29 +19,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var scoutButton: UIButton!
     @IBOutlet weak var chromaView: UIView!
     @IBOutlet weak var chromaViewConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var chromaViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var slideInTableView: UITableView!
     @IBOutlet weak var slideInCancelButton: UIButton!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let coreDataController = CoreDataController.sharedInstance
-    
-    //let firebaseController = FirebaseController.sharedInstance()
     let firebaseController = FirebaseController.sharedInstance
-    
     let errorAlertController = ErrorAlertController()
-    
     let reachability = Reachability()!
-    
-    let colorAPI = ColorApiController()
-    
-    let operationQueue = DispatchQueue(label: "com.appcoda.myqueue")
-    
     let locationManager = CLLocationManager()
-    
-    let sectionTitles = ["Favorite Topics", "Scout's Recommended Colors"]
     
     var userIDForProfile: String!
     var userProfile = Profile()
@@ -51,6 +38,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var selectedTopic = ""
     var selectedTitle = ""
     
+    let operationQueue = DispatchQueue(label: "com.appcoda.myqueue")
+    
     var fromNewPost = false
     var fromLogin = false
     
@@ -58,9 +47,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     var scoutColors = [["name": "Scout Red", "hex": "FF3300"], ["name": "Scout Blue", "hex": "0999FF"], ["name": "Scout Green", "hex": "00FF66"], ["name": "Scout Purple", "hex": "9D00FF"]]
     
+    let sectionTitles = ["Favorite Topics", "Scout's Recommended Colors"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavBar()
         mainMapView.delegate = self
         
@@ -92,6 +84,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         setupButton()
         
         selectedColor = UIColor(hex: userProfile.color!)
+        activityIndicator.color = selectedColor
         
         colorPicker = setupChromaColorPicker()
         colorPicker.addTarget(self, action: #selector(AccountSetupViewController.colorSliderMoved), for: .touchUpInside)
@@ -102,13 +95,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             chromaViewHeightConstraint.constant = view.frame.size.height / 2
             chromaView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: (view.frame.size.height / 2))
             
-        default: print("Not pad")
+        default: return
         }
         
         chromaView.addSubview(colorPicker)
-        
-        activityIndicator.color = selectedColor
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,7 +122,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     func setupNavBar(){
         //Sets up the color for the Navbar and Toolbar throughout the app
         let navColor = UIColor.black.withAlphaComponent(0.95)
-        
         navigationController?.navigationBar.barTintColor = navColor
         navigationController?.toolbar.barTintColor = navColor
     }
@@ -161,7 +150,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func scoutForTopics() {
-        
         if firebaseController.enforcePostSearchLimit() {
             scoutButton.alpha = 0
             scoutButton.setTitle("1 Sec", for: .normal)
