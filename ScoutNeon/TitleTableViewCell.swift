@@ -14,6 +14,8 @@ class TitleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starButton: UIButton!
     
+    @IBOutlet weak var filterButton: UIButton!
+    
     let coreDataController = CoreDataController.sharedInstance
     
     var topicId = ""
@@ -47,5 +49,8 @@ class TitleTableViewCell: UITableViewCell {
         
     }
     
-
+    @IBAction func filterButtonPressed(_ sender: Any) {
+        print("Clicked")
+    }
+    
 }

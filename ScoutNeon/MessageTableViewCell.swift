@@ -10,6 +10,7 @@ import UIKit
 
 class MessageTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var filterButton: UIButton!
     
     @IBOutlet weak var authorLabel: UILabel!
     
@@ -26,5 +27,11 @@ class MessageTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    @IBAction func filterButtonPressed(_ sender: Any) {
+        print("Clicked")
+    }
+    
+    
 
 }
