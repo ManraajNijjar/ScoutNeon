@@ -186,26 +186,28 @@ class FirebaseController {
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
-                print("Connected")
-                var postArray = [String]()
-                var postDictionary = [[String:Any]]()
-                var postCount = 0
-                var totalCount = 0
+                var postsInRange = [[String:Any]]()
+                
+                var countOfCurrentlyProcessedPosts = 0
+                
+                var countOfTotalProcessedPosts = 0
+                
                 self.ref?.child("Hex:"+colorHex).observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
                     let value = snapshot.value as? NSDictionary
                     if (value != nil) {
-                        totalCount = (value?.count)!
+                        countOfTotalProcessedPosts = (value?.count)!
                         for (_, val) in value! {
                             for (_, valTwo) in (val as? NSDictionary)! {
                                 self.postInProximity(postKey: valTwo as! String, latitude: latitude, longitude: longitude, proximity: 0.01, postInProximityCompletionHandler: { (postStatus, postId, author, title, latitude, longitude, filterStatus) in
-                                    postCount = postCount + 1
-                                    if postStatus {
-                                        postArray.append(postId)
-                                        postDictionary.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
+                                    
+                                    countOfCurrentlyProcessedPosts = countOfCurrentlyProcessedPosts + 1
+                                    
+                                    if postStatus && !filterStatus{
+                                        postsInRange.append(["postID": postId, "author": author, "title": title, "latitude": latitude, "longitude": longitude])
                                     }
-                                    if postCount >= totalCount {
-                                        findPostsCompletionHandler(postDictionary)
+                                    if countOfCurrentlyProcessedPosts >= countOfTotalProcessedPosts {
+                                        findPostsCompletionHandler(postsInRange)
                                     }
                                 })
                             }
@@ -234,7 +236,7 @@ class FirebaseController {
         })
     }
     
-    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double, _ filterStatus: Int) -> Void){
+    func postInProximity(postKey: String, latitude: Double, longitude: Double, proximity: Double, postInProximityCompletionHandler: @escaping (_ postStatus: Bool, _ postId: String, _ author: String, _ title: String, _ latitude: Double, _ longitude: Double, _ filterStatus: Bool) -> Void){
         ref?.child("Topic:"+postKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
@@ -242,7 +244,7 @@ class FirebaseController {
             var longitudeInRange = true
             var postLatitude:Double = 0
             var postLongitude:Double = 0
-            var postFiltered = 0
+            var postFiltered = false
             var author = ""
             var title = ""
             for (key, val) in value! {
@@ -265,7 +267,8 @@ class FirebaseController {
                     }
                 }
                 if (key as! String) == "filtered" {
-                    postFiltered = val as! Int
+                    postFiltered = val as! Bool
+                    
                 }
             }
             if latitudeInRange && longitudeInRange {
