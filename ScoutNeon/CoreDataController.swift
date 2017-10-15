@@ -130,6 +130,19 @@ class CoreDataController {
         userProfile.addToBlockedUsers(newBlockedUser)
     }
     
+    func checkIfUserIsBlocked(userProfile: Profile, twitterId: String) -> Bool{
+        let users = userProfile.blockedUsers
+        if users != nil {
+            for user in users! {
+                let currentUser = user as! User
+                if currentUser.twitterId == twitterId{
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     
     class func saveContext () {
         let context = persistentContainer.viewContext

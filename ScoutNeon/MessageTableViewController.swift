@@ -88,7 +88,7 @@ class MessageTableViewController: UIViewController {
     }
     
     func setupListener() {
-        let _ = firebaseController.messageListener(postId: selectedTopic, messageTableView: self)
+        let _ = firebaseController.messageListener(postId: selectedTopic, userProfile: userProfile, messageTableView: self)
     }
     
     func validateText() {
@@ -151,7 +151,7 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
             let cellForMessage = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
             let value = messageList[indexPath.row - 1]
             cellForMessage.userProfile = userProfile
-            cellForMessage.authorTwitterId = value["TwitterId"]
+            cellForMessage.authorTwitterId = value["twitterId"]
             cellForMessage.messageId = value["MessageId"]
             cellForMessage.authorLabel.text = value["author"]
             cellForMessage.messageLabel.text = value["text"]

@@ -377,7 +377,7 @@ extension MapViewController: MKMapViewDelegate {
                     let colorPin = view.annotation as! ColorPinAnnotation
                     self.selectedTopic = colorPin.id!
                     self.selectedTitle = colorPin.title!
-                    self.firebaseController.messageForPostID(postID: self.selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
+                    self.firebaseController.messageForPostID(postID: self.selectedTopic, userProfile: self.userProfile, baseView: self, messageForPostCompletionHandler: { (messageList) in
                         self.messageListForTransfer = messageList
                         self.performSegue(withIdentifier: "MessagesSegue", sender: self)
                         self.activityIndicator.stopAnimating()
@@ -452,7 +452,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
                     self.selectedTitle = pickedTopic.title!
                     self.selectedColor = UIColor(hex: pickedTopic.color!)
                     self.colorSwitched()
-                    self.firebaseController.messageForPostID(postID: self.selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
+                    self.firebaseController.messageForPostID(postID: self.selectedTopic, userProfile: self.userProfile, baseView: self, messageForPostCompletionHandler: { (messageList) in
                         self.messageListForTransfer = messageList
                         print(self.messageListForTransfer)
                         self.performSegue(withIdentifier: "MessagesSegue", sender: self)

@@ -17,6 +17,7 @@ class FirebaseController {
     var ref:DatabaseReference?
     
     let errorController = ErrorAlertController()
+    let coredataController = CoreDataController.sharedInstance
     
     
     //Manages the rate limit on new posts from the user
@@ -301,7 +302,7 @@ class FirebaseController {
         }
     }
     
-    func messageForPostID(postID: String, baseView: UIViewController, messageForPostCompletionHandler: @escaping (_ messageList: [[String: String]]) -> Void){
+    func messageForPostID(postID: String, userProfile: Profile, baseView: UIViewController, messageForPostCompletionHandler: @escaping (_ messageList: [[String: String]]) -> Void){
         var messageDictArray = [[String: String]]()
         var messageCount = 0
         var totalCount = 0
@@ -317,7 +318,7 @@ class FirebaseController {
                     for (key, _) in value! {
                         self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
                             messageCount = messageCount + 1
-                            if (messageContents["filtered"] == "false") {
+                            if (messageContents["filtered"] == "false") && !(self.coredataController.checkIfUserIsBlocked(userProfile: userProfile, twitterId: messageContents["twitterId"]!)) {
                                 messageDictArray.append(messageContents)
                             }
                             if messageCount >= totalCount {
@@ -370,7 +371,7 @@ class FirebaseController {
         }
     }
     
-    func messageListener(postId: String, messageTableView: MessageTableViewController) -> UInt{
+    func messageListener(postId: String, userProfile: Profile, messageTableView: MessageTableViewController) -> UInt{
         var messageDictArray = [[String: String]]()
         var messageCount = 0
         var totalCount = 0
@@ -380,7 +381,7 @@ class FirebaseController {
             for (_,key) in value! {
                 self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
                     messageCount = messageCount + 1
-                    if (messageContents["filtered"] == "false") {
+                    if (messageContents["filtered"] == "false") && !(self.coredataController.checkIfUserIsBlocked(userProfile: userProfile, twitterId: messageContents["twitterId"]!)){
                         messageDictArray.append(messageContents)
                     }
                     if messageCount >= totalCount {
