@@ -307,8 +307,10 @@ class FirebaseController {
                     
                     for (key, _) in value! {
                         self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in
-                            messageDictArray.append(messageContents)
                             messageCount = messageCount + 1
+                            if (messageContents["filtered"] == "false") {
+                                messageDictArray.append(messageContents)
+                            }
                             if messageCount >= totalCount {
                                 messageForPostCompletionHandler(messageDictArray)
                             }
@@ -339,6 +341,16 @@ class FirebaseController {
                 }
                 if key as! String == "text" {
                     tempMessageDict["text"] = val as? String
+                }
+                if key as! String == "twitterId" {
+                    tempMessageDict["twitterId"] = val as? String
+                }
+                if key as! String == "filtered" {
+                    if((val as! Int) == 1){
+                        tempMessageDict["filtered"] = "true"
+                    } else {
+                        tempMessageDict["filtered"] = "false"
+                    }
                 }
             }
             messageContentsCompletionHandler(tempMessageDict)
