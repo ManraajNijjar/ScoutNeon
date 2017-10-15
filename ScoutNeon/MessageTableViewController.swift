@@ -150,6 +150,7 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             let cellForMessage = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
             let value = messageList[indexPath.row - 1]
+            cellForMessage.messageId = value["MessageId"]
             cellForMessage.authorLabel.text = value["author"]
             cellForMessage.messageLabel.text = value["text"]
             let backgroundValue = CGFloat(alphaComponentBaseForTableViewCells - (alphaModifierForTableViewCells * Double(indexPath.row)))

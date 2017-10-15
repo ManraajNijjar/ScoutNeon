@@ -52,6 +52,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults:UserDefaults = UserDefaults.standard
+        if defaults.bool(forKey: "EULA") != true{
+            let alert = UIAlertController(title: "EULA", message: "By Agreeing to the ScoutNeon End User's License Agreement you agree to not conduct any kind of violence towards anyone or anything at any point", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in
+                defaults.set(true, forKey: "EULA")
+            }))
+            alert.addAction(UIAlertAction(title: "Decline", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+                self.logout()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
         
         setupNavBar()
         mainMapView.delegate = self
@@ -145,6 +156,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
+        logout()
+    }
+    
+    func logout(){
         let store = Twitter.sharedInstance().sessionStore
         store.logOutUserID(userProfile.twitterid!)
         self.performSegue(withIdentifier: "unwindSegueToLogin", sender: self)

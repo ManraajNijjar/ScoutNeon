@@ -344,6 +344,7 @@ class FirebaseController {
         ref?.child("Message:"+messageID).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             var tempMessageDict = [String: String]()
+            tempMessageDict["MessageId"] = messageID
             for (key, val) in value! {
                 if key as! String == "author" {
                     tempMessageDict["author"] = val as? String
@@ -375,7 +376,6 @@ class FirebaseController {
         var totalCount = 0
         let listener = ref?.child("MessageList").child(postId).observe(.childAdded, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
-            print("observertriggered")
             totalCount = (value?.count)!
             for (_,key) in value! {
                 self.retrieveMessageContents(messageID: key as! String, messageContentsCompletionHandler: { (messageContents) in

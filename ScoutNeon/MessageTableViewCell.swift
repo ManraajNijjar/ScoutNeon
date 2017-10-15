@@ -11,10 +11,12 @@ import UIKit
 class MessageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var filterButton: UIButton!
-    
     @IBOutlet weak var authorLabel: UILabel!
-    
     @IBOutlet weak var messageLabel: UILabel!
+    
+    let firebaseController = FirebaseController.sharedInstance
+    
+    var messageId: String!
     
 
     override func awakeFromNib() {
@@ -29,7 +31,7 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        print("Clicked")
+        firebaseController.setMessageToFiltered(messageKey: messageId)
     }
     
     
