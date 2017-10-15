@@ -312,6 +312,8 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIA-Az-2wE">
                                                     <rect key="frame" x="374" y="8" width="32" height="32"/>
                                                     <state key="normal" image="flag"/>
+                                                    <state key="selected" image="flagSelected"/>
+                                                    <state key="highlighted" image="flagSelected"/>
                                                     <connections>
                                                         <action selector="filterButtonPressed:" destination="Ji3-9T-WoZ" eventType="touchUpInside" id="UQ1-Lo-dm9"/>
                                                     </connections>
@@ -360,7 +362,10 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hep-Ej-h3Q">
                                                     <rect key="frame" x="374" y="8" width="32" height="32"/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" image="flag"/>
+                                                    <state key="selected" image="flagSelected"/>
+                                                    <state key="highlighted" image="flagSelected"/>
                                                     <connections>
                                                         <action selector="filterButtonPressed:" destination="BJV-0v-PHr" eventType="touchUpInside" id="sEP-kP-UBa"/>
                                                     </connections>
@@ -701,6 +706,7 @@ Thank you to Elvis Nunez for the Validation Library</string>
         <image name="NEON" width="640" height="400"/>
         <image name="NewPost" width="32" height="32"/>
         <image name="flag" width="32" height="32"/>
+        <image name="flagSelected" width="32" height="32"/>
         <image name="navigate-arrows-pointing-to-down" width="24" height="24"/>
         <image name="patrick-tomasso-59247" width="3648" height="5472"/>
     </resources>

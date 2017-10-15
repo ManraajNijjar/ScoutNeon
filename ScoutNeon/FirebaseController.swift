@@ -142,10 +142,9 @@ class FirebaseController {
     func createMessageOnFirebase(dictionaryOfNewMessageValues: [String: String], baseView: UIViewController){
         let messageKey = ref?.child("UsedKeys").childByAutoId().key
         let postView = baseView as! MessageTableViewController
-        
         //Pull Values from Dictionary
-        let newMessageUsername = dictionaryOfNewMessageValues["username"]
-        let newMessageTwitterID = dictionaryOfNewMessageValues["twitterID"]
+        let newMessageUsername = dictionaryOfNewMessageValues["author"]
+        let newMessageTwitterID = dictionaryOfNewMessageValues["twitterId"]
         let newMessageTextValue = dictionaryOfNewMessageValues["messageValueString"]
         let newMessagePostId = dictionaryOfNewMessageValues["postId"]
         
@@ -185,6 +184,16 @@ class FirebaseController {
         connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
                 self.ref?.child("Topic:"+(postKey)).updateChildValues(["filtered": true])
+                connectedRef.removeAllObservers()
+            }
+        })
+    }
+    
+    func setMessageToFiltered(messageKey: String){
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                self.ref?.child("Message:"+(messageKey)).updateChildValues(["filtered": true])
                 connectedRef.removeAllObservers()
             }
         })
