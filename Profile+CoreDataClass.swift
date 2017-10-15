@@ -2,7 +2,7 @@
 //  Profile+CoreDataClass.swift
 //  
 //
-//  Created by Manraaj Nijjar on 9/14/17.
+//  Created by Manraaj Nijjar on 10/15/17.
 //
 //
 

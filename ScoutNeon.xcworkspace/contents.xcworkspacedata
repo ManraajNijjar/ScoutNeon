@@ -2,28 +2,22 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Topic+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:Topic+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:User+CoreDataClass.swift">
    </FileRef>
    <FileRef
       location = "group:User+CoreDataProperties.swift">
    </FileRef>
    <FileRef
-      location = "group:BlockedUsers+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:BlockedUsers+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:Profile+CoreDataClass.swift">
    </FileRef>
    <FileRef
       location = "group:Profile+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
-      location = "group:Topic+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:Topic+CoreDataProperties.swift">
    </FileRef>
    <Group
       location = "container:"

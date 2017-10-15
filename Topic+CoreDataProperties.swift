@@ -2,7 +2,7 @@
 //  Topic+CoreDataProperties.swift
 //  
 //
-//  Created by Manraaj Nijjar on 9/14/17.
+//  Created by Manraaj Nijjar on 10/15/17.
 //
 //
 
@@ -16,9 +16,9 @@ extension Topic {
         return NSFetchRequest<Topic>(entityName: "Topic")
     }
 
-    @NSManaged public var topicId: String?
-    @NSManaged public var title: String?
     @NSManaged public var color: String?
+    @NSManaged public var title: String?
+    @NSManaged public var topicId: String?
     @NSManaged public var associateduser: Profile?
 
 }

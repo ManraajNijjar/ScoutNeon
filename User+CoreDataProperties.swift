@@ -17,6 +17,6 @@ extension User {
     }
 
     @NSManaged public var twitterId: String?
-    @NSManaged public var blockedBy: BlockedUsers?
+    @NSManaged public var blockedBy: Profile?
 
 }
