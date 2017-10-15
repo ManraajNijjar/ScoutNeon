@@ -184,7 +184,7 @@ class FirebaseController {
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
             if let connected = snapshot.value as? Bool, connected {
-                self.ref?.child("Topic:"+(postKey)).setValue(["filtered": true])
+                self.ref?.child("Topic:"+(postKey)).updateChildValues(["filtered": true])
                 connectedRef.removeAllObservers()
             }
         })
