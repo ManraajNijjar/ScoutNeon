@@ -439,6 +439,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
                     self.colorSwitched()
                     self.firebaseController.messageForPostID(postID: self.selectedTopic, baseView: self, messageForPostCompletionHandler: { (messageList) in
                         self.messageListForTransfer = messageList
+                        print(self.messageListForTransfer)
                         self.performSegue(withIdentifier: "MessagesSegue", sender: self)
                     })
                 }
