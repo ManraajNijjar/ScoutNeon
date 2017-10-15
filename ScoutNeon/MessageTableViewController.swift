@@ -150,6 +150,8 @@ extension MessageTableViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             let cellForMessage = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageTableViewCell
             let value = messageList[indexPath.row - 1]
+            cellForMessage.userProfile = userProfile
+            cellForMessage.authorTwitterId = value["TwitterId"]
             cellForMessage.messageId = value["MessageId"]
             cellForMessage.authorLabel.text = value["author"]
             cellForMessage.messageLabel.text = value["text"]

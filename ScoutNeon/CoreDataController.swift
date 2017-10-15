@@ -124,6 +124,12 @@ class CoreDataController {
         return favorited
     }
     
+    func blockUser(userProfile: Profile, twitterId: String){
+        let newBlockedUser: User = NSEntityDescription.insertNewObject(forEntityName: "User", into: CoreDataController.getContext()) as! User
+        newBlockedUser.twitterId = twitterId
+        userProfile.addToBlockedUsers(newBlockedUser)
+    }
+    
     
     class func saveContext () {
         let context = persistentContainer.viewContext

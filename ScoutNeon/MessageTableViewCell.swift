@@ -15,8 +15,11 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     
     let firebaseController = FirebaseController.sharedInstance
+    let coredataController = CoreDataController.sharedInstance
     
     var messageId: String!
+    var userProfile: Profile!
+    var authorTwitterId: String!
     
 
     override func awakeFromNib() {
@@ -32,6 +35,8 @@ class MessageTableViewCell: UITableViewCell {
     
     @IBAction func filterButtonPressed(_ sender: Any) {
         firebaseController.setMessageToFiltered(messageKey: messageId)
+        coredataController.blockUser(userProfile: userProfile, twitterId: authorTwitterId)
+        
     }
     
     
