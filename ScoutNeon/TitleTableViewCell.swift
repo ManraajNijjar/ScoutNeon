@@ -17,6 +17,7 @@ class TitleTableViewCell: UITableViewCell {
     @IBOutlet weak var filterButton: UIButton!
     
     let coreDataController = CoreDataController.sharedInstance
+    let firebaseController = FirebaseController.sharedInstance
     
     var topicId = ""
     var topicColor = ""
@@ -35,7 +36,6 @@ class TitleTableViewCell: UITableViewCell {
     }
     
     @IBAction func starButtonPressed(_ sender: Any) {
-        
         if coreDataController.checkIfTopicFavorited(userProfile: userProfile, topicId: topicId) {
             coreDataController.deleteFavoriteTopic(userProfile: userProfile, topicId: topicId)
             starButton.setImage(UIImage(named: "BlackStar"), for: UIControlState.normal)
@@ -45,12 +45,10 @@ class TitleTableViewCell: UITableViewCell {
             coreDataController.createFavoriteTopic(userProfile: userProfile, topicId: topicId, topicTitle: topicTitle, topicColor: topicColor)
             CoreDataController.saveContext()
         }
-        
-        
     }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        print("Clicked")
+        firebaseController.setPostToFiltered(postKey: topicId)
     }
     
 }

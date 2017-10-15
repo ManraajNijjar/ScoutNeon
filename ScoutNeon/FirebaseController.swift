@@ -180,6 +180,16 @@ class FirebaseController {
         
     }
     
+    func setPostToFiltered(postKey: String){
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                self.ref?.child("Topic:"+(postKey)).setValue(["filtered": true])
+                connectedRef.removeAllObservers()
+            }
+        })
+    }
+    
     
     func findPostsByHexAndLocation(colorHex: String, latitude: Double, longitude: Double, baseView: UIViewController, findPostsCompletionHandler: @escaping (_ postId: [[String:Any]]) -> Void){
         
